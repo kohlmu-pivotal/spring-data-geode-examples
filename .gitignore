@@ -8,9 +8,11 @@
 *.zip
 *.tar.gz
 *.rar
+*.dat
+
 *.ipr
 *.iml
-*.dat
+*.iws
 
 #Directories
 .idea
