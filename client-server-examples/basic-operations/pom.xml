@@ -47,7 +47,7 @@
 			<id>ProxyClientKT</id>
 			<activation>
 				<property>
-					<name>proxyclientKT</name>
+					<name>proxyClientKT</name>
 				</property>
 			</activation>
 			<build>
@@ -60,8 +60,9 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
+								<argument>-Dspring.profiles.active=proxy</argument>
 								<argument>
-									org.springframework.data.examples.geode.basic.kt.client.BasicClientWithProxyKTKt
+									org.springframework.data.examples.geode.basic.kt.client.BasicClientKTKt
 								</argument>
 							</arguments>
 						</configuration>
@@ -86,8 +87,9 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
+								<argument>-Dspring.profiles.active=localCache</argument>
 								<argument>
-									org.springframework.data.examples.geode.basic.kt.client.BasicClientWithLocalCachingKTKt
+									org.springframework.data.examples.geode.basic.kt.client.BasicClientKTKt
 								</argument>
 							</arguments>
 						</configuration>
@@ -99,7 +101,7 @@
 			<id>ProxyClient</id>
 			<activation>
 				<property>
-					<name>proxyclient</name>
+					<name>proxyClient</name>
 				</property>
 			</activation>
 			<build>
@@ -112,7 +114,8 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
-								<argument>org.springframework.data.examples.geode.basic.client.BasicClientWithProxy
+								<argument>-Dspring.profiles.active=proxy</argument>
+								<argument>org.springframework.data.examples.geode.basic.client.BasicClient
 								</argument>
 							</arguments>
 						</configuration>
@@ -137,8 +140,8 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
-								<argument>
-									org.springframework.data.examples.geode.basic.client.BasicClientWithLocalCaching
+								<argument>-Dspring.profiles.active=localCache</argument>
+								<argument>org.springframework.data.examples.geode.basic.client.BasicClient
 								</argument>
 							</arguments>
 						</configuration>

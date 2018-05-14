@@ -3,11 +3,14 @@ package org.springframework.data.examples.geode.basic.kt.client
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Region
 import org.apache.geode.cache.client.ClientRegionShortcut
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 import org.springframework.data.examples.geode.domain.Customer
 import org.springframework.data.examples.geode.domain.EmailAddress
@@ -20,14 +23,16 @@ import javax.annotation.Resource
 private const val CUSTOMER_REGION_BEAN_NAME = "clientCustomerRegion"
 private const val CUSTOMER_REGION_NAME = "customerRegion"
 
-@SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.client"])
-class BasicClientWithLocalCachingKT {
+@SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.client.*"])
+class BasicClientKT {
 
     @Resource
+    @Qualifier(CUSTOMER_REGION_BEAN_NAME)
     internal lateinit var clientCustomerRegion: Region<String, Customer>
 
-    @ClientCacheApplication(name = "BasicClientWithLocalCachingKT", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
-    internal class ReplicateClientCacheConfiguration : ClientCacheConfiguration() {
+    @ClientCacheApplication(name = "BasicClientKT", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+    @Configuration
+    internal class BasicClientConfiguration : ClientCacheConfiguration() {
 
         @Bean
         internal fun clientCacheServerConfigurer(
@@ -37,13 +42,26 @@ class BasicClientWithLocalCachingKT {
                 clientCacheFactoryBean.setServers(listOf(newConnectionEndpoint(hostname, port)))
             }
 
-        // Required to resolve property placeholders in Spring @Value annotations.
-        @Bean
-        internal fun propertyPlaceholderConfigurer() = PropertySourcesPlaceholderConfigurer()
+        companion object {
+            // Required to resolve property placeholders in Spring @Value annotations.
+            @Bean
+            internal fun propertyPlaceholderConfigurer() = PropertySourcesPlaceholderConfigurer()
+        }
     }
 
     @Bean(CUSTOMER_REGION_BEAN_NAME)
-    internal fun configureClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
+    @Profile("proxy")
+    internal fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
+        .apply {
+            cache = gemFireCache
+            setName(CUSTOMER_REGION_NAME)
+            setShortcut(ClientRegionShortcut.PROXY)
+        }
+
+
+    @Bean(CUSTOMER_REGION_BEAN_NAME)
+    @Profile("localCache")
+    internal fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
         .apply {
             cache = gemFireCache
             setName(CUSTOMER_REGION_NAME)
@@ -52,7 +70,7 @@ class BasicClientWithLocalCachingKT {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(BasicClientWithLocalCachingKT::class.java, *args).apply {
+    SpringApplication.run(BasicClientKT::class.java, *args).apply {
         getBean<Region<String, Customer>>(CUSTOMER_REGION_BEAN_NAME).also {
             println("Inserting 3 entries for keys: \"1\", \"2\",\"3\"")
             it["1"] = Customer(123, EmailAddress("2@2.com"), "Me", "My")
@@ -76,3 +94,4 @@ fun main(args: Array<String>) {
         }
     }
 }
+

@@ -8,11 +8,13 @@ import javax.annotation.Resource;
 import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientRegionShortcut;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.examples.geode.domain.Customer;
 import org.springframework.data.examples.geode.domain.EmailAddress;
@@ -21,16 +23,19 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfiguration;
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
 
-@SpringBootApplication(scanBasePackages = "org.springframework.data.examples.geode.basic.client")
-public class BasicClientWithProxy {
+@SpringBootApplication(scanBasePackages = "org.springframework.data.examples.geode.basic.client.*")
+public class BasicClient {
 
 	private final String CUSTOMER_REGION_NAME = "customerRegion";
+	private final String CUSTOMER_REGION_BEAN_NAME = "clientCustomerRegion";
+
 	@Resource
+	@Qualifier(CUSTOMER_REGION_BEAN_NAME)
 	private Region<String, Customer> clientCustomerRegion;
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(BasicClientWithProxy.class, args);
-		BasicClientWithProxy client = applicationContext.getBean(BasicClientWithProxy.class);
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(BasicClient.class, args);
+		BasicClient client = applicationContext.getBean(BasicClient.class);
 
 		System.out.println("Inserting 3 entries for keys: \"1\", \"2\",\"3\"");
 		Region<String, Customer> clientCustomerRegion = client.clientCustomerRegion;
@@ -60,8 +65,9 @@ public class BasicClientWithProxy {
 				.println("\t Entry: \n \t\t Key: " + entry + " \n \t\t Value: " + clientCustomerRegion.get(entry)));
 	}
 
-	@Bean("clientCustomerRegion")
-	protected ClientRegionFactoryBean<String, Customer> configureClientCustomerRegion(GemFireCache gemFireCache) {
+	@Bean(CUSTOMER_REGION_BEAN_NAME)
+	@Profile("proxy")
+	protected ClientRegionFactoryBean<String, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
 		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
 		clientRegionFactoryBean.setCache(gemFireCache);
 		clientRegionFactoryBean.setName(CUSTOMER_REGION_NAME);
@@ -69,7 +75,18 @@ public class BasicClientWithProxy {
 		return clientRegionFactoryBean;
 	}
 
-	@ClientCacheApplication(name = "BasicClientWithProxy", logLevel = "error",
+	@Bean(CUSTOMER_REGION_BEAN_NAME)
+	@Profile("localCache")
+	protected ClientRegionFactoryBean<String, Customer> configureLocalCacheClientCustomerRegion(
+		GemFireCache gemFireCache) {
+		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
+		clientRegionFactoryBean.setCache(gemFireCache);
+		clientRegionFactoryBean.setName(CUSTOMER_REGION_NAME);
+		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
+		return clientRegionFactoryBean;
+	}
+
+	@ClientCacheApplication(name = "BasicClient", logLevel = "error",
 		pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 	static class ReplicateClientCacheConfiguration extends ClientCacheConfiguration {
 
