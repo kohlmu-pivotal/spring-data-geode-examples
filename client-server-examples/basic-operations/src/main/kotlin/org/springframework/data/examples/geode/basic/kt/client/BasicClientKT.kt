@@ -3,6 +3,7 @@ package org.springframework.data.examples.geode.basic.kt.client
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Region
 import org.apache.geode.cache.client.ClientRegionShortcut
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.getBean
@@ -12,23 +13,29 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
+import org.springframework.data.examples.geode.basic.kt.repository.CustomerRepositoryKT
 import org.springframework.data.examples.geode.domain.Customer
 import org.springframework.data.examples.geode.domain.EmailAddress
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfiguration
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer
+import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 import javax.annotation.Resource
 
 private const val CUSTOMER_REGION_BEAN_NAME = "clientCustomerRegion"
-private const val CUSTOMER_REGION_NAME = "customerRegion"
+private const val CUSTOMER_REGION_NAME = "Customer"
 
 @SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.client.*"])
+@EnableGemfireRepositories(basePackages = ["org.springframework.data.examples.geode.basic.kt.repository"])
 class BasicClientKT {
 
     @Resource
     @Qualifier(CUSTOMER_REGION_BEAN_NAME)
     internal lateinit var clientCustomerRegion: Region<String, Customer>
+
+    @Autowired
+    internal lateinit var customerRepository: CustomerRepositoryKT
 
     @ClientCacheApplication(name = "BasicClientKT", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
     @Configuration
@@ -70,27 +77,27 @@ class BasicClientKT {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(BasicClientKT::class.java, *args).apply {
-        getBean<Region<String, Customer>>(CUSTOMER_REGION_BEAN_NAME).also {
-            println("Inserting 3 entries for keys: \"1\", \"2\",\"3\"")
-            it["1"] = Customer(123, EmailAddress("2@2.com"), "Me", "My")
-            it["2"] = Customer(1234, EmailAddress("3@3.com"), "You", "Yours")
-            it["3"] = Customer(9876, EmailAddress("5@5.com"), "Third", "Entry")
+    SpringApplication.run(BasicClientKT::class.java, *args)?.apply {
+        getBean<BasicClientKT>(BasicClientKT::class).also {
+            println("Inserting 3 entries for keys: 1, 2,3")
+            it.customerRepository.save(Customer(1, EmailAddress("2@2.com"), "Me", "My"))
+            it.customerRepository.save(Customer(2, EmailAddress("3@3.com"), "You", "Yours"))
+            it.customerRepository.save(Customer(3, EmailAddress("5@5.com"), "Third", "Entry"))
 
-            println("Entries on Client: ${it.size}")
-            println("Entries on Server: ${it.keySetOnServer().size}")
-            it.keySetOnServer().forEach { entry -> println("\t Entry: \n \t\t Key: $entry \n \t\t Value: ${it[entry]}") }
+            println("Entries on Client: ${it.clientCustomerRegion.size}")
+            println("Entries on Server: ${it.clientCustomerRegion.keySetOnServer().size}")
+            it.customerRepository.findAll().forEach { entry -> println("\t Customer: \n \t\t $entry") }
 
-            println("Updating entry for key: \"2\"")
-            println("Entry Before: ${it["2"]}")
-            it["2"] = Customer(456, EmailAddress("4@4.com"), "First", "Update")
-            println("Entry After: ${it["2"]}")
+            println("Updating entry for key: 2")
+            println("Entry Before: ${it.customerRepository.findById(2).get()}")
+            it.customerRepository.save(Customer(2, EmailAddress("4@4.com"), "First", "Update"))
+            println("Entry After: ${it.customerRepository.findById(2).get()}")
 
-            println("Removing 1 entry for key: \"3\"")
-            it.remove("3")
+            println("Removing 1 entry for key: 3")
+            it.customerRepository.deleteById(3)
 
             println("Entries:")
-            it.keySetOnServer().forEach { entry -> println("\t Entry: \n \t\t Key: $entry \n \t\t Value: ${it[entry]}") }
+            it.customerRepository.findAll().forEach { entry -> println("\t Customer: \n \t\t $entry") }
         }
     }
 }

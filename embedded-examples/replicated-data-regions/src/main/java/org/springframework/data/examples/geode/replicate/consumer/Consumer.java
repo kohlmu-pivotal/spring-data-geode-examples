@@ -1,6 +1,7 @@
 package org.springframework.data.examples.geode.replicate.consumer;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.annotation.Resource;
 
@@ -23,11 +24,12 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 public class Consumer {
 
 	@Resource
-	private Region<String, Customer> customerRegion;
+	private Region<Long, Customer> customerRegion;
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(Consumer.class, args);
-		System.in.read();
+		System.err.println("Press <ENTER> to exit");
+		new Scanner(System.in).nextLine();
 	}
 
 	@Bean LoggingCacheListener loggingCacheListener() {
@@ -35,10 +37,10 @@ public class Consumer {
 	}
 
 	@Bean("customerRegion")
-	ReplicatedRegionFactoryBean<String, Customer> customerRegion(GemFireCache gemfireCache) {
+	ReplicatedRegionFactoryBean<Long, Customer> customerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("customerRegion");
+		replicatedRegionFactoryBean.setRegionName("Customer");
 		replicatedRegionFactoryBean.setCacheListeners(new CacheListener[] { loggingCacheListener() });
 		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
 		return replicatedRegionFactoryBean;

@@ -23,7 +23,7 @@ import java.math.BigDecimal
 /**
  * @author Oliver Gierke
  */
-class LineItem
+data class LineItem
 /**
  * Constructs a new [LineItem] for the given [Product] and amount.
  *

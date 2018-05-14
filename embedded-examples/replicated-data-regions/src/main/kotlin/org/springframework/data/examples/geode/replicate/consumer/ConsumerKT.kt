@@ -12,6 +12,7 @@ import org.springframework.data.examples.geode.util.LoggingCacheListener
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
+import java.util.*
 import javax.annotation.Resource
 
 @SpringBootApplication
@@ -38,5 +39,6 @@ class ConsumerKT {
 
 fun main(args: Array<String>) {
     SpringApplication.run(ConsumerKT::class.java, *args)
-    System.`in`.read()
+    System.err.println("Press <ENTER> to exit")
+    Scanner(System.`in`).nextLine()
 }

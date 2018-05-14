@@ -1,6 +1,7 @@
 package org.springframework.data.examples.geode.basic.server;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.annotation.Resource;
 
@@ -28,7 +29,8 @@ public class Server {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(Server.class, args);
-		System.in.read();
+		System.err.println("Press <ENTER> to exit");
+		new Scanner(System.in).nextLine();
 	}
 
 	@Bean LoggingCacheListener loggingCacheListener() {
@@ -39,7 +41,7 @@ public class Server {
 	ReplicatedRegionFactoryBean<String, Customer> customerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("customerRegion");
+		replicatedRegionFactoryBean.setRegionName("Customer");
 		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
 		replicatedRegionFactoryBean.setCacheListeners(new CacheListener[] { loggingCacheListener() });
 		return replicatedRegionFactoryBean;

@@ -29,7 +29,7 @@ import java.io.Serializable
  * @author Udo Kohlmeyer
  */
 @Region
-class Customer
+data class Customer
 /**
  * Creates a new [Customer] from the given parameters.
  *
@@ -58,7 +58,5 @@ class Customer
      *
      */
     fun add(address: Address) = this.addresses.add(address)
-
-    override fun toString() = "$firstName $lastName"
     override fun hashCode(): Int = id?.hashCode() ?: 0
 }

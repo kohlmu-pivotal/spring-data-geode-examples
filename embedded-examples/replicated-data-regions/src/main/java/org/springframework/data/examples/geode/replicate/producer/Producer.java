@@ -20,20 +20,20 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 public class Producer {
 
 	@Resource
-	private Region<String, Customer> customerRegion;
+	private Region<Long, Customer> customerRegion;
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Producer.class, args);
 		Producer producer = applicationContext.getBean(Producer.class);
-		producer.customerRegion.put("1", new Customer(123L, new EmailAddress("2@2.com"), "Me", "My"));
-		producer.customerRegion.put("2", new Customer(1234L, new EmailAddress("3@3.com"), "You", "Yours"));
+		producer.customerRegion.put(1L, new Customer(1L, new EmailAddress("2@2.com"), "Me", "My"));
+		producer.customerRegion.put(2L, new Customer(2L, new EmailAddress("3@3.com"), "You", "Yours"));
 	}
 
 	@Bean("customerRegion")
-	ReplicatedRegionFactoryBean<String, Customer> customerRegion(GemFireCache gemfireCache) {
+	ReplicatedRegionFactoryBean<Long, Customer> customerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("customerRegion");
+		replicatedRegionFactoryBean.setRegionName("Customer");
 		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.EMPTY);
 		return replicatedRegionFactoryBean;
 	}
