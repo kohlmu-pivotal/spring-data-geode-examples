@@ -40,7 +40,7 @@ OR
 .......  org.springframework.data.examples.geode.basic.server.Server logStarted
 INFO: Started Server in 5.314 seconds (JVM running for 5.694)
 ```
-####Client Configuration and Deployment
+#### Client Configuration and Deployment
 The client is configured to connect to the deployed/started server on `localhost` port `40404`.
 
 To start the client you can decided to run one of the following client parameters:
