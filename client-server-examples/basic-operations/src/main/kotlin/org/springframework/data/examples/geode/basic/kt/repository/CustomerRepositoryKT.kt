@@ -12,7 +12,7 @@ interface CustomerRepositoryKT : CrudRepository<Customer, Long> {
      *
      * @return
      */
-    override fun findAll(): MutableIterable<Customer>
+    override fun findAll(): List<Customer>
 
     /**
      * Finds all [Customer]s with the given lastname.
