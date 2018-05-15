@@ -68,40 +68,40 @@ To confirm that the client has completed you should see on of the following outp
     Inserting 3 entries for keys: 1, 2, 3
     Entries on Client: 0
     Entries on Server: 3
-             Entry: 
-                     Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
-             Entry: 
-                     Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
-             Entry: 
-                     Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Third, lastName=Entry)
-       Updating entry for key: 2
-       Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
-       Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
-       Removing entry for key: 3
-       Entries:
-             Entry: 
-                     Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
-             Entry: 
-                     Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
+      Entry: 
+         Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
+      Entry: 
+         Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
+      Entry: 
+         Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Third, lastName=Entry)
+    Updating entry for key: 2
+    Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
+    Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
+    Removing entry for key: 3
+    Entries:
+       Entry: 
+          Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
+       Entry: 
+          Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
     ```
 2. Near caching client output
     ```
     Inserting 3 entries for keys: 1, 2, 3
-        Entries on Client: 3
-        Entries on Server: 3
-                 Entry: 
-                         Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
-                 Entry: 
-                         Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
-                 Entry: 
-                         Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Third, lastName=Entry)
-           Updating entry for key: 2
-           Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
-           Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
-           Removing entry for key: 3
-           Entries:
-                 Entry: 
-                         Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
-                 Entry: 
-                         Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
+    Entries on Client: 3
+    Entries on Server: 3
+       Entry: 
+          Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
+       Entry: 
+          Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
+       Entry: 
+          Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Third, lastName=Entry)
+    Updating entry for key: 2
+    Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=You, lastName=Yours)
+    Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
+    Removing entry for key: 3
+    Entries:
+       Entry: 
+          Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=Me, lastName=My)
+       Entry: 
+          Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=First, lastName=Update)
     ```
