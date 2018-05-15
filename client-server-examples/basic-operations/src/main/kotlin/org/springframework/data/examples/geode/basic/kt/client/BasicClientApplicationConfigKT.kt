@@ -64,9 +64,9 @@ class BasicClientApplicationConfigKT {
         @Bean
         internal fun clientCacheServerConfigurer(
             @Value("\${spring.session.data.geode.cache.server.host:localhost}") hostname: String,
-            @Value("\${spring.session.data.geode.cache.server.port:40404}") port: Int) =
+            @Value("\${spring.session.data.geode.cache.server.port:10334}") port: Int) =
             ClientCacheConfigurer { _, clientCacheFactoryBean ->
-                clientCacheFactoryBean.setServers(listOf(newConnectionEndpoint(hostname, port)))
+                clientCacheFactoryBean.setLocators(listOf(newConnectionEndpoint(hostname, port)))
             }
 
         companion object {
