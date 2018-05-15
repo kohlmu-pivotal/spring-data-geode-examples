@@ -41,7 +41,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @EnableGemfireRepositories(basePackages = "org.springframework.data.examples.geode.basic.repository")
 public class BasicClientApplicationConfig {
 
-	static final String CUSTOMER_REGION_BEAN_NAME = "clientCustomerRegion";
+	static final String CUSTOMER_REGION_BEAN_NAME = "customerRegion";
 	private static final String CUSTOMER_REGION_NAME = "Customer";
 
 	@Bean(CUSTOMER_REGION_BEAN_NAME)
@@ -65,8 +65,7 @@ public class BasicClientApplicationConfig {
 		return clientRegionFactoryBean;
 	}
 
-	@ClientCacheApplication(name = "BasicClient", logLevel = "error",
-		pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+	@ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 	@Configuration
 	static class ReplicateClientCacheConfiguration extends ClientCacheConfiguration {
 

@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.examples.geode.domain.Customer;
 import org.springframework.data.examples.geode.domain.EmailAddress;
 
-@SpringBootApplication(scanBasePackages = { "org.springframework.data.examples.geode.basic.client" })
+@SpringBootApplication(scanBasePackages = { "org.springframework.data.examples.geode.basic.client.**" })
 public class BasicClient {
 
 	private final CustomerService customerService;

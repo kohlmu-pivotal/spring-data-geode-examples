@@ -9,15 +9,15 @@ import org.apache.geode.cache.Region;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.examples.geode.basic.repository.CustomerRepository;
 import org.springframework.data.examples.geode.domain.Customer;
-import org.springframework.data.gemfire.mapping.annotation.ClientRegion;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
 
+
 	private final CustomerRepository customerRepository;
-	@Resource
-	@Qualifier(BasicClientApplicationConfig.CUSTOMER_REGION_BEAN_NAME)
+
+	@Resource @Qualifier(BasicClientApplicationConfig.CUSTOMER_REGION_BEAN_NAME)
 	private Region<Long, Customer> customerRegion;
 
 	public CustomerService(CustomerRepository customerRepository) {
@@ -26,10 +26,6 @@ public class CustomerService {
 
 	private CustomerRepository getCustomerRepository() {
 		return customerRepository;
-	}
-
-	private Region<Long, Customer> getCustomerRegion() {
-		return customerRegion;
 	}
 
 	public void save(Customer customer) {
@@ -45,16 +41,11 @@ public class CustomerService {
 	}
 
 	public int numberEntriesStoredLocally() {
-		return getCustomerRegion().keySet().size();
+		return customerRegion.size();
 	}
 
 	public int numberEntriesStoredOnServer() {
-		if (customerRegion instanceof ClientRegion) {
-			return getCustomerRegion().keySetOnServer().size();
-		}
-		else {
-			return getCustomerRegion().size();
-		}
+		return customerRegion.keySetOnServer().size();
 	}
 
 	public void deleteById(Long id) {
