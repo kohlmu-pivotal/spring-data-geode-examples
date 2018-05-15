@@ -11,7 +11,7 @@ To the run the examples you require two terminal windows.
 
 #### Server Configuration and Deployment
 The server is configured to run on `localhost` and expose port `40404` for the client to connect to.
-The server will also create a _Replicate Region_ named `Customer` in which the client will write data.
+The server will also create a _Replicate Region_ named `Customer` into which the client will write data.
 
 To run the server written in JAVA: 
 
@@ -25,7 +25,7 @@ or to run the server written in Kotlin:
 mvn exec:exec -DserverKT
 ```
  
-To confirm that the server is running you should see the following: 
+To confirm that the server is running you should see the following lines at the end of the output in the server terminal window: 
 
 ```
 ... CacheServer Configuration:   port=40404 max-connections=800 max-threads=0 notify-by-subscription=true socket-buffer-size=32768 maximum-time-between-pings=60000 maximum-message-count=230000 message-time-to-live=180 eviction-policy=none capacity=1 overflow directory=. groups=[] loadProbe=ConnectionCountProbe loadPollInterval=5000 tcpNoDelay=true

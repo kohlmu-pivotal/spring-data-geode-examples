@@ -7,7 +7,11 @@ import org.springframework.data.examples.geode.domain.Customer
 import org.springframework.data.examples.geode.domain.EmailAddress
 
 /**
+ * Creates a client to demonstrate basic CRUD operations. This client can be configured in 2 ways, depending on profile
+ * selected. "proxy" profile will create a region with PROXY configuration that will store no data locally. "localCache"
+ * will create a region that stores data in the local client, to satisfy the "near cache" paradigm.
  *
+ * @author Udo Kohlmeyer
  */
 @SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.client.**"])
 class BasicClientKT(internal val customerServiceKT: CustomerServiceKT)

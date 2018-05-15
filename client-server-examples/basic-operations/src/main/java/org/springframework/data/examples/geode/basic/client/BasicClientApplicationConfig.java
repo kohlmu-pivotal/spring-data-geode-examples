@@ -77,8 +77,8 @@ public class BasicClientApplicationConfig {
 
 		@Bean
 		ClientCacheConfigurer clientCacheServerConfigurer(
-			@Value("${spring.session.data.geode.cache.server.host:localhost}") String hostname,
-			@Value("${spring.session.data.geode.cache.server.port:10334}") int port) {
+			@Value("${spring.session.data.geode.locator.host:localhost}") String hostname,
+			@Value("${spring.session.data.geode.locator.port:10334}") int port) {
 
 			return (beanName, clientCacheFactoryBean) -> clientCacheFactoryBean.setLocators(Collections.singletonList(
 				newConnectionEndpoint(hostname, port)));

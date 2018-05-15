@@ -4,13 +4,9 @@ import org.apache.geode.cache.Region
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.data.examples.geode.domain.Customer
-import org.springframework.data.gemfire.config.annotation.CacheServerApplication
-import org.springframework.data.gemfire.config.annotation.EnableLocator
 import javax.annotation.Resource
 
 @SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.server"])
-@EnableLocator
-@CacheServerApplication
 class ServerKT {
 
     @Resource

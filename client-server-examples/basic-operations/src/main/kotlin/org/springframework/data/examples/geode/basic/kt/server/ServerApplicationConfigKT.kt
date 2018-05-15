@@ -12,10 +12,9 @@ import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableLocator
 
 /**
- * The server application configuration file. This configuration file creates: LoggingCacheListener, CustomerRegion and
- * starts a Locator on the default host:localhost and port 10334. Which the server will use to join the cluster and the
- * client to connect to the locator to receive a connection to a registered server.
- *
+ * The server application configuration file. This configuration file creates: LoggingCacheListener, CustomerRegion,
+ * CacheServer and starts a Locator on the default host:localhost and port 10334. Which the server will use to join
+ * the cluster and the client to connect to the locator to receive a connection to a registered server.
  */
 
 @Configuration
