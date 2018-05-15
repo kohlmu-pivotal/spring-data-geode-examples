@@ -62,7 +62,8 @@ mvn exec:exec -DproxyClientKT
 mvn exec:exec -DlocalCacheClientKT
 ```
 
-To confirm that the client has completed you should see on of the following outputs:
+To confirm that the client has completed you should see one of the following outputs. The most notable differences between the two outputs is the line `Entries on Client:...`. In the `look-aside caching` example, the client does not store any data locally on the client and will return `0` for the number of `Entries on Client`.
+The `near caching` example will store the entries on the local client cache, thereby the `Entries on Client` will be `3`.
 1. Look-aside caching client output
     ```
     Inserting 3 entries for keys: 1, 2, 3
