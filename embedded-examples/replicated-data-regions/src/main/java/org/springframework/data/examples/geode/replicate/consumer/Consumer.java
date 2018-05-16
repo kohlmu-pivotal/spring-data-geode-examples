@@ -12,7 +12,7 @@ import org.apache.geode.cache.Region;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.examples.geode.domain.Customer;
+import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.util.LoggingCacheListener;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.EnableLocator;
@@ -20,7 +20,7 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 
 @SpringBootApplication
 @PeerCacheApplication(name = "ConsumerPeer", logLevel = "error")
-@EnableLocator(port = 10334, host = "localhost")
+@EnableLocator
 public class Consumer {
 
 	@Resource
@@ -36,11 +36,11 @@ public class Consumer {
 		return new LoggingCacheListener();
 	}
 
-	@Bean("customerRegion")
+	@Bean
 	ReplicatedRegionFactoryBean<Long, Customer> customerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("Customer");
+		replicatedRegionFactoryBean.setRegionName("Customers");
 		replicatedRegionFactoryBean.setCacheListeners(new CacheListener[] { loggingCacheListener() });
 		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
 		return replicatedRegionFactoryBean;

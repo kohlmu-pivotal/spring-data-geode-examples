@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.data.examples.geode.domain
+package org.springframework.data.examples.geode.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.gemfire.mapping.annotation.Region
@@ -28,7 +28,7 @@ import java.io.Serializable
  * @author David Turanski
  * @author Udo Kohlmeyer
  */
-@Region
+@Region(name = "Customers")
 data class Customer
 /**
  * Creates a new [Customer] from the given parameters.

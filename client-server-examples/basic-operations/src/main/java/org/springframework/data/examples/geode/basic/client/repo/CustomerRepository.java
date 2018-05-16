@@ -1,11 +1,13 @@
-package org.springframework.data.examples.geode.basic.repository;
+package org.springframework.data.examples.geode.basic.client.repo;
 
 import java.util.List;
 
-import org.springframework.data.examples.geode.domain.Customer;
-import org.springframework.data.examples.geode.domain.EmailAddress;
+import org.springframework.data.examples.geode.model.Customer;
+import org.springframework.data.examples.geode.model.EmailAddress;
+import org.springframework.data.gemfire.mapping.annotation.ClientRegion;
 import org.springframework.data.repository.CrudRepository;
 
+@ClientRegion(name = "Customers")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
 	/**

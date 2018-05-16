@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.data.examples.geode.domain
+package org.springframework.data.examples.geode.model
 
 import org.springframework.core.convert.converter.Converter
 import org.springframework.stereotype.Component

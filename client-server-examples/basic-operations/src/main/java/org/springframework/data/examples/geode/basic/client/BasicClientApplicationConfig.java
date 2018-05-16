@@ -25,7 +25,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.data.examples.geode.domain.Customer;
+import org.springframework.data.examples.geode.basic.client.repo.CustomerRepository;
+import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfiguration;
@@ -38,11 +39,11 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
-@EnableGemfireRepositories(basePackages = "org.springframework.data.examples.geode.basic.repository")
+@EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class BasicClientApplicationConfig {
 
-	static final String CUSTOMER_REGION_BEAN_NAME = "customerRegion";
-	private static final String CUSTOMER_REGION_NAME = "Customer";
+	private static final String CUSTOMER_REGION_NAME = "Customers";
+	private static final String CUSTOMER_REGION_BEAN_NAME = "customerRegion";
 
 	@Bean(CUSTOMER_REGION_BEAN_NAME)
 	@Profile("proxy")
@@ -66,7 +67,6 @@ public class BasicClientApplicationConfig {
 	}
 
 	@ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
-	@Configuration
 	static class ReplicateClientCacheConfiguration extends ClientCacheConfiguration {
 
 		// Required to resolve property placeholders in Spring @Value annotations.

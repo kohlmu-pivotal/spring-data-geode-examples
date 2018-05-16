@@ -3,8 +3,8 @@ package org.springframework.data.examples.geode.oql.kt.client
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.data.examples.geode.domain.Customer
-import org.springframework.data.examples.geode.domain.EmailAddress
+import org.springframework.data.examples.geode.model.Customer
+import org.springframework.data.examples.geode.model.EmailAddress
 import org.springframework.data.examples.geode.oql.kt.repository.CustomerRepositoryKT
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.data.examples.geode.oql.kt.repository.CustomerReposit
  * @author Udo Kohlmeyer
  */
 @SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.oql.kt.client.**",
-    "org.springframework.data.examples.geode.oql.kt.repository.**"])
+    "org.springframework.data.examples.geode.oql.kt.repo.**"])
 class OQLClientKT(internal val customerRepositoryKT: CustomerRepositoryKT)
 
 fun main(args: Array<String>) {

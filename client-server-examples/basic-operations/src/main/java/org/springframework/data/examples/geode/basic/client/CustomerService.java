@@ -6,18 +6,15 @@ import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.apache.geode.cache.Region;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.examples.geode.basic.repository.CustomerRepository;
-import org.springframework.data.examples.geode.domain.Customer;
+import org.springframework.data.examples.geode.basic.client.repo.CustomerRepository;
+import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
-
-
 	private final CustomerRepository customerRepository;
 
-	@Resource @Qualifier(BasicClientApplicationConfig.CUSTOMER_REGION_BEAN_NAME)
+	@Resource
 	private Region<Long, Customer> customerRegion;
 
 	public CustomerService(CustomerRepository customerRepository) {

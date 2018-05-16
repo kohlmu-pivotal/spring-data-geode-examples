@@ -1,7 +1,7 @@
 package org.springframework.data.examples.geode.oql.kt.repository
 
-import org.springframework.data.examples.geode.domain.Customer
-import org.springframework.data.examples.geode.domain.EmailAddress
+import org.springframework.data.examples.geode.model.Customer
+import org.springframework.data.examples.geode.model.EmailAddress
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

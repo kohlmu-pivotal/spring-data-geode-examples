@@ -23,7 +23,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
-import org.springframework.data.examples.geode.domain.Customer
+import org.springframework.data.examples.geode.basic.kt.client.repo.CustomerRepositoryKT
+import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfiguration
@@ -36,8 +37,12 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
-@EnableGemfireRepositories(basePackages = ["org.springframework.data.examples.geode.basic.kt.repository"])
+@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 class BasicClientApplicationConfigKT {
+    companion object {
+        private const val CUSTOMER_REGION_NAME = "Customers"
+        internal const val CUSTOMER_REGION_BEAN_NAME = "customerRegion"
+    }
 
     @Bean(CUSTOMER_REGION_BEAN_NAME)
     @Profile("proxy")
@@ -48,7 +53,6 @@ class BasicClientApplicationConfigKT {
             setShortcut(ClientRegionShortcut.PROXY)
         }
 
-
     @Bean(CUSTOMER_REGION_BEAN_NAME)
     @Profile("localCache")
     internal fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
@@ -58,7 +62,7 @@ class BasicClientApplicationConfigKT {
             setShortcut(ClientRegionShortcut.CACHING_PROXY)
         }
 
-    @ClientCacheApplication(name = "BasicClientKT", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+    @ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
     internal class BasicClientConfiguration : ClientCacheConfiguration() {
 
         @Bean
@@ -74,10 +78,5 @@ class BasicClientApplicationConfigKT {
             @Bean
             internal fun propertyPlaceholderConfigurer() = PropertySourcesPlaceholderConfigurer()
         }
-    }
-
-    companion object {
-        internal const val CUSTOMER_REGION_BEAN_NAME = "customerRegion"
-        private const val CUSTOMER_REGION_NAME = "Customer"
     }
 }

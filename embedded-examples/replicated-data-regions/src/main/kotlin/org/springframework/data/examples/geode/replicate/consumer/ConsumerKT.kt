@@ -7,17 +7,18 @@ import org.apache.geode.cache.Region
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.data.examples.geode.domain.Customer
+import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.util.LoggingCacheListener
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
+import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions
 import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
-import java.util.*
 import javax.annotation.Resource
 
 @SpringBootApplication
 @PeerCacheApplication(name = "ConsumerPeer")
-@EnableLocator(port = 10334, host = "localhost")
+@EnableLocator
+@EnableEntityDefinedRegions(basePackageClasses = [Customer::class])
 class ConsumerKT {
 
     @Resource
@@ -26,11 +27,11 @@ class ConsumerKT {
     @Bean
     internal fun loggingCacheListener() = LoggingCacheListener<String, Customer>() as CacheListener<String, Customer>
 
-    @Bean("customerRegion")
+    @Bean
     fun customerRegion(gemfireCache: GemFireCache) =
         ReplicatedRegionFactoryBean<String, Customer>().apply {
             cache = gemfireCache
-            setRegionName("customerRegion")
+            setRegionName("Customers")
             setCacheListeners(arrayOf(loggingCacheListener()))
             dataPolicy = DataPolicy.REPLICATE
         }
@@ -39,6 +40,6 @@ class ConsumerKT {
 
 fun main(args: Array<String>) {
     SpringApplication.run(ConsumerKT::class.java, *args)
-    System.err.println("Press <ENTER> to exit")
-    Scanner(System.`in`).nextLine()
+    println("Press <ENTER> to exit")
+    readLine()
 }

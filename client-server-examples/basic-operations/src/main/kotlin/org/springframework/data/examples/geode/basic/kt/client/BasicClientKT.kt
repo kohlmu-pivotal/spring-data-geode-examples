@@ -3,8 +3,8 @@ package org.springframework.data.examples.geode.basic.kt.client
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.data.examples.geode.domain.Customer
-import org.springframework.data.examples.geode.domain.EmailAddress
+import org.springframework.data.examples.geode.model.Customer
+import org.springframework.data.examples.geode.model.EmailAddress
 
 /**
  * Creates a client to demonstrate basic CRUD operations. This client can be configured in 2 ways, depending on profile
@@ -13,7 +13,7 @@ import org.springframework.data.examples.geode.domain.EmailAddress
  *
  * @author Udo Kohlmeyer
  */
-@SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.basic.kt.client.**"])
+@SpringBootApplication(scanBasePackageClasses = [BasicClientApplicationConfigKT::class])
 class BasicClientKT(internal val customerServiceKT: CustomerServiceKT)
 
 fun main(args: Array<String>) {

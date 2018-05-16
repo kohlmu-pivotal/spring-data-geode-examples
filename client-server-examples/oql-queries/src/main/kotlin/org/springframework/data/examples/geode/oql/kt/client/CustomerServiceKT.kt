@@ -2,7 +2,7 @@ package org.springframework.data.examples.geode.oql.kt.client
 
 import org.apache.geode.cache.Region
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.data.examples.geode.domain.Customer
+import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.oql.kt.repository.CustomerRepositoryKT
 import org.springframework.stereotype.Service
 import java.util.*

@@ -1,6 +1,5 @@
 package org.springframework.data.examples.geode.replicate.producer;
 
-
 import javax.annotation.Resource;
 
 import org.apache.geode.cache.DataPolicy;
@@ -10,8 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.examples.geode.domain.Customer;
-import org.springframework.data.examples.geode.domain.EmailAddress;
+import org.springframework.data.examples.geode.model.Customer;
+import org.springframework.data.examples.geode.model.EmailAddress;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 
@@ -29,11 +28,11 @@ public class Producer {
 		producer.customerRegion.put(2L, new Customer(2L, new EmailAddress("3@3.com"), "You", "Yours"));
 	}
 
-	@Bean("customerRegion")
+	@Bean
 	ReplicatedRegionFactoryBean<Long, Customer> customerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("Customer");
+		replicatedRegionFactoryBean.setRegionName("Customers");
 		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.EMPTY);
 		return replicatedRegionFactoryBean;
 	}
