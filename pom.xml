@@ -46,7 +46,7 @@
 
 		<!--Kotlin properties-->
 		<kotlin.version>1.2.41</kotlin.version>
-		<kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+		<kotlin.compiler.incremental>false</kotlin.compiler.incremental>
 		<kotlin.compiler.languageVersion>1.2</kotlin.compiler.languageVersion>
 		<kotlin.compiler.apiVersion>1.2</kotlin.compiler.apiVersion>
 		<kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
