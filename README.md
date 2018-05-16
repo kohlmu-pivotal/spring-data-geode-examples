@@ -3,21 +3,49 @@ Spring Data For Pivotal GemFire and Apache Geode Examples
 
 This project provides a number of examples to get you started using Spring Data for Apache Geode or Pivotal GemFire. These examples are designed to work with [Spring Data for Pivotal GemFire](http://projects.spring.io/spring-data-gemfire) 2.0.7 or higher and are organized into the following sub projects:
 
-* **Client-Server** - These examples pertain to the client-server paradigm. The examples will have a stand-alone server with a client connecting into the server to perform operations. 
-* **Embedded** - These examples demonstrate the embedding of a server within an existing application.
-* **Advanced** - //TODO
+* **Client Server** - These examples pertain to the client-server paradigm. The examples will have a stand-alone server with a client connecting into the server to perform operations. 
+* **Data / Cache Node examples** - These examples demonstrate the configuration of data/cache nodes. This would include regions, persistence, wan, subscriptions, functions and indexes.
+* **Advanced** - These examples are to show case how higher-level usecases are solved. e.g caching,write-behind/read-through,transactionality 
 
 It is important to note that all examples will follow the prescribed Maven directory structure. Also, all examples will be have a Java and [Kotlin](http://kotlinlang.org) implementation. 
 
-# Client Server
+# Client Server examples
 These examples are focused on the client-side configuration and functionality, not of the deployed server. The deployed server will be setup with the minimum required configuration to fulfill the requirements of the examples.
 Pivotal GemFire / Geode has the ability to configure a client to either be _**look-aside**_ or _**near**_. In some cases the examples will be configured in both ways to show case the capabilities that both provide.
 
-The current examples are:
-* **basic-operations** * - In this example the client will perform basic CRUD operations
+Examples:
+* **basic-operations** - In this example the client will perform basic CRUD operations
+* **oql-queries** - //TODO
+* **function-invocation** - //TODO
+* **continuous-queries** - //TODO
+* **subscriptions** - //TODO
+* **security** - //TODO
  
-# Embedded
-These examples are focused on the configuration of the embedded server and server components.
+# Data / Cache Node examples
+These examples are focused on the configuration of the server and server components.
+
+Examples:
+* **replicate-regions** - //TODO
+* **partition-regions** - //TODO
+* **cacheloaders** - //TODO
+* **persistence** - //TODO
+* **subscriptions** - //TODO
+* **oql-queries-and-indexes** - //TODO
+* **wan** - //TODO
+* **async-event-listeners** - //TODO
+* **transactions** - //TODO
+* **rest-endpoints** - //TODO
+
+# Advanced
+These examples will show case higher-level use cases and how the Spring Data for Pivotal GemFire simplifies the implementation of the use case.
+
+Examples:
+* **write-behind-read-through-sync** - //TODO
+* **write-behind-read-through-async** - //TODO
+* **jpa-transactionality** - //TODO
+* **json** - //TODO
+* **spring-caching** - //TODO
+
 
 # Quickstart
 
