@@ -44,66 +44,43 @@ The example is broken up into multiple steps:
 1. Query to find all customers with firstName = "Jude" using the `CustomerRepository`
 1. Query to find all customers with firstName = "Jude" using the local client's query service 
 
-After running the client has one should see one of the following outputs. The most notable differences between the two outputs is the line `Entries on Client:...`. 
+After running the client you should see one of the following outputs, depending in client cache type that was run.
 
-In the `PROXY` cache example, the client does not store any data locally on the client and will return `0` for the number of `Entries on Client`.
-The `LOCAL` cache example, the client will store the entries locally, thereby the `Entries on Client` will be `3`.
-
-1. `PROXY` cache client output
+1. `PROXY` client cache output 
     ```
     Inserting 3 entries for keys: 1, 2, 3
-    Entries on Client: 0
-    Entries on Server: 3
-    	 Entry: 
-     		 Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)
-    	 Entry: 
-     		 Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    	 Entry: 
-     		 Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)
-    Updating entry for key: 2
-    Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)
-    Removing entry for key: 3
-    Entries:
-    	 Entry: 
-     		 Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)
-    	 Entry: 
-     		 Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)
-
+    Find customer with key=2 using GemFireRepository: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
+    Find customer with key=2 using GemFireTemplate: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with emailAddress=3@3.com: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with firstName=Frank: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with firstName=Jude: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+    Find customers with firstName=Jude on local client region: []
     ```
-1. `LOCAL` cache client output
+1. `LOCAL` client cache output
     ```
     Inserting 3 entries for keys: 1, 2, 3
-    Entries on Client: 3
-    Entries on Server: 3
-    	 Entry: 
-     		 Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)
-    	 Entry: 
-     		 Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    	 Entry: 
-     		 Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)
-    Updating entry for key: 2
-    Entry Before: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    Entry After: Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)
-    Removing entry for key: 3
-    Entries:
-    	 Entry: 
-     		 Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)
-    	 Entry: 
-     		 Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)
-
-    ```
-Correspondingly you should see the following output in the server terminal.
-```
-... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-INFO: In region [Customers] created key [1] value [Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
-... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-INFO: In region [Customers] created key [2] value [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-INFO: In region [Customers] created key [3] value [Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
-org.springframework.data.examples.geode.util.LoggingCacheListener afterUpdate
-INFO: In region [Customers] updated key [2] [oldValue [Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)]] 
-  new value [Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)]
-... org.springframework.data.examples.geode.util.LoggingCacheListener afterDestroy
-INFO: In region [Customers] destroyed key [3] 
-```
+    Find customer with key=2 using GemFireRepository: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
+    Find customer with key=2 using GemFireTemplate: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with emailAddress=3@3.com: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with firstName=Frank: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Find customers with firstName=Jude: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+    Find customers with firstName=Jude on local client region: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+   ```
+   
+With a server output of:
+   ```
+   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
+   INFO: In region [Customers] created key [1] value [Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
+   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
+   INFO: In region [Customers] created key [2] value [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
+   INFO: In region [Customers] created key [3] value [Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterUpdate
+   INFO: In region [Customers] updated key [1] [oldValue [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith)]] new value [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith)]
+   
+   [info 2018/05/23 14:52:44.157 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 11.408982 ms; rowCount = 2; indexesUsed(1):emailAddressIndex(Results: 2) "<TRACE> <HINT 'emailAddressIndex'> select * from /Customers customer where customer.emailAddress.value = $1 LIMIT 100"
+    
+   [info 2018/05/23 14:52:44.166 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 0.742146 ms; rowCount = 1; indexesUsed(1):firstNameIndex(Results: 1) "<TRACE> select * from /Customers customer where customer.firstName = $1 LIMIT 100"
+    
+   [info 2018/05/23 14:52:44.171 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 0.605566 ms; rowCount = 2; indexesUsed(1):firstNameIndex(Results: 2) "<TRACE> select * from /Customers customer where customer.firstName = $1 LIMIT 100"
+   ```

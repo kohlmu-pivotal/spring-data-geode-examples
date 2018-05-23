@@ -30,6 +30,8 @@ mvn exec:exec -DproxyClientKT
 mvn exec:exec -DlocalCacheClientKT
 ```
 ## Running the example
+Referencing the [BasicClient](src/main/java/org/springframework/data/examples/geode/basic/client/BasicClient.java) or [BasicClientKT](src/main/java/org/springframework/data/examples/geode/basic/kt/client/BasicClientKT.kt)
+
 
 The example is broken up into multiple steps:
 1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.
