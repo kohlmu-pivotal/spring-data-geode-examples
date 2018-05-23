@@ -1,12 +1,12 @@
-package org.springframework.data.examples.geode.oql.kt.repository
+package org.springframework.data.examples.geode.common.kt.client.repo
 
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.EmailAddress
+import org.springframework.data.gemfire.mapping.annotation.ClientRegion
 import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
 
-@Repository
-interface CustomerRepositoryKT : CrudRepository<Customer, Long> {
+@ClientRegion(name = "Customers")
+interface BaseCustomerRepository : CrudRepository<Customer, Long> {
     /**
      * Returns all [Customer]s.
      *

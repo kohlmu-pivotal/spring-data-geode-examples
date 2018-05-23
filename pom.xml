@@ -43,6 +43,7 @@
 		<slf4j.log4j.version>1.7.25</slf4j.log4j.version>
 		<spring.shell.version>1.2.0.RELEASE</spring.shell.version>
 		<commons.cli.version>1.4</commons.cli.version>
+		<spring.boot.version>2.1.0.BUILD-SNAPSHOT</spring.boot.version>
 
 		<!--Kotlin properties-->
 		<kotlin.version>1.2.41</kotlin.version>
@@ -54,6 +55,17 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring.boot.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 			<dependency>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-stdlib</artifactId>
@@ -215,5 +227,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!--<repositories>-->
+	<!--<repository>-->
+	<!--<id>spring-libs-snapshot</id>-->
+	<!--<url>https://repo.spring.io/libs-snapshot</url>-->
+	<!--</repository>-->
+	<!--</repositories>-->
+
+	<!--<pluginRepositories>-->
+	<!--<pluginRepository>-->
+	<!--<id>spring-libs-snapshot</id>-->
+	<!--<url>https://repo.spring.io/libs-snapshot</url>-->
+	<!--</pluginRepository>-->
+	<!--</pluginRepositories>-->
+
 
 </project>

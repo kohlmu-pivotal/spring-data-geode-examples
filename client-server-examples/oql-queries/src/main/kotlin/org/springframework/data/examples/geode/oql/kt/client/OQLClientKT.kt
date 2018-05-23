@@ -5,38 +5,35 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.EmailAddress
-import org.springframework.data.examples.geode.oql.kt.repository.CustomerRepositoryKT
 
 /**
- * Creates a client to demonstrate basic CRUD operations. This client can be configured in 2 ways, depending on profile
- * selected. "proxy" profile will create a region with PROXY configuration that will store no data locally. "localCache"
- * will create a region that stores data in the local client, to satisfy the "near cache" paradigm.
+ * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and
+ * again the remote servers. Depending on profile selected, the local query will either not return results (profile=proxy)
+ * or it will return the same results as the remote query (profile=localCache)
  *
  * @author Udo Kohlmeyer
  */
-@SpringBootApplication(scanBasePackages = ["org.springframework.data.examples.geode.oql.kt.client.**",
-    "org.springframework.data.examples.geode.oql.kt.repo.**"])
-class OQLClientKT(internal val customerRepositoryKT: CustomerRepositoryKT)
+@SpringBootApplication(scanBasePackageClasses = [OQLClientKT::class])
+class OQLClientKT(internal val customerServiceKT: CustomerServiceKT)
 
 fun main(args: Array<String>) {
     SpringApplication.run(OQLClientKT::class.java, *args)?.apply {
         getBean<OQLClientKT>(OQLClientKT::class).apply {
 
             println("Inserting 3 entries for keys: 1, 2, 3")
-            customerRepositoryKT.save(Customer(1, EmailAddress("2@2.com"), "Me", "My"))
-            customerRepositoryKT.save(Customer(2, EmailAddress("3@3.com"), "You", "Yours"))
-            customerRepositoryKT.save(Customer(3, EmailAddress("5@5.com"), "Third", "Entry"))
+            customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
+            customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))
+            customerServiceKT.save(Customer(3, EmailAddress("5@5.com"), "Jude", "Simmons"))
 
-            println("Find : " + customerRepositoryKT.findById(2).get())
+            println("Find customer with key=2 using GemFireRepository: " + customerServiceKT.findById(2).get())
+            println("Find customer with key=2 using GemFireTemplate: " +
+                "${customerServiceKT.findWithTemplate<Customer>("select * from /Customers where id=$1", 2)}")
 
-            customerRepositoryKT.save(Customer(2, EmailAddress("4@4.com"), "First", "Update"))
-            println("Entry After: " + customerRepositoryKT.findById(2).get())
+            customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
+            println("Find customers with emailAddress=3@3.com: " + "${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
 
-            println("Removing entry for key: 3")
-            customerRepositoryKT.deleteById(3)
-
-            println("Entries:")
-            customerRepositoryKT.findAll().forEach { customer -> println("\t Entry: \n \t\t $customer") }
+            println("Find customers with firstName=Frank: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
+            println("Find customers with firstName=Jude: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
         }
     }
 }

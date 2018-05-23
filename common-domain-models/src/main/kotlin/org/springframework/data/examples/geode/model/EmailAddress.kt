@@ -64,9 +64,9 @@ data class EmailAddress(val value: String) : Serializable {
          * @param source must not be null or empty.
          * @return
          */
-        fun isValid(source: String): Boolean {
-            Assert.hasText(source, "Source is required")
-            return PATTERN.matcher(source).matches()
+        fun isValid(emailAddress: String): Boolean {
+            Assert.hasText(emailAddress, "email address cannot be empty")
+            return PATTERN.matcher(emailAddress).matches()
         }
     }
 }

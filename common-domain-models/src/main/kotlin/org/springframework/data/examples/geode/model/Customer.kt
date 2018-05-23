@@ -29,28 +29,22 @@ import java.io.Serializable
  * @author Udo Kohlmeyer
  */
 @Region(name = "Customers")
-data class Customer
 /**
  * Creates a new [Customer] from the given parameters.
  *
  * @param id the unique id;
- * @param emailAddress must not be null or empty.
- * @param firstName must not be null or empty.
- * @param lastName must not be null or empty.
+ * @param emailAddress must not be empty.
+ * @param firstName must not be empty.
+ * @param lastName must not be empty.
  */
-(@Id @javax.persistence.Id val id: Long?, var emailAddress: EmailAddress, private var firstName: String, private var lastName: String) : Serializable {
-    private var _addresses: HashSet<Address>? = null
-    private val addresses: HashSet<Address>
-        get() {
-            if (_addresses == null) {
-                _addresses = HashSet() // Type parameters are inferred
-            }
-            return _addresses ?: throw AssertionError("Set to null by another thread")
-        }
+data class Customer(@Id @javax.persistence.Id val id: Long?, val emailAddress: EmailAddress,
+                    val firstName: String, val lastName: String) : Serializable {
+
+    private var addresses = HashSet<Address>()
 
     init {
-        Assert.hasText(firstName, "First Name is required")
-        Assert.hasText(lastName, "Last Name is required")
+        Assert.hasText(firstName, "First Name cannot be empty")
+        Assert.hasText(lastName, "Last Name cannot be empty")
     }
 
     /**
@@ -58,5 +52,6 @@ data class Customer
      *
      */
     fun add(address: Address) = this.addresses.add(address)
+
     override fun hashCode(): Int = id?.hashCode() ?: 0
 }

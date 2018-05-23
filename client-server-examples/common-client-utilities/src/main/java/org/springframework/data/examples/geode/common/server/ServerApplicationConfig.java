@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.basic.server;
+package org.springframework.data.examples.geode.common.server;
 
 import org.apache.geode.cache.CacheListener;
 import org.apache.geode.cache.DataPolicy;
@@ -9,10 +9,12 @@ import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.util.LoggingCacheListener;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication;
+import org.springframework.data.gemfire.config.annotation.EnableIndexing;
 import org.springframework.data.gemfire.config.annotation.EnableLocator;
 
 @Configuration
 @EnableLocator
+@EnableIndexing
 @CacheServerApplication(port = 0)
 public class ServerApplicationConfig {
 

@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package org.springframework.data.examples.geode.basic.client;
+package org.springframework.data.examples.geode.oql.client;
 
+import org.apache.geode.cache.GemFireCache;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.examples.geode.basic.client.repo.CustomerRepository;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.examples.geode.common.client.ClientApplicationConfig;
+import org.springframework.data.examples.geode.oql.client.repo.CustomerRepository;
+import org.springframework.data.gemfire.GemfireTemplate;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 /**
@@ -28,6 +32,11 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  */
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-public class BasicClientApplicationConfig extends ClientApplicationConfig {
+public class OQLClientApplicationConfig extends ClientApplicationConfig {
 
+	@Bean("customerTemplate")
+	@DependsOn(ClientApplicationConfig.CUSTOMER_REGION_BEAN_NAME)
+	protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
+		return new GemfireTemplate(gemfireCache.getRegion(CUSTOMER_REGION_NAME));
+	}
 }

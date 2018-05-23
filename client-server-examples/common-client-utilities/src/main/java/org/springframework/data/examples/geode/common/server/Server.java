@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.basic.server;
+package org.springframework.data.examples.geode.common.server;
 
 import java.util.Scanner;
 

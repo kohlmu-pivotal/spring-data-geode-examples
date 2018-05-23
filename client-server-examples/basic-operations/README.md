@@ -37,7 +37,7 @@ OR
 ```
 ... CacheServer Configuration:   port=40404 max-connections=800 max-threads=0 notify-by-subscription=true socket-buffer-size=32768 maximum-time-between-pings=60000 maximum-message-count=230000 message-time-to-live=180 eviction-policy=none capacity=1 overflow directory=. groups=[] loadProbe=ConnectionCountProbe loadPollInterval=5000 tcpNoDelay=true
 
-.......  org.springframework.data.examples.geode.basic.server.Server logStarted
+.......  Server logStarted
 INFO: Started Server in 5.314 seconds (JVM running for 5.694)
 ```
 #### Client Configuration and Deployment
