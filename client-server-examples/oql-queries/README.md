@@ -39,7 +39,7 @@ The example is broken up into multiple steps:
 1. Querying the `Customers` region using `CustomerRepository.findById` to find the customer for id=2
 1. Querying the `Customers` region using `GemFireTemplate.find` using the OQL query string `select * from /Customers where id=$1` with parameter `2` as an input
 1. Updating the customer for id=1 to reflect a name change from `John Smith` to `Jude Smith`
-1. Query to find all customers with emailAddress = "3@3.com" using the `CustomerRepository`
+1. Query to find all customers with emailAddress = `3@3.com` using the `CustomerRepository`
 1. Query to find all customers with firstName = "Frank" using the `CustomerRepository`
 1. Query to find all customers with firstName = "Jude" using the `CustomerRepository`
 1. Query to find all customers with firstName = "Jude" using the local client's query service 
