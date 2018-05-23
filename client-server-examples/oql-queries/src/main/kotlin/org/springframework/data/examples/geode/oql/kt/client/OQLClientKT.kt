@@ -34,6 +34,10 @@ fun main(args: Array<String>) {
 
             println("Find customers with firstName=Frank: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
             println("Find customers with firstName=Jude: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
+
+            println("Find customers with firstName=Jude on local client region: " + "${customerServiceKT.findByFirstNameLocalClientRegion<Customer>("select * from /Customers where firstName=$1", "Jude")}")
+
+
         }
     }
 }

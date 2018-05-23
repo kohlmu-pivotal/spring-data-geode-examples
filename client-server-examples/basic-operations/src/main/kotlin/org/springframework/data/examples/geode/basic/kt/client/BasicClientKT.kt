@@ -21,9 +21,9 @@ fun main(args: Array<String>) {
         getBean<BasicClientKT>(BasicClientKT::class).apply {
 
             println("Inserting 3 entries for keys: 1, 2, 3")
-            customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "Me", "My"))
-            customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "You", "Yours"))
-            customerServiceKT.save(Customer(3, EmailAddress("5@5.com"), "Third", "Entry"))
+            customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
+            customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))
+            customerServiceKT.save(Customer(3, EmailAddress("5@5.com"), "Jude", "Simmons"))
 
             println("Entries on Client: ${customerServiceKT.numberEntriesStoredLocally()}")
             println("Entries on Server: ${customerServiceKT.numberEntriesStoredOnServer()}")
@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
 
             println("Updating entry for key: 2")
             println("Entry Before: " + customerServiceKT.findById(2).get())
-            customerServiceKT.save(Customer(2, EmailAddress("4@4.com"), "First", "Update"))
+            customerServiceKT.save(Customer(2, EmailAddress("4@4.com"), "Sam", "Spacey"))
             println("Entry After: " + customerServiceKT.findById(2).get())
 
             println("Removing entry for key: 3")

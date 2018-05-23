@@ -28,9 +28,9 @@ public class BasicClient {
 
 		System.out.println("Inserting 3 entries for keys: 1, 2, 3");
 		CustomerService customerService = client.customerService;
-		customerService.save(new Customer(1L, new EmailAddress("2@2.com"), "Me", "My"));
-		customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "You", "Yours"));
-		customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Third", "Entry"));
+		customerService.save(new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
+		customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
+		customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
 
 		System.out.println("Entries on Client: " + client.customerService.numberEntriesStoredLocally());
 		System.out.println("Entries on Server: " + client.customerService.numberEntriesStoredOnServer());
@@ -38,7 +38,7 @@ public class BasicClient {
 
 		System.out.println("Updating entry for key: 2");
 		System.out.println("Entry Before: " + customerService.findById(2L).get());
-		customerService.save(new Customer(2L, new EmailAddress("4@4.com"), "First", "Update"));
+		customerService.save(new Customer(2L, new EmailAddress("4@4.com"), "Sam", "Spacey"));
 		System.out.println("Entry After: " + customerService.findById(2L).get());
 
 		System.out.println("Removing entry for key: 3");
