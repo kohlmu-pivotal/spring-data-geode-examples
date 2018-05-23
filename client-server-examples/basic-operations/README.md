@@ -1,5 +1,4 @@
-Basic Client Example
-===================
+# Basic Client Example
 
 In this example a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client will be configured to perform the basic CRUD operations.
 
@@ -9,7 +8,7 @@ To the run the examples you require two terminal windows.
 
 > To run this example make sure you are in the **`$projectRoot/client-server-examples/basic-operations`** directory.
 
-#### Client Configuration and Deployment
+## Client Configuration and Deployment
 The client is configured to connect to the deployed/started server on `localhost` port `40404`.
 
 To start the client you can decided to run one of the following client parameters:
@@ -30,10 +29,21 @@ mvn exec:exec -DproxyClientKT
 ```
 mvn exec:exec -DlocalCacheClientKT
 ```
+## Running the example
 
-To confirm that the client has completed you should see one of the following outputs. The most notable differences between the two outputs is the line `Entries on Client:...`. In the `look-aside caching` example, the client does not store any data locally on the client and will return `0` for the number of `Entries on Client`.
-The `near caching` example will store the entries on the local client cache, thereby the `Entries on Client` will be `3`.
-1. Look-aside caching client output
+The example is broken up into multiple steps:
+1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.
+1. Printing out the size of the local region on the cache
+1. Printing out the size of the region on the server
+1. Updating the Customer for id=2. Recording the before and after Customer detail
+1. Removing (delete) the Customer for id=3 
+
+After running the client has one should see one of the following outputs. The most notable differences between the two outputs is the line `Entries on Client:...`. 
+
+In the `PROXY` cache example, the client does not store any data locally on the client and will return `0` for the number of `Entries on Client`.
+The `LOCAL` cache example, the client will store the entries locally, thereby the `Entries on Client` will be `3`.
+
+1. `PROXY` cache client output
     ```
     Inserting 3 entries for keys: 1, 2, 3
     Entries on Client: 0
@@ -55,7 +65,7 @@ The `near caching` example will store the entries on the local client cache, the
      		 Customer(id=2, emailAddress=EmailAddress(value=4@4.com), firstName=Sam, lastName=Spacey)
 
     ```
-2. Near caching client output
+1. `LOCAL` cache client output
     ```
     Inserting 3 entries for keys: 1, 2, 3
     Entries on Client: 3

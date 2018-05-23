@@ -19,7 +19,7 @@ The client's themselves can then be run as either `look-aside` or `near`. `look-
 To run the client examples make ensure you are in the directory of desired example and run the following _**mvn**_ commands
 
 To run a client:
-1. Decide on `PROXY` or `LOCAL` implementation
+1. Decide on `PROXY` or `LOCAL` cache implementation
 1. Decide on JAVA or Kotlin.
 
 The different options to start a client are:
