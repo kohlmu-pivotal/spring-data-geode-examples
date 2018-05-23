@@ -10,7 +10,8 @@ import java.util.*
 
 @Service
 class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
-                        private val customerTemplate: GemfireTemplate) {
+                        private val customerTemplate: GemfireTemplate,
+                        private val gemFireCache: ClientCache) {
 
     fun save(customer: Customer) = customerRepositoryKT.save(customer)
 
@@ -24,9 +25,7 @@ class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
     fun <T> findByFirstNameUsingIndex(firstName: String) = customerRepositoryKT.findByFirstNameUsingIndex<T>(firstName)
 
     fun <T> findByFirstNameLocalClientRegion(queryString: String, vararg parameters: Any): MutableList<T>? {
-        val region = customerTemplate.getRegion<Long, Customer>()
-        val clientCache = region.regionService as ClientCache
-        val query = clientCache.localQueryService.newQuery(queryString)
+        val query = gemFireCache.localQueryService.newQuery(queryString)
         val selectResults = query.execute(parameters) as SelectResults<T>
         return selectResults.asList()
     }

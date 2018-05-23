@@ -44,5 +44,8 @@ public class OQLClient {
 			.println("Find customers with firstName=Frank: " + customerService.findByFirstNameUsingIndex("Frank"));
 		System.out
 			.println("Find customers with firstName=Jude: " + customerService.findByFirstNameUsingIndex("Jude"));
+
+		System.out.println("Find customers with firstName=Jude on local client region: " +
+			customerService.findByFirstNameLocalClientRegion("select * from /Customers where firstName=$1", "Jude"));
 	}
 }
