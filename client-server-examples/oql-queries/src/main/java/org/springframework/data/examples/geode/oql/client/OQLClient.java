@@ -7,9 +7,9 @@ import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.model.EmailAddress;
 
 /**
- * Creates a client to demonstrate basic CRUD operations. This client can be configured in 2 ways, depending on profile
- * selected. "proxy" profile will create a region with PROXY configuration that will store no data locally. "localCache"
- * will create a region that stores data in the local client, to satisfy the "near cache" paradigm.
+ * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and
+ * again the remote servers. Depending on profile selected, the local query will either not return results (profile=proxy)
+ * or it will return the same results as the remote query (profile=localCache)
  *
  * @author Udo Kohlmeyer
  */
