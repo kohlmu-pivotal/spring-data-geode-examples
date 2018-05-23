@@ -1,4 +1,4 @@
-#Client-Server Examples
+# Client-Server Examples
 
 The examples are aimed at show casing the the power and versatility that a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client possess.
 
