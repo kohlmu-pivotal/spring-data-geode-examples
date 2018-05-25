@@ -31,14 +31,14 @@ import java.util.*
  * @author David Turanski
  * @author Udo Kohlmeyer
  */
-@Region
+@Region("Products")
 @javax.persistence.Entity
 data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.persistence.Id val id: Long?, val name: String, val price: BigDecimal, val description: String? = null) : Serializable {
     @javax.persistence.Transient
     private val attributes = HashMap<String, String>()
 
     init {
-        Assert.hasText(name, "Name must not be null or empty")
+        Assert.hasText(name, "Name must not be empty")
         Assert.isTrue(BigDecimal.ZERO < price, "Price must be greater than zero")
     }
 

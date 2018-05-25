@@ -20,16 +20,15 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.gemfire.mapping.annotation.Region
 import java.io.Serializable
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * @author Oliver Gierke
  * @author David Turanski
  * @author Udo Kohlmeyer
  */
-@Region
+@Region("Orders")
 data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, val customerId: Long, val billingAddress: Address, val shippingAddress: Address = billingAddress) : Serializable, Iterable<LineItem> {
-    private val lineItems = HashSet<LineItem>()
+    internal val lineItems = HashSet<LineItem>()
 
     /**
      * Returns the total of the [Order].
@@ -60,7 +59,7 @@ data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Lon
      *
      * @return
      */
-    fun getLineItems(): Set<LineItem> = Collections.unmodifiableSet(lineItems)
+    fun getLineItems(): List<LineItem> = lineItems.toList()
 
     override fun iterator(): Iterator<LineItem> = getLineItems().iterator()
 

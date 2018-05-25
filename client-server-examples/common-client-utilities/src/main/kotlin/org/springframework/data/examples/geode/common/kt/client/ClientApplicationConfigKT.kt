@@ -18,21 +18,20 @@ import org.springframework.data.gemfire.support.ConnectionEndpoint
 abstract class ClientApplicationConfigKT {
     companion object {
         const val CUSTOMER_REGION_NAME = "Customers"
-        const val CUSTOMER_REGION_BEAN_NAME = "customerRegion"
     }
 
-    @Bean(CUSTOMER_REGION_BEAN_NAME)
-    @Profile("proxy")
-    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
+    @Bean(CUSTOMER_REGION_NAME)
+    @Profile("proxy", "default")
+    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
         .apply {
             cache = gemFireCache
             setName(CUSTOMER_REGION_NAME)
             setShortcut(ClientRegionShortcut.PROXY)
         }
 
-    @Bean(CUSTOMER_REGION_BEAN_NAME)
+    @Bean(CUSTOMER_REGION_NAME)
     @Profile("localCache")
-    protected fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<String, Customer>()
+    protected fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
         .apply {
             cache = gemFireCache
             setName(CUSTOMER_REGION_NAME)

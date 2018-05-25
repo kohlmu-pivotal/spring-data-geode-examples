@@ -17,6 +17,7 @@
 		<module>replicated-regions</module>
 		<module>basic-operations</module>
 		<module>oql-queries</module>
+		<module>function-invocation</module>
 		<module>common-client-utilities</module>
 	</modules>
 

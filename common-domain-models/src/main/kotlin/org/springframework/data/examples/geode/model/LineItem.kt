@@ -30,7 +30,7 @@ data class LineItem
  * @param product must not be null.
  * @param amount the number of [Products][Product] purchased.
  */
-@JvmOverloads constructor(private val product: Product, private val amount: Int = 1) : Serializable {
+@JvmOverloads constructor(private val product: Product, private val amount: Int = 0) : Serializable {
     val unitPrice: BigDecimal
     val productId = product.id
     val productName = product.name

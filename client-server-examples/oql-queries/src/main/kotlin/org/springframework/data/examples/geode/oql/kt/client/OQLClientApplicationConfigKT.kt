@@ -36,7 +36,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 class OQLClientApplicationConfigKT : ClientApplicationConfigKT() {
 
     @Bean("customerTemplate")
-    @DependsOn(CUSTOMER_REGION_BEAN_NAME)
+    @DependsOn(CUSTOMER_REGION_NAME)
     internal fun configureCustomerTemplate(gemFireCache: GemFireCache) =
         GemfireTemplate<Long, Customer>(gemFireCache.getRegion(CUSTOMER_REGION_NAME)!!)
 
