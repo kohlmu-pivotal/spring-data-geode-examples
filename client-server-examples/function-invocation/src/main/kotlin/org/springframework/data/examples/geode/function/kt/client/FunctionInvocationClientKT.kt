@@ -17,7 +17,7 @@ import java.util.*
  *
  * @author Udo Kohlmeyer
  */
-@SpringBootApplication(scanBasePackageClasses = [FunctionInvocationClientKT::class])
+@SpringBootApplication(scanBasePackageClasses = [FunctionInvocationClientApplicationConfigKT::class])
 class FunctionInvocationClientKT(internal val customerServiceKT: CustomerServiceKT,
                                  internal val productServiceKT: ProductServiceKT,
                                  internal val orderServiceKT: OrderServiceKT)
@@ -31,10 +31,11 @@ fun main(args: Array<String>) {
             println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t ${customerServiceKT.listAllCustomersForEmailAddress("2@2.com", "3@3.com")}")
 
             createProducts()
-            println("${productServiceKT.sumPricesForAllProducts()}")
+            println("Running function to sum up all product prices: \n\t$${productServiceKT.sumPricesForAllProducts()[0]}")
 
             createOrders()
-            println("${orderServiceKT.sumPricesForAllProductsForOrder(1)}")
+            println("Running function to sum up all order lineItems prices for order 1: \n\t$${orderServiceKT.sumPricesForAllProductsForOrder(1)[0]}")
+            println("For order: \n\t ${orderServiceKT.findById(1).get()}")
         }
     }
 }
@@ -45,7 +46,7 @@ private fun FunctionInvocationClientKT.createOrders() {
     for (orderId in 1..100L) {
         for (customerId in 1..3L) {
             val order = Order(orderId, customerId, address)
-            for (i in 0 until random.nextInt(3) + 1) {
+            for (i in 0 until random.nextInt(30) + 1) {
                 val quantity = random.nextInt(3) + 1
                 val productId = (random.nextInt(3) + 1).toLong()
                 order.add(LineItem(productServiceKT.findById(productId), quantity))

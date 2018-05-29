@@ -40,10 +40,9 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
 public class ClientApplicationConfig {
 
 	protected static final String CUSTOMER_REGION_NAME = "Customers";
-	protected static final String CUSTOMER_REGION_BEAN_NAME = "customerRegion";
 
-	@Bean(CUSTOMER_REGION_BEAN_NAME)
-	@Profile("proxy")
+	@Bean(CUSTOMER_REGION_NAME)
+	@Profile({ "proxy", "default" })
 	protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
 		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
 		clientRegionFactoryBean.setCache(gemFireCache);
@@ -52,7 +51,7 @@ public class ClientApplicationConfig {
 		return clientRegionFactoryBean;
 	}
 
-	@Bean(CUSTOMER_REGION_BEAN_NAME)
+	@Bean(CUSTOMER_REGION_NAME)
 	@Profile("localCache")
 	protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
 		GemFireCache gemFireCache) {

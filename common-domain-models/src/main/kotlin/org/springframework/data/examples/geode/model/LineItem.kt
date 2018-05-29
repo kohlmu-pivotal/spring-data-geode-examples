@@ -21,17 +21,11 @@ import java.io.Serializable
 import java.math.BigDecimal
 
 /**
- * @author Oliver Gierke
+ * @author Udo Kohlmeyer
  */
-data class LineItem
-/**
- * Constructs a new [LineItem] for the given [Product] and amount.
- *
- * @param product must not be null.
- * @param amount the number of [Products][Product] purchased.
- */
-@JvmOverloads constructor(private val product: Product, private val amount: Int = 0) : Serializable {
-    val unitPrice: BigDecimal
+data class LineItem @JvmOverloads constructor(private val product: Product, private val amount: Int = 1) : Serializable {
+
+    val unitPrice = product.price
     val productId = product.id
     val productName = product.name
 
@@ -40,7 +34,6 @@ data class LineItem
 
     init {
         Assert.isTrue(amount > 0, "The amount of Products to be bought must be greater than 0")
-        this.unitPrice = product.price
     }
 
     override fun toString(): String = "Purchased $amount of Product $productName at $unitPrice for total of $total"

@@ -2,10 +2,9 @@ package org.springframework.data.examples.geode.function.kt.server
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.data.examples.geode.common.kt.server.ServerKT
 
-@SpringBootApplication(scanBasePackageClasses = [FunctionServerKT::class])
-class FunctionServerKT : ServerKT()
+@SpringBootApplication(scanBasePackageClasses = [FunctionServerApplicationConfigKT::class])
+class FunctionServerKT
 
 fun main(args: Array<String>) {
     SpringApplication.run(FunctionServerKT::class.java, *args)

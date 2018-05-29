@@ -18,17 +18,11 @@ package org.springframework.data.examples.geode.function.kt.client
 
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.DependsOn
-import org.springframework.context.annotation.Profile
+import org.springframework.context.annotation.*
 import org.springframework.data.examples.geode.common.kt.client.ClientApplicationConfigKT
+import org.springframework.data.examples.geode.common.kt.client.ClientApplicationConfigKT.Companion.CUSTOMER_REGION_NAME
 import org.springframework.data.examples.geode.function.kt.client.functions.CustomerFunctionExecutionsKT
-import org.springframework.data.examples.geode.function.kt.client.functions.OrderFunctionExecutionsKT
-import org.springframework.data.examples.geode.function.kt.client.functions.ProductFunctionExecutionsKT
 import org.springframework.data.examples.geode.function.kt.client.repo.CustomerRepositoryKT
-import org.springframework.data.examples.geode.function.kt.client.repo.OrderRepositoryKT
-import org.springframework.data.examples.geode.function.kt.client.repo.ProductRepositoryKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.Order
 import org.springframework.data.examples.geode.model.Product
@@ -43,12 +37,10 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
-@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class,
-    OrderRepositoryKT::class, ProductRepositoryKT::class])
-@EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class,
-    OrderFunctionExecutionsKT::class, ProductFunctionExecutionsKT::class])
-
-class FunctionInvocationClientApplicationConfigKT : ClientApplicationConfigKT() {
+@Import(ClientApplicationConfigKT::class)
+@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
+@EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class])
+class FunctionInvocationClientApplicationConfigKT {
 
     @Bean("customerTemplate")
     @DependsOn(CUSTOMER_REGION_NAME)

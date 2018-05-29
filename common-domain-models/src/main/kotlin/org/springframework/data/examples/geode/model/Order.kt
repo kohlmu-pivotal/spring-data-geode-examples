@@ -17,6 +17,7 @@
 package org.springframework.data.examples.geode.model
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.examples.geode.util.sumBy
 import org.springframework.data.gemfire.mapping.annotation.Region
 import java.io.Serializable
 import java.math.BigDecimal
@@ -27,8 +28,9 @@ import java.math.BigDecimal
  * @author Udo Kohlmeyer
  */
 @Region("Orders")
-data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, val customerId: Long, val billingAddress: Address, val shippingAddress: Address = billingAddress) : Serializable, Iterable<LineItem> {
-    internal val lineItems = HashSet<LineItem>()
+data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, private val customerId: Long,
+                                           private val billingAddress: Address, private val shippingAddress: Address = billingAddress) : Serializable {
+    private val lineItems = HashSet<LineItem>()
 
     /**
      * Returns the total of the [Order].
@@ -36,16 +38,12 @@ data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Lon
      * @return
      */
     val total: BigDecimal
-        get() {
-
-            var total = BigDecimal.ZERO
-
-            for (item in this) {
-                total = total.add(item.total)
+        get() =
+            if (lineItems.size == 0) {
+                BigDecimal.ZERO
+            } else {
+                lineItems.asSequence().sumBy { it.total }
             }
-
-            return total
-        }
 
     /**
      * Adds the given [LineItem] to the [Order].
@@ -59,11 +57,7 @@ data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Lon
      *
      * @return
      */
-    fun getLineItems(): List<LineItem> = lineItems.toList()
-
-    override fun iterator(): Iterator<LineItem> = getLineItems().iterator()
-
-    override fun toString(): String = id?.toString() ?: "0"
+    fun getLineItems(): List<LineItem> = lineItems.asSequence().toList()
 
     companion object {
         private val serialVersionUID = -3779061453639083037L

@@ -23,7 +23,7 @@ public class ServerApplicationConfig {
 	}
 
 	@Bean
-	ReplicatedRegionFactoryBean<Long, Customer> customerRegioncustomerRegion(GemFireCache gemfireCache) {
+	ReplicatedRegionFactoryBean<Long, Customer> createCustomerRegion(GemFireCache gemfireCache) {
 		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
 		replicatedRegionFactoryBean.setCache(gemfireCache);
 		replicatedRegionFactoryBean.setRegionName("Customers");

@@ -1,10 +1,23 @@
 package org.springframework.data.examples.geode.function.client;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.examples.geode.function.client.services.CustomerService;
+import org.springframework.data.examples.geode.function.client.services.OrderService;
+import org.springframework.data.examples.geode.function.client.services.ProductService;
+import org.springframework.data.examples.geode.model.Address;
 import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.model.EmailAddress;
+import org.springframework.data.examples.geode.model.LineItem;
+import org.springframework.data.examples.geode.model.Order;
+import org.springframework.data.examples.geode.model.Product;
 
 /**
  * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and
@@ -17,9 +30,14 @@ import org.springframework.data.examples.geode.model.EmailAddress;
 public class FunctionInvocationClient {
 
 	private final CustomerService customerService;
+	private final OrderService orderService;
+	private final ProductService productService;
 
-	public FunctionInvocationClient(CustomerService customerService) {
+	public FunctionInvocationClient(CustomerService customerService, OrderService orderService,
+		ProductService productService) {
 		this.customerService = customerService;
+		this.orderService = orderService;
+		this.productService = productService;
 	}
 
 	public static void main(String[] args) {
@@ -27,25 +45,51 @@ public class FunctionInvocationClient {
 		FunctionInvocationClient client = applicationContext.getBean(FunctionInvocationClient.class);
 
 		CustomerService customerService = client.customerService;
+		client.createCustomerData(customerService);
+
+		System.out.println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t "
+			+ customerService.listAllCustomersForEmailAddress("2@2.com", "3@3.com"));
+
+		ProductService productService = client.productService;
+		client.createProducts(productService);
+		System.out.println(
+			"Running function to sum up all product prices: \n\t" + productService.sumPricesForAllProducts().get(0));
+
+		OrderService orderService = client.orderService;
+		client.createOrders(orderService);
+		System.out.println(
+			"Running function to sum up all order lineItems prices for order 1: \n\t"
+				+ orderService.sumPricesForAllProductsForOrder(1L).get(0));
+		System.out.println("For order: \n\t " + orderService.findById(1L));
+	}
+
+	private void createOrders(OrderService orderService) {
+		Random random = new Random(new Date().getTime());
+		Address address = new Address("it", "doesn't", "matter");
+		LongStream.rangeClosed(1, 100).forEach((orderId) ->
+			LongStream.rangeClosed(1, 3).forEach((customerId) -> {
+				Order order = new Order(orderId, customerId, address);
+				IntStream.rangeClosed(0, random.nextInt(30) + 1).forEach((lineItemCount) -> {
+					int quantity = random.nextInt(3) + 1;
+					long productId = random.nextInt(3) + 1;
+					order.add(new LineItem(productService.findById(productId), quantity));
+				});
+				orderService.save(order);
+			}));
+	}
+
+	private void createProducts(ProductService productService) {
+		productService.save(new Product(1L, "Apple iPod", new BigDecimal(99.99), "An Apple portable music player"));
+		productService.save(new Product(2L, "Apple iPad", new BigDecimal(499.99), "An Apple tablet device"));
+		Product macbook = new Product(3L, "Apple macBook", new BigDecimal(899.99), "An Apple notebook computer");
+		macbook.addAttribute("warranty", "included");
+		productService.save(macbook);
+	}
+
+	private void createCustomerData(CustomerService customerService) {
 		System.out.println("Inserting 3 entries for keys: 1, 2, 3");
 		customerService.save(new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
 		customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
 		customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
-
-		System.out.println("Find customer with key=2 using GemFireRepository: " + customerService.findById(2L).get());
-		System.out.println("Find customer with key=2 using GemFireTemplate: " + customerService
-			.findWithTemplate("select * from /Customers where id=$1", 2L));
-
-		customerService.save(new Customer(1L, new EmailAddress("3@3.com"), "Jude", "Smith"));
-		System.out
-			.println("Find customers with emailAddress=3@3.com: " + customerService.findByEmailAddress("3@3.com"));
-
-		System.out
-			.println("Find customers with firstName=Frank: " + customerService.findByFirstNameUsingIndex("Frank"));
-		System.out
-			.println("Find customers with firstName=Jude: " + customerService.findByFirstNameUsingIndex("Jude"));
-
-		System.out.println("Find customers with firstName=Jude on local client region: " +
-			customerService.findByFirstNameLocalClientRegion("select * from /Customers where firstName=$1", "Jude"));
 	}
 }

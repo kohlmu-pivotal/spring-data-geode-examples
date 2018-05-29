@@ -15,7 +15,7 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer
 import org.springframework.data.gemfire.support.ConnectionEndpoint
 
 @Configuration
-abstract class ClientApplicationConfigKT {
+class ClientApplicationConfigKT {
     companion object {
         const val CUSTOMER_REGION_NAME = "Customers"
     }

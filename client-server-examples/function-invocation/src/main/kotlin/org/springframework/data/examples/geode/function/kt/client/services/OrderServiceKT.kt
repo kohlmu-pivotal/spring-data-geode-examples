@@ -14,4 +14,6 @@ class OrderServiceKT(private val orderRepositoryKT: OrderRepositoryKT,
 
     fun sumPricesForAllProductsForOrder(orderId: Long): List<BigDecimal> =
         orderFunctionExecutionsKT.sumPricesForAllProductsForOrder(orderId)
+
+    fun findById(orderId: Long) = orderRepositoryKT.findById(orderId)
 }

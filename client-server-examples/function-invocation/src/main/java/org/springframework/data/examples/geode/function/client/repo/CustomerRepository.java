@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.data.examples.geode.common.client.repo.BaseCustomerRepository;
 import org.springframework.data.examples.geode.model.Customer;
+import org.springframework.data.gemfire.mapping.annotation.ClientRegion;
 import org.springframework.data.gemfire.repository.Query;
 import org.springframework.data.gemfire.repository.query.annotation.Hint;
 import org.springframework.data.gemfire.repository.query.annotation.Limit;
 import org.springframework.data.gemfire.repository.query.annotation.Trace;
 
+@ClientRegion("Customers")
 public interface CustomerRepository extends BaseCustomerRepository {
 
 	@Trace

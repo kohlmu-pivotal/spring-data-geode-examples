@@ -33,7 +33,9 @@ import java.util.*
  */
 @Region("Products")
 @javax.persistence.Entity
-data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.persistence.Id val id: Long?, val name: String, val price: BigDecimal, val description: String? = null) : Serializable {
+data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.persistence.Id val id: Long?,
+                                                                     val name: String, val price: BigDecimal,
+                                                                     val description: String? = null) : Serializable {
     @javax.persistence.Transient
     private val attributes = HashMap<String, String>()
 
