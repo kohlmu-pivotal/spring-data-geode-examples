@@ -6,7 +6,7 @@ import org.springframework.data.gemfire.mapping.annotation.ClientRegion
 import org.springframework.data.repository.CrudRepository
 
 @ClientRegion(name = "Customers")
-interface BaseCustomerRepository : CrudRepository<Customer, Long> {
+interface BaseCustomerRepositoryKT : CrudRepository<Customer, Long> {
     /**
      * Returns all [Customer]s.
      *

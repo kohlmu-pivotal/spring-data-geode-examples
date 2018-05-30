@@ -20,6 +20,7 @@ import org.apache.geode.cache.GemFireCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.examples.geode.common.client.ClientApplicationConfig;
 import org.springframework.data.examples.geode.oql.client.repo.CustomerRepository;
 import org.springframework.data.gemfire.GemfireTemplate;
@@ -31,12 +32,13 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
+@Import(ClientApplicationConfig.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-public class OQLClientApplicationConfig extends ClientApplicationConfig {
+public class OQLClientApplicationConfig {
 
 	@Bean("customerTemplate")
-	@DependsOn(ClientApplicationConfig.CUSTOMER_REGION_NAME)
+	@DependsOn("Customers")
 	protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
-		return new GemfireTemplate(gemfireCache.getRegion(CUSTOMER_REGION_NAME));
+		return new GemfireTemplate(gemfireCache.getRegion("Customers"));
 	}
 }

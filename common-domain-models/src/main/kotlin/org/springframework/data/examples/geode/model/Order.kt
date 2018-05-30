@@ -30,8 +30,7 @@ import java.math.BigDecimal
 @Region("Orders")
 data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, private val customerId: Long,
                                            private val billingAddress: Address, private val shippingAddress: Address = billingAddress) : Serializable {
-    private val lineItems = HashSet<LineItem>()
-
+    private val lineItems: MutableList<LineItem> = mutableListOf()
     /**
      * Returns the total of the [Order].
      *

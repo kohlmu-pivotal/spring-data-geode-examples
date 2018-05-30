@@ -16,8 +16,11 @@
 
 package org.springframework.data.examples.geode.basic.kt.client
 
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 import org.springframework.data.examples.geode.basic.kt.client.repo.CustomerRepositoryKT
+import org.springframework.data.examples.geode.basic.kt.client.services.CustomerServiceKT
 import org.springframework.data.examples.geode.common.kt.client.ClientApplicationConfigKT
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
@@ -27,5 +30,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
+@Import(ClientApplicationConfigKT::class)
+@ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
-class BasicClientApplicationConfigKT : ClientApplicationConfigKT()
+class BasicClientApplicationConfigKT

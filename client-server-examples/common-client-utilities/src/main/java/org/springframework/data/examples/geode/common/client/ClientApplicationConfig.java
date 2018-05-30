@@ -39,31 +39,29 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
 @Configuration
 public class ClientApplicationConfig {
 
-	protected static final String CUSTOMER_REGION_NAME = "Customers";
-
-	@Bean(CUSTOMER_REGION_NAME)
+	@Bean("Customers")
 	@Profile({ "proxy", "default" })
 	protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
 		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
 		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName(CUSTOMER_REGION_NAME);
+		clientRegionFactoryBean.setName("Customers");
 		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
 		return clientRegionFactoryBean;
 	}
 
-	@Bean(CUSTOMER_REGION_NAME)
+	@Bean("Customers")
 	@Profile("localCache")
 	protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
 		GemFireCache gemFireCache) {
 		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
 		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName(CUSTOMER_REGION_NAME);
+		clientRegionFactoryBean.setName("Customers");
 		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
 		return clientRegionFactoryBean;
 	}
 
-	@ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
-	static class ReplicateClientCacheConfiguration extends ClientCacheConfiguration {
+	@ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+	static class BasicClientCacheConfiguration extends ClientCacheConfiguration {
 
 		// Required to resolve property placeholders in Spring @Value annotations.
 		@Bean

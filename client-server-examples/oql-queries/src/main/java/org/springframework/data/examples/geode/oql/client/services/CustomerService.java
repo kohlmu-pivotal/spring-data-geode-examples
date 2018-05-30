@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.oql.client;
+package org.springframework.data.examples.geode.oql.client.services;
 
 import java.util.Collections;
 import java.util.List;

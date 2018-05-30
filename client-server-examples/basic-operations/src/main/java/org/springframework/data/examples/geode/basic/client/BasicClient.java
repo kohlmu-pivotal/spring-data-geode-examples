@@ -3,6 +3,7 @@ package org.springframework.data.examples.geode.basic.client;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.examples.geode.basic.client.services.CustomerService;
 import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.model.EmailAddress;
 

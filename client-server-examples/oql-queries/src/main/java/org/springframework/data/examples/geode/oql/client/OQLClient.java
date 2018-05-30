@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.examples.geode.model.EmailAddress;
+import org.springframework.data.examples.geode.oql.client.services.CustomerService;
 
 /**
  * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and

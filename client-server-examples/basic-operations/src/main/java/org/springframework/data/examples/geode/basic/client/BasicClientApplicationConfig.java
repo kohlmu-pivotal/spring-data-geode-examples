@@ -16,8 +16,11 @@
 
 package org.springframework.data.examples.geode.basic.client;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.examples.geode.basic.client.repo.CustomerRepository;
+import org.springframework.data.examples.geode.basic.client.services.CustomerService;
 import org.springframework.data.examples.geode.common.client.ClientApplicationConfig;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
@@ -27,7 +30,9 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * @author Udo Kohlmeyer
  */
 @Configuration
+@Import(ClientApplicationConfig.class)
+@ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-public class BasicClientApplicationConfig extends ClientApplicationConfig {
+public class BasicClientApplicationConfig {
 
 }

@@ -20,9 +20,8 @@ import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.context.annotation.*
 import org.springframework.data.examples.geode.common.kt.client.ClientApplicationConfigKT
-import org.springframework.data.examples.geode.common.kt.client.ClientApplicationConfigKT.Companion.CUSTOMER_REGION_NAME
 import org.springframework.data.examples.geode.function.kt.client.functions.CustomerFunctionExecutionsKT
-import org.springframework.data.examples.geode.function.kt.client.repo.CustomerRepositoryKT
+import org.springframework.data.examples.geode.function.kt.client.repo.CustomerRepositoryKTKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.Order
 import org.springframework.data.examples.geode.model.Product
@@ -38,14 +37,14 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  */
 @Configuration
 @Import(ClientApplicationConfigKT::class)
-@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
+@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKTKT::class])
 @EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class])
 class FunctionInvocationClientApplicationConfigKT {
 
     @Bean("customerTemplate")
-    @DependsOn(CUSTOMER_REGION_NAME)
+    @DependsOn()
     internal fun configureCustomerTemplate(gemFireCache: GemFireCache) =
-        GemfireTemplate<Long, Customer>(gemFireCache.getRegion(CUSTOMER_REGION_NAME)!!)
+        GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
 
     @Bean("Products")
     @Profile("proxy", "default")

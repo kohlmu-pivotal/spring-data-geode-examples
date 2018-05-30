@@ -3,6 +3,7 @@ package org.springframework.data.examples.geode.basic.kt.client
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.data.examples.geode.basic.kt.client.services.CustomerServiceKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.EmailAddress
 

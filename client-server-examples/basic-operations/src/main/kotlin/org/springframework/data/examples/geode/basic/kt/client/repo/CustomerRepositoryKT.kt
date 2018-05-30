@@ -1,5 +1,7 @@
 package org.springframework.data.examples.geode.basic.kt.client.repo
 
-import org.springframework.data.examples.geode.common.kt.client.repo.BaseCustomerRepository
+import org.springframework.data.examples.geode.common.kt.client.repo.BaseCustomerRepositoryKT
+import org.springframework.data.gemfire.mapping.annotation.ClientRegion
 
-interface CustomerRepositoryKT : BaseCustomerRepository
+@ClientRegion("Customers")
+interface CustomerRepositoryKT : BaseCustomerRepositoryKT

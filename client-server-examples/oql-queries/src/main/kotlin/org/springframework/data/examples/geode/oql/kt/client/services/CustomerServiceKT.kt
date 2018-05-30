@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.oql.kt.client
+package org.springframework.data.examples.geode.oql.kt.client.services
 
 import org.apache.geode.cache.client.ClientCache
 import org.apache.geode.cache.query.SelectResults
@@ -17,16 +17,18 @@ class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
 
     fun findById(id: Long): Optional<Customer> = customerRepositoryKT.findById(id)
 
-    fun <T> findWithTemplate(queryString: String, vararg parameters: Any) =
-        customerTemplate.find<T>(queryString, *parameters)?.asList() ?: emptyList()
+    fun findWithTemplate(queryString: String, vararg parameters: Any?): List<Customer> =
+        customerTemplate.find<Customer>(queryString, *parameters)?.asList() ?: emptyList()
 
-    fun <T> findByEmailAddressUsingIndex(emailAddress: String) = customerRepositoryKT.findByEmailAddressUsingIndex<T>(emailAddress)
+    fun <Customer> findByEmailAddressUsingIndex(emailAddress: String) =
+        customerRepositoryKT.findByEmailAddressUsingIndex<Customer>(emailAddress)
 
-    fun <T> findByFirstNameUsingIndex(firstName: String) = customerRepositoryKT.findByFirstNameUsingIndex<T>(firstName)
+    fun <Customer> findByFirstNameUsingIndex(firstName: String) =
+        customerRepositoryKT.findByFirstNameUsingIndex<Customer>(firstName)
 
-    fun <T> findByFirstNameLocalClientRegion(queryString: String, vararg parameters: Any): MutableList<T>? {
+    fun <Customer> findByFirstNameLocalClientRegion(queryString: String, vararg parameters: Any): List<Customer> {
         val query = gemFireCache.localQueryService.newQuery(queryString)
-        val selectResults = query.execute(parameters) as SelectResults<T>
+        val selectResults = query.execute(parameters) as SelectResults<Customer>
         return selectResults.asList()
     }
 }

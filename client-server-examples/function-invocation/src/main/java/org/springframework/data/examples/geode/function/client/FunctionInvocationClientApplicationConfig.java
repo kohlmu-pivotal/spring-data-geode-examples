@@ -45,9 +45,9 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 public class FunctionInvocationClientApplicationConfig extends ClientApplicationConfig {
 
 	@Bean("customerTemplate")
-	@DependsOn(ClientApplicationConfig.CUSTOMER_REGION_NAME)
+	@DependsOn("Customers")
 	protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
-		return new GemfireTemplate(gemfireCache.getRegion(CUSTOMER_REGION_NAME));
+		return new GemfireTemplate(gemfireCache.getRegion("Customers"));
 	}
 
 	@Bean("Products")

@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.basic.kt.client
+package org.springframework.data.examples.geode.basic.kt.client.services
 
 import org.apache.geode.cache.Region
 import org.springframework.data.examples.geode.basic.kt.client.repo.CustomerRepositoryKT
@@ -10,7 +10,7 @@ import javax.annotation.Resource
 @Service
 class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT) {
 
-    @Resource
+    @Resource(name = "Customers")
     private lateinit var customerRegion: Region<Long, Customer>
 
     fun save(customer: Customer) = customerRepositoryKT.save(customer)

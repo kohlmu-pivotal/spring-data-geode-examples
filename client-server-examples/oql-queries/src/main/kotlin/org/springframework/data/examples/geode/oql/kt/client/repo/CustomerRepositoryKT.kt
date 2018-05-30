@@ -1,12 +1,12 @@
 package org.springframework.data.examples.geode.oql.kt.client.repo
 
-import org.springframework.data.examples.geode.common.kt.client.repo.BaseCustomerRepository
+import org.springframework.data.examples.geode.common.kt.client.repo.BaseCustomerRepositoryKT
 import org.springframework.data.gemfire.repository.Query
 import org.springframework.data.gemfire.repository.query.annotation.Hint
 import org.springframework.data.gemfire.repository.query.annotation.Limit
 import org.springframework.data.gemfire.repository.query.annotation.Trace
 
-interface CustomerRepositoryKT : BaseCustomerRepository {
+interface CustomerRepositoryKT : BaseCustomerRepositoryKT {
 
     @Trace
     @Limit(100)

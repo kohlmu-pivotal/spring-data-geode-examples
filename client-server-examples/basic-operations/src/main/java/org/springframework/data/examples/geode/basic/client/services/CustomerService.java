@@ -1,4 +1,4 @@
-package org.springframework.data.examples.geode.basic.client;
+package org.springframework.data.examples.geode.basic.client.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 	private final CustomerRepository customerRepository;
 
-	@Resource
+	@Resource(name = "Customers")
 	private Region<Long, Customer> customerRegion;
 
 	public CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
+		this.customerRegion = customerRegion;
 	}
 
 	private CustomerRepository getCustomerRepository() {

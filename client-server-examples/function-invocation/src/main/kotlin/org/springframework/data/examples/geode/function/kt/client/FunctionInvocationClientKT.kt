@@ -9,11 +9,13 @@ import org.springframework.data.examples.geode.function.kt.client.services.Produ
 import org.springframework.data.examples.geode.model.*
 import java.math.BigDecimal
 import java.util.*
+import java.util.stream.IntStream
+import java.util.stream.LongStream
 
 /**
- * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and
- * again the remote servers. Depending on profile selected, the local query will either not return results (profile=proxy)
- * or it will return the same results as the remote query (profile=localCache)
+ * Creates a client to demonstrate server-side function invocations. This example will run queries against that local client data set and
+ * again the remote servers. There is no difference in running a function on a client that stores no data locally (PROXY region)
+ * or a client that stores data locally (CACHING_PROXY region).
  *
  * @author Udo Kohlmeyer
  */
@@ -26,27 +28,30 @@ fun main(args: Array<String>) {
     SpringApplication.run(FunctionInvocationClientKT::class.java, *args)?.apply {
         getBean<FunctionInvocationClientKT>(FunctionInvocationClientKT::class).apply {
 
-            createCustomerData()
+            createCustomerData(customerServiceKT)
 
-            println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t ${customerServiceKT.listAllCustomersForEmailAddress("2@2.com", "3@3.com")}")
+            println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t " +
+                "${customerServiceKT.listAllCustomersForEmailAddress("2@2.com", "3@3.com")}")
 
-            createProducts()
-            println("Running function to sum up all product prices: \n\t$${productServiceKT.sumPricesForAllProducts()[0]}")
+            createProducts(productServiceKT)
+            println("Running function to sum up all product prices:\n\t $${productServiceKT.sumPricesForAllProducts()[0]}")
 
-            createOrders()
-            println("Running function to sum up all order lineItems prices for order 1: \n\t$${orderServiceKT.sumPricesForAllProductsForOrder(1)[0]}")
+            createOrders(productServiceKT, orderServiceKT)
+            println("Running function to sum up all order lineItems prices for order 1: \n\t" +
+                "$${orderServiceKT.sumPricesForAllProductsForOrder(1)[0]}")
             println("For order: \n\t ${orderServiceKT.findById(1).get()}")
         }
     }
 }
 
-private fun FunctionInvocationClientKT.createOrders() {
-    val random = Random(Date().time)
+internal fun createOrders(productServiceKT: ProductServiceKT, orderServiceKT: OrderServiceKT) {
+    val random = Random(System.nanoTime())
     val address = Address("it", "doesn't", "matter")
-    for (orderId in 1..100L) {
-        for (customerId in 1..3L) {
+
+    LongStream.rangeClosed(1, 100).forEach { orderId ->
+        LongStream.rangeClosed(1, 3).forEach { customerId ->
             val order = Order(orderId, customerId, address)
-            for (i in 0 until random.nextInt(30) + 1) {
+            IntStream.rangeClosed(0, random.nextInt(3) + 1).forEach { _ ->
                 val quantity = random.nextInt(3) + 1
                 val productId = (random.nextInt(3) + 1).toLong()
                 order.add(LineItem(productServiceKT.findById(productId), quantity))
@@ -56,7 +61,7 @@ private fun FunctionInvocationClientKT.createOrders() {
     }
 }
 
-private fun FunctionInvocationClientKT.createProducts() {
+internal fun createProducts(productServiceKT: ProductServiceKT) {
     productServiceKT.save(Product(1L, "Apple iPod", BigDecimal(99.99), "An Apple portable music player"))
     productServiceKT.save(Product(2L, "Apple iPad", BigDecimal(499.99), "An Apple tablet device"))
     val macbook = Product(3L, "Apple macBook", BigDecimal(899.99), "An Apple notebook computer")
@@ -64,7 +69,7 @@ private fun FunctionInvocationClientKT.createProducts() {
     productServiceKT.save(macbook)
 }
 
-private fun FunctionInvocationClientKT.createCustomerData() {
+internal fun createCustomerData(customerServiceKT: CustomerServiceKT) {
     println("Inserting 3 entries for keys: 1, 2, 3")
     customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
     customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))

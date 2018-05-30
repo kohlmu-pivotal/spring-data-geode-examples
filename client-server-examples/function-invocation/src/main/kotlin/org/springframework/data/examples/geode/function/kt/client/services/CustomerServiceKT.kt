@@ -1,12 +1,12 @@
 package org.springframework.data.examples.geode.function.kt.client.services
 
 import org.springframework.data.examples.geode.function.kt.client.functions.CustomerFunctionExecutionsKT
-import org.springframework.data.examples.geode.function.kt.client.repo.CustomerRepositoryKT
+import org.springframework.data.examples.geode.function.kt.client.repo.CustomerRepositoryKTKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
+class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKTKT,
                         private val customerFunctionExecutionsKT: CustomerFunctionExecutionsKT) {
 
     fun save(customer: Customer) = customerRepositoryKT.save(customer)

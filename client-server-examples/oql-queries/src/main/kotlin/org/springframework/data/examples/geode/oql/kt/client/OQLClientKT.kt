@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.EmailAddress
+import org.springframework.data.examples.geode.oql.kt.client.services.CustomerServiceKT
 
 /**
  * Creates a client to demonstrate OQL queries. This example will run queries against that local client data set and
@@ -13,7 +14,7 @@ import org.springframework.data.examples.geode.model.EmailAddress
  *
  * @author Udo Kohlmeyer
  */
-@SpringBootApplication(scanBasePackageClasses = [OQLClientKT::class])
+@SpringBootApplication(scanBasePackageClasses = [OQLClientApplicationConfigKT::class])
 class OQLClientKT(internal val customerServiceKT: CustomerServiceKT)
 
 fun main(args: Array<String>) {
@@ -27,7 +28,7 @@ fun main(args: Array<String>) {
 
             println("Find customer with key=2 using GemFireRepository: " + customerServiceKT.findById(2).get())
             println("Find customer with key=2 using GemFireTemplate: " +
-                "${customerServiceKT.findWithTemplate<Customer>("select * from /Customers where id=$1", 2)}")
+                "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
 
             customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
             println("Find customers with emailAddress=3@3.com: " + "${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
