@@ -31,10 +31,10 @@ fun main(args: Array<String>) {
                 "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
 
             customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
-            println("Find customers with emailAddress=3@3.com: " + "${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
+            println("Find customers with emailAddress=3@3.com: ${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
 
-            println("Find customers with firstName=Frank: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
-            println("Find customers with firstName=Jude: " + "${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
+            println("Find customers with firstName=Frank: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
+            println("Find customers with firstName=Jude: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
 
             println("Find customers with firstName=Jude on local client region: " + "${customerServiceKT.findByFirstNameLocalClientRegion<Customer>("select * from /Customers where firstName=$1", "Jude")}")
 

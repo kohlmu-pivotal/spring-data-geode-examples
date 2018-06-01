@@ -24,8 +24,7 @@
 		<server.class>org.springframework.data.examples.geode.function.server.FunctionServer</server.class>
 		<server.kt.class>org.springframework.data.examples.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
 		<client.class>org.springframework.data.examples.geode.function.client.FunctionInvocationClient</client.class>
-		<client.kt.class>org.springframework.data.examples.geode.function.kt.client.FunctionInvocationClientKTKt
-		</client.kt.class>
+		<client.kt.class>org.springframework.data.examples.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
 	</properties>
 
 

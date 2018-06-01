@@ -36,6 +36,7 @@ class ServerApplicationConfigKT(protected val applicationContext: ApplicationCon
         ReplicatedRegionFactoryBean<Long, Customer>().apply {
             cache = gemfireCache
             setRegionName("Customers")
+
             dataPolicy = DataPolicy.REPLICATE
             setCacheListeners(arrayOf(loggingCustomerCacheListener()))
         }

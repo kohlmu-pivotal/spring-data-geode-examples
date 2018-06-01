@@ -24,12 +24,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
-import org.springframework.data.gemfire.config.annotation.ClientCacheConfiguration;
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
+import org.springframework.data.gemfire.support.ConnectionEndpoint;
 
 /**
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
@@ -37,6 +36,7 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
  * @author Udo Kohlmeyer
  */
 @Configuration
+@ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class ClientApplicationConfig {
 
 	@Bean("Customers")
@@ -60,22 +60,12 @@ public class ClientApplicationConfig {
 		return clientRegionFactoryBean;
 	}
 
-	@ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
-	static class BasicClientCacheConfiguration extends ClientCacheConfiguration {
+	@Bean
+	ClientCacheConfigurer clientCacheServerConfigurer(
+		@Value("${spring.data.geode.locator.host:localhost}") String hostname,
+		@Value("${spring.data.geode.locator.port:10334}") int port) {
 
-		// Required to resolve property placeholders in Spring @Value annotations.
-		@Bean
-		static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
-			return new PropertySourcesPlaceholderConfigurer();
-		}
-
-		@Bean
-		ClientCacheConfigurer clientCacheServerConfigurer(
-			@Value("${spring.data.geode.locator.host:localhost}") String hostname,
-			@Value("${spring.data.geode.locator.port:10334}") int port) {
-
-			return (beanName, clientCacheFactoryBean) -> clientCacheFactoryBean.setLocators(Collections.singletonList(
-				newConnectionEndpoint(hostname, port)));
-		}
+		return (beanName, clientCacheFactoryBean) -> clientCacheFactoryBean.setLocators(Collections.singletonList(
+			new ConnectionEndpoint(hostname, port)));
 	}
 }

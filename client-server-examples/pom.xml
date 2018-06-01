@@ -18,6 +18,7 @@
 		<module>oql-queries</module>
 		<module>function-invocation</module>
 		<module>common-client-utilities</module>
+		<module>continuous-queries</module>
 	</modules>
 
 	<properties>

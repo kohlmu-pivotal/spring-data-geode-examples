@@ -16,7 +16,7 @@ Pivotal GemFire / Geode has the ability to configure a client to either be _**lo
 Examples:
 * **basic-operations** - In this example the client will perform basic CRUD operations
 * **oql-queries** - In this example the client will perform OQL queries. This example utilizes both GemFireTemplate and GemFireRepositories to query and implements indexes to increase query performance.
-* **function-invocation** - //TODO
+* **function-invocation** - In this example the server will have 3 functions registered. The client will invoke each of the functions. In this example there is not difference in the output when it comes to what type of client is used.
 * **continuous-queries** - //TODO
 * **subscriptions** - //TODO
 * **security** - //TODO
