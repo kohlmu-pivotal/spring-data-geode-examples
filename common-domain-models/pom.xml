@@ -58,6 +58,4 @@
 			<artifactId>kotlin-reflect</artifactId>
 		</dependency>
 	</dependencies>
-
-
 </project>

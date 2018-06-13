@@ -1,9 +1,9 @@
-package org.springframework.data.examples.geode.cq.kt.client
+package org.springframework.data.examples.geode.cq.kt.client.producer
 
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.data.examples.geode.cq.kt.client.config.producer.CQProducerClientApplicationConfigKT
+import org.springframework.data.examples.geode.cq.kt.client.producer.config.CQProducerClientApplicationConfigKT
 import org.springframework.data.examples.geode.cq.kt.client.services.CustomerServiceKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.data.examples.geode.model.EmailAddress
