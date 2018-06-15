@@ -14,11 +14,11 @@ import org.springframework.data.gemfire.support.ConnectionEndpoint
 
 @Configuration
 @ClientCacheApplication(name = "DemoClientCache", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
-class ClientApplicationConfigKT {
+open class ClientApplicationConfigKT {
 
     @Bean("Customers")
     @Profile("proxy", "default")
-    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
+    protected open fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
         .apply {
             cache = gemFireCache
             setName("Customers")
@@ -27,7 +27,7 @@ class ClientApplicationConfigKT {
 
     @Bean("Customers")
     @Profile("localCache")
-    protected fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
+    protected open fun configureLocalCachingClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
         .apply {
             cache = gemFireCache
             setName("Customers")
@@ -35,7 +35,7 @@ class ClientApplicationConfigKT {
         }
 
     @Bean
-    internal fun clientCacheServerConfigurer(
+    internal open fun clientCacheServerConfigurer(
         @Value("\${spring.data.geode.locator.host:localhost}") hostname: String,
         @Value("\${spring.data.geode.locator.port:10334}") port: Int) =
         ClientCacheConfigurer { _, clientCacheFactoryBean ->

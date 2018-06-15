@@ -1,6 +1,6 @@
-package org.springframework.data.examples.geode.cq.kt.client.services
+package org.springframework.data.examples.geode.cq.kt.client.producer.services
 
-import org.springframework.data.examples.geode.cq.kt.client.repo.CustomerRepositoryKT
+import org.springframework.data.examples.geode.cq.kt.client.producer.repo.CustomerRepositoryKT
 import org.springframework.data.examples.geode.model.Customer
 import org.springframework.stereotype.Service
 
