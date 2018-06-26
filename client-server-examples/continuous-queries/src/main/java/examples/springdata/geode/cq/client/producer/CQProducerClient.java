@@ -22,8 +22,13 @@ public class CQProducerClient {
 
         System.out.println("Inserting 3 entries for keys: 1, 2, 3");
         CustomerService customerService = cqProducerClient.customerService;
-        customerService.save(new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
-        customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
-        customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
+        insertData(customerService, new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
+        insertData(customerService, new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
+        insertData(customerService, new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
+    }
+
+    private static void insertData(CustomerService customerService, Customer customer) {
+        customerService.save(customer);
+        System.out.println("Inserted customer = " + customer);
     }
 }

@@ -1,86 +1,75 @@
-# Basic Client Example
+# Continuous Query Client Example
 
-In this example a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client will run OQL queries against a `PROXY` and `LOCAL` cache.
+In this example there are will be two [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) 
+client caches. The first client cache, the consumer, will register a [continuous query](https://geode.apache.org/docs/guide/16/developing/continuous_querying/chapter_overview.html) 
+on a region. The second client cache, the producer, will save 3 entries in the region. The consumer will then print out the CQEvents
+that are received from the server cache, that match the provided `SELECT * FROM /Customers` CQQuery.
 
-TTo the run the examples you require two terminal windows.
+To the run the examples you require three terminal windows.
  1. deploy and run the stand-alone server as described in the the [Server Configuration](../README.md#server-configuration-and-deployment) of [Client-Server-Examples](../README.md)   
- 1. deploy and run the client application as described in the the [Client Configuration](../README.md#client-configuration-and-deployment) of [Client-Server-Examples](../README.md) 
+ 1. deploy and run the cq consumer client application as described [here](#client-configuration-and-deployment) 
+ 1. deploy and run the cq producer client application as described [here](#client-configuration-and-deployment) 
 
 
-> To run this example make sure you are in the **`$projectRoot/client-server-examples/oql-queries`** directory.
+> To run this example make sure you are in the **`$projectRoot/client-server-examples/continuous-queries`** directory.
 
 ## Client Configuration and Deployment
-The client is configured to connect to the deployed/started server on `localhost` port `40404`.
+The client is configured to connect to the deployed/started locator on `localhost` port `10334`.
 
 To start the client you can decided to run one of the following client parameters:
-1. `-DproxyClient` - for a JAVA based `look-aside cache` implementation
-1. `-DlocalCacheClient` - for a JAVA based `near cache` implementation
-1. `-DproxyClientKT` - for a Kotlin based `look-aside cache` implementation
-1. `-DlocalCacheClientKT` - for a Kotlin based `near cache` implementation
+1. `-DproductClient` - for a JAVA based producer implementation
+1. `-DconsumerClient` - for a JAVA based CQ consumer implementation
+1. `-DproducerClientKT` - for a Kotlin based producer implementation
+1. `-DconsumerClientKT` - for a Kotlin based CQ consumer implementation
 
 ```
-mvn exec:exec -DproxyClient
+mvn exec:exec -DproductClient
 ```
 ```
-mvn exec:exec -DlocalCacheClient
+mvn exec:exec -DconsumerClient
 ```
 ```
-mvn exec:exec -DproxyClientKT
+mvn exec:exec -DproductClientKT
 ```
 ```
-mvn exec:exec -DlocalCacheClientKT
+mvn exec:exec -DconsumerClientKT
 ```
 ## Running the example
 
-Referencing the [OQLClient](src/main/java/org/springframework/data/examples/geode/cq/client/CQClient.java) or [OQLClientKT](src/main/kotlin/examples/springdata/geode/cq/kt/client/consumer/CQConsumerClientKT.kt)
+Referencing the [CQConsumerClient](src/main/java/examples/springdata/geode/cq/client/consumer/CQConsumerClient.java) or 
+[CQConsumerClientKT](src/main/kotlin/examples/springdata/geode/cq/kt/client/consumer/CQConsumerClientKT.kt) and
+[CQProducerClient](src/main/java/examples/springdata/geode/cq/client/producer/CQProducerClient) or 
+[CQProducerClientKT](src/main/kotlin/examples/springdata/geode/cq/kt/client/producer/CQProducerClientKT.kt)
 
 The example is broken up into multiple steps:
-1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.
-1. Querying the `Customers` region using `CustomerRepository.findById` to find the customer for id=2
-1. Querying the `Customers` region using `GemFireTemplate.find` using the OQL query string `select * from /Customers where id=$1` with parameter `2` as an input
-1. Updating the customer for id=1 to reflect a name change from `John Smith` to `Jude Smith`
-1. Query to find all customers with emailAddress = `3@3.com` using the `CustomerRepository`
-1. Query to find all customers with firstName = "Frank" using the `CustomerRepository`
-1. Query to find all customers with firstName = "Jude" using the `CustomerRepository`
-1. Query to find all customers with firstName = "Jude" using the local client's query service 
+1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method from the CQProducerClient.
+1. The CQConsumerClient has a continuous query `SELECT * FROM /Customers` which should match all entries saved by the CQProducerClient.
+The configured handler method `handleEvent` will print the received `CQEvents` to `System.out`. 
 
-After running the client you should see one of the following outputs, depending in client cache type that was run.
+After running the examples you should see the following outputs.
 
-1. `PROXY` client cache output 
+1. `CQProducerClient` output:
     ```
     Inserting 3 entries for keys: 1, 2, 3
-    Find customer with key=2 using GemFireRepository: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    Find customer with key=2 using GemFireTemplate: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with emailAddress=3@3.com: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with firstName=Frank: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with firstName=Jude: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
-    Find customers with firstName=Jude on local client region: []
+    Inserted customer = Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)
+    Inserted customer = Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
+    Inserted customer = Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)
     ```
-1. `LOCAL` client cache output
+1. `CQConsumerClient` output:
     ```
-    Inserting 3 entries for keys: 1, 2, 3
-    Find customer with key=2 using GemFireRepository: Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)
-    Find customer with key=2 using GemFireTemplate: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with emailAddress=3@3.com: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with firstName=Frank: [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-    Find customers with firstName=Jude: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
-    Find customers with firstName=Jude on local client region: [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith), Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
-   ```
+    Received message for CQ 'CustomerJudeCQ'CqEvent [CqName=CustomerJudeCQ; base operation=CREATE; cq operation=CREATE; key=3; value=Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+    Received message for CQ 'CustomerJudeCQ'CqEvent [CqName=CustomerJudeCQ; base operation=CREATE; cq operation=CREATE; key=2; value=Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    Received message for CQ 'CustomerJudeCQ'CqEvent [CqName=CustomerJudeCQ; base operation=CREATE; cq operation=CREATE; key=1; value=Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
+    ```
    
 With a server output of:
    ```
-   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-   INFO: In region [Customers] created key [1] value [Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
-   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-   INFO: In region [Customers] created key [2] value [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
-   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterCreate
-   INFO: In region [Customers] created key [3] value [Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
-   ... org.springframework.data.examples.geode.util.LoggingCacheListener afterUpdate
-   INFO: In region [Customers] updated key [1] [oldValue [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith)]] new value [Customer(id=1, emailAddress=EmailAddress(value=3@3.com), firstName=Jude, lastName=Smith)]
-   
-   [info 2018/05/23 14:52:44.157 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 11.408982 ms; rowCount = 2; indexesUsed(1):emailAddressIndex(Results: 2) "<TRACE> <HINT 'emailAddressIndex'> select * from /Customers customer where customer.emailAddress.value = $1 LIMIT 100"
-    
-   [info 2018/05/23 14:52:44.166 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 0.742146 ms; rowCount = 1; indexesUsed(1):firstNameIndex(Results: 1) "<TRACE> select * from /Customers customer where customer.firstName = $1 LIMIT 100"
-    
-   [info 2018/05/23 14:52:44.171 PDT <ServerConnection on port 46015 Thread 0> tid=81] Query Executed in 0.605566 ms; rowCount = 2; indexesUsed(1):firstNameIndex(Results: 2) "<TRACE> select * from /Customers customer where customer.firstName = $1 LIMIT 100"
+   ....
+   ....
+   Press <ENTER> to exit
+   [info 2018/06/26 16:18:26.203 PDT <...> tid=0x54] Initializing region _gfe_durable_client_with_id_22_1_queue
+   [info 2018/06/26 16:18:26.204 PDT <...> tid=0x54] Initialization of region _gfe_durable_client_with_id_22_1_queue completed
+   [info 2018/06/26 16:18:39.955 PDT <...> tid=0x5a] In region [Customers] created key [1] value [Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
+   [info 2018/06/26 16:18:39.975 PDT <...> tid=0x5a] In region [Customers] created key [2] value [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+   [info 2018/06/26 16:18:39.980 PDT <...> tid=0x5a] In region [Customers] created key [3] value [Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
    ```

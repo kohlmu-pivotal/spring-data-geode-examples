@@ -1,5 +1,7 @@
-package org.springframework.data.examples.geode.replicate.consumer
+package examples.springdata.geode.replicate.kt.consumer
 
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.util.LoggingCacheListener
 import org.apache.geode.cache.CacheListener
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
@@ -7,15 +9,13 @@ import org.apache.geode.cache.Region
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.data.examples.geode.model.Customer
-import org.springframework.data.examples.geode.util.LoggingCacheListener
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions
 import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import javax.annotation.Resource
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = [ConsumerKT::class])
 @PeerCacheApplication(name = "ConsumerPeer")
 @EnableLocator
 @EnableEntityDefinedRegions(basePackageClasses = [Customer::class])

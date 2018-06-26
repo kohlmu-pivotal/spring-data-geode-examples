@@ -7,17 +7,52 @@
 
 	<artifactId>embedded-examples</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<groupId>examples.springdata.geode</groupId>
 	<packaging>pom</packaging>
 
 	<parent>
+		<groupId>examples.springdata.geode</groupId>
 		<artifactId>spring-data-geode-examples</artifactId>
-		<groupId>org.springframework.data.examples.geode</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<modules>
 		<module>replicated-data-regions</module>
 	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>examples.springdata.geode.domain</groupId>
+			<artifactId>common-domain-models</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-geode</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib-jdk8</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-reflect</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
 
 </project>
