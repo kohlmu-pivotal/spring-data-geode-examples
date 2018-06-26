@@ -4,19 +4,19 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>client-server-examples</artifactId>
-		<groupId>org.springframework.data.examples.geode.client</groupId>
+        <groupId>examples.springdata.geode.client</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.springframework.data.examples.geode.client</groupId>
+    <groupId>examples.springdata.geode.client</groupId>
 	<artifactId>common-client-utilities</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.data.examples.geode</groupId>
+            <groupId>examples.springdata.geode.domain</groupId>
 			<artifactId>common-domain-models</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
@@ -33,14 +33,6 @@
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-reflect</artifactId>
 		</dependency>
 	</dependencies>
 </project>

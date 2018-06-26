@@ -4,12 +4,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>spring-data-geode-examples</artifactId>
-		<groupId>org.springframework.data.examples.geode</groupId>
+        <groupId>examples.springdata.geode</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.springframework.data.examples.geode.client</groupId>
+    <groupId>examples.springdata.geode.client</groupId>
 	<artifactId>client-server-examples</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -23,15 +23,15 @@
 	</modules>
 
 	<properties>
-		<server.class>org.springframework.data.examples.geode.common.server.Server</server.class>
-		<server.kt.class>org.springframework.data.examples.geode.common.kt.server.ServerKTKt</server.kt.class>
+        <server.class>examples.springdata.geode.common.server.Server</server.class>
+        <server.kt.class>examples.springdata.geode.client.common.kt.server.ServerKTKt</server.kt.class>
 		<client.class>client.class</client.class>
 		<client.kt.class>client.kt.class</client.kt.class>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.data.examples.geode</groupId>
+            <groupId>examples.springdata.geode.domain</groupId>
 			<artifactId>common-domain-models</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
@@ -50,7 +50,17 @@
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-reflect</artifactId>
-		</dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>
 
 	<profiles>

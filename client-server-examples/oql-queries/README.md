@@ -32,7 +32,7 @@ mvn exec:exec -DlocalCacheClientKT
 ```
 ## Running the example
 
-Referencing the [OQLClient](src/main/java/org/springframework/data/examples/geode/oql/client/OQLClient.java) or [OQLClientKT](src/main/kotlin/org/springframework/data/examples/geode/oql/kt/client/OQLClientKT.kt)
+Referencing the [OQLClient](src/main/java/org/springframework/data/examples/geode/oql/client/OQLClient.java) or [OQLClientKT](src/main/kotlin/examples/springdata/geode/oql/kt/client/OQLClientKT.kt)
 
 The example is broken up into multiple steps:
 1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.

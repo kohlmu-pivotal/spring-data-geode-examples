@@ -32,7 +32,7 @@ mvn exec:exec -DlocalCacheClientKT
 ```
 ## Running the example
 
-Referencing the [FunctionInvocationClient](src/main/java/org/springframework/data/examples/geode/function/client/FunctionInvocationClient.java) or [FunctionInvocationClientKT](src/main/kotlin/org/springframework/data/examples/geode/function/kt/client/FunctionInvocationClientKT.kt)
+Referencing the [FunctionInvocationClient](src/main/java/examples/springdata/geode/function/client/FunctionInvocationClient.java) or [FunctionInvocationClientKT](src/main/kotlin/examples/springdata/geode/function/kt/client/FunctionInvocationClientKT.kt)
 
 The example is broken up into multiple steps:
 1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.

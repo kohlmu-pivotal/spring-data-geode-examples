@@ -4,7 +4,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>client-server-examples</artifactId>
-        <groupId>org.springframework.data.examples.geode.client</groupId>
+        <groupId>examples.springdata.geode.client</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -14,15 +14,15 @@
 
 	<dependencies>
 		<dependency>
-            <groupId>org.springframework.data.examples.geode.client</groupId>
+            <groupId>examples.springdata.geode.client</groupId>
 			<artifactId>common-client-utilities</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
 	<properties>
-		<client.class>org.springframework.data.examples.geode.oql.client.OQLClient</client.class>
-		<client.kt.class>org.springframework.data.examples.geode.oql.kt.client.OQLClientKTKt</client.kt.class>
+        <client.class>examples.springdata.geode.oql.client.OQLClient</client.class>
+        <client.kt.class>examples.springdata.geode.oql.kt.client.OQLClientKTKt</client.kt.class>
 	</properties>
 
 

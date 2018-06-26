@@ -4,7 +4,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>client-server-examples</artifactId>
-        <groupId>org.springframework.data.examples.geode.client</groupId>
+        <groupId>examples.springdata.geode.client</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -14,17 +14,17 @@
 
 	<dependencies>
 		<dependency>
-            <groupId>org.springframework.data.examples.geode.client</groupId>
+            <groupId>examples.springdata.geode.client</groupId>
 			<artifactId>common-client-utilities</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
 	<properties>
-		<server.class>org.springframework.data.examples.geode.function.server.FunctionServer</server.class>
-		<server.kt.class>org.springframework.data.examples.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
-		<client.class>org.springframework.data.examples.geode.function.client.FunctionInvocationClient</client.class>
-		<client.kt.class>org.springframework.data.examples.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
+        <server.class>examples.springdata.geode.function.server.FunctionServer</server.class>
+        <server.kt.class>examples.springdata.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
+        <client.class>examples.springdata.geode.function.client.FunctionInvocationClient</client.class>
+        <client.kt.class>examples.springdata.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
 	</properties>
 
 
