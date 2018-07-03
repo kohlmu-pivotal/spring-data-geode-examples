@@ -30,7 +30,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
-								<argument>examples.springdata.geode.replicate.kt.consumer.Consumer</argument>
+								<argument>examples.springdata.geode.client.replicate.kt.consumer.Consumer</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -54,7 +54,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath/>
-								<argument>examples.springdata.geode.replicate.kt.producer.Producer</argument>
+								<argument>examples.springdata.geode.client.replicate.kt.producer.Producer</argument>
 							</arguments>
 						</configuration>
 					</plugin>

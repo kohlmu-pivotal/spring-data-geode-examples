@@ -21,8 +21,9 @@ GemFireRepositories to query and implements indexes to increase query performanc
 In this example there is not difference in the output when it comes to what type of client is used.
 * **continuous-queries** - In this example there are 2 clients and 1 server. 1 client (CQConsumer) will register itself with a continuous query. 
 The other client (CQProducer) will save 3 entries, which the CQConsumer will log 
-* **subscriptions** - //TODO
 * **security** - //TODO
+* **subscriptions** - //TODO
+
  
 # Data / Cache Node examples
 These examples are focused on the configuration of the server and server components.

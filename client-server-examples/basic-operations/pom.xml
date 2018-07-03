@@ -21,7 +21,7 @@
 	</dependencies>
 
 	<properties>
-        <client.class>examples.springdata.geode.basic.client.BasicClient</client.class>
+        <client.class>examples.springdata.geode.client.client.basic.BasicClient</client.class>
         <client.kt.class>examples.springdata.geode.basic.kt.client.BasicClientKTKt</client.kt.class>
 	</properties>
 </project>

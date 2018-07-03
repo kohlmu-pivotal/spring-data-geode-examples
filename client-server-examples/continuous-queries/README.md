@@ -36,10 +36,10 @@ mvn exec:exec -DconsumerClientKT
 ```
 ## Running the example
 
-Referencing the [CQConsumerClient](src/main/java/examples/springdata/geode/cq/client/consumer/CQConsumerClient.java) or 
-[CQConsumerClientKT](src/main/kotlin/examples/springdata/geode/cq/kt/client/consumer/CQConsumerClientKT.kt) and
-[CQProducerClient](src/main/java/examples/springdata/geode/cq/client/producer/CQProducerClient) or 
-[CQProducerClientKT](src/main/kotlin/examples/springdata/geode/cq/kt/client/producer/CQProducerClientKT.kt)
+Referencing the [CQConsumerClient](src/main/java/examples/springdata/geode/client/cq/consumer/CQConsumerClient.java) or 
+[CQConsumerClientKT](src/main/kotlin/examples/springdata/geode/client/cq/kt/consumer/CQConsumerClientKT.kt) and
+[CQProducerClient](src/main/java/examples/springdata/geode/client/cq/producer/CQProducerClient) or 
+[CQProducerClientKT](src/main/kotlin/examples/springdata/geode/client/cq/kt/producer/CQProducerClientKT.kt)
 
 The example is broken up into multiple steps:
 1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method from the CQProducerClient.

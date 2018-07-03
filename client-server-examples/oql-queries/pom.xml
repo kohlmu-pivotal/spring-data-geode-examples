@@ -21,7 +21,7 @@
 	</dependencies>
 
 	<properties>
-        <client.class>examples.springdata.geode.oql.client.OQLClient</client.class>
+        <client.class>examples.springdata.geode.client.client.oql.OQLClient</client.class>
         <client.kt.class>examples.springdata.geode.oql.kt.client.OQLClientKTKt</client.kt.class>
 	</properties>
 

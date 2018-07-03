@@ -8,7 +8,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-
+	<groupId>examples.springdata.geode.client</groupId>
 	<artifactId>function-invocation</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
@@ -21,9 +21,9 @@
 	</dependencies>
 
 	<properties>
-        <server.class>examples.springdata.geode.function.server.FunctionServer</server.class>
+        <server.class>examples.springdata.geode.client.client.function.server.FunctionServer</server.class>
         <server.kt.class>examples.springdata.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
-        <client.class>examples.springdata.geode.function.client.FunctionInvocationClient</client.class>
+        <client.class>examples.springdata.geode.client.client.function.client.FunctionInvocationClient</client.class>
         <client.kt.class>examples.springdata.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
 	</properties>
 

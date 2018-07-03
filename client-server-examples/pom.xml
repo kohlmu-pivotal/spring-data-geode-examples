@@ -20,10 +20,11 @@
 		<module>function-invocation</module>
 		<module>common-client-utilities</module>
 		<module>continuous-queries</module>
+		<module>security</module>
 	</modules>
 
 	<properties>
-        <server.class>examples.springdata.geode.common.server.Server</server.class>
+        <server.class>Server</server.class>
         <server.kt.class>examples.springdata.geode.client.common.kt.server.ServerKTKt</server.kt.class>
 		<client.class>client.class</client.class>
 		<client.kt.class>client.kt.class</client.kt.class>
