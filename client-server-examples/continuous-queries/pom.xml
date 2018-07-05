@@ -21,9 +21,9 @@
     </dependencies>
 
     <properties>
-        <client.consumer.class>examples.springdata.geode.client.client.cq.consumer.CQConsumerClient
+        <client.consumer.class>examples.springdata.geode.client.cq.consumer.CQConsumerClient
         </client.consumer.class>
-        <client.producer.class>examples.springdata.geode.client.client.cq.producer.CQProducerClient
+        <client.producer.class>examples.springdata.geode.client.cq.producer.CQProducerClient
         </client.producer.class>
         <client.consumer.kt.class>examples.springdata.geode.cq.kt.client.consumer.CQConsumerClientKTKt
         </client.consumer.kt.class>

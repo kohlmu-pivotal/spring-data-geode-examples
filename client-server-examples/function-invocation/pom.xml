@@ -21,9 +21,9 @@
 	</dependencies>
 
 	<properties>
-        <server.class>examples.springdata.geode.client.client.function.server.FunctionServer</server.class>
+        <server.class>examples.springdata.geode.client.function.server.FunctionServer</server.class>
         <server.kt.class>examples.springdata.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
-        <client.class>examples.springdata.geode.client.client.function.client.FunctionInvocationClient</client.class>
+        <client.class>examples.springdata.geode.client.function.client.FunctionInvocationClient</client.class>
         <client.kt.class>examples.springdata.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
 	</properties>
 
