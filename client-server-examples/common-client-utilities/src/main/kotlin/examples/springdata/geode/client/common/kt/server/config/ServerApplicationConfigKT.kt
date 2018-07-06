@@ -6,7 +6,6 @@ import org.apache.geode.cache.CacheListener
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
-import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn
@@ -24,13 +23,10 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
 @Configuration
 @EnableLocator
 @CacheServerApplication(port = 0, logLevel = "info")
-open class ServerApplicationConfigKT(protected val applicationContext: ApplicationContext) {
+class ServerApplicationConfigKT {
 
     @Bean("loggingCacheListener")
-    internal open fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
-
-    private fun loggingCustomerCacheListener(): CacheListener<Long, Customer> =
-        applicationContext.getBean("loggingCacheListener") as CacheListener<Long, Customer>
+    internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
 
     @Bean("Customers")
     protected open fun customerRegion(gemfireCache: GemFireCache) =
@@ -39,12 +35,12 @@ open class ServerApplicationConfigKT(protected val applicationContext: Applicati
             setRegionName("Customers")
             scope = Scope.DISTRIBUTED_ACK
             dataPolicy = DataPolicy.REPLICATE
-            setCacheListeners(arrayOf(loggingCustomerCacheListener()))
+            setCacheListeners(arrayOf(loggingCacheListener() as CacheListener<Long, Customer>))
         }
 
     @Bean("FirstNameIndex")
     @DependsOn("Customers")
-    protected open fun createFirstNameIndex(gemFireCache: GemFireCache) =
+    protected fun createFirstNameIndex(gemFireCache: GemFireCache) =
         IndexFactoryBean().apply {
             setCache(gemFireCache)
             setDefine(false)
@@ -55,7 +51,7 @@ open class ServerApplicationConfigKT(protected val applicationContext: Applicati
 
     @Bean("EmailAddressIndex")
     @DependsOn("Customers")
-    protected open fun createEmailAddressIndex(gemFireCache: GemFireCache) =
+    protected fun createEmailAddressIndex(gemFireCache: GemFireCache) =
         IndexFactoryBean().apply {
             setCache(gemFireCache)
             setDefine(false)
