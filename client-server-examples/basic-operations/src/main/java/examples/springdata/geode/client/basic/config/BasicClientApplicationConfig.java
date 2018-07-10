@@ -18,10 +18,10 @@ package examples.springdata.geode.client.basic.config;
 
 import examples.springdata.geode.client.basic.repo.CustomerRepository;
 import examples.springdata.geode.client.basic.services.CustomerService;
+import examples.springdata.geode.client.common.client.config.ClientApplicationConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.examples.geode.common.client.ClientApplicationConfig;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 /**

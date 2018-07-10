@@ -1,8 +1,8 @@
 package examples.springdata.geode.client.basic.services;
 
 import examples.springdata.geode.client.basic.repo.CustomerRepository;
+import examples.springdata.geode.domain.Customer;
 import org.apache.geode.cache.Region;
-import org.springframework.data.examples.geode.model.Customer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
