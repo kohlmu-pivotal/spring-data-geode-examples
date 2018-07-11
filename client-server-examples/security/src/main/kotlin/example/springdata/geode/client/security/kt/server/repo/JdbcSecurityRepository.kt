@@ -103,7 +103,7 @@ class JdbcSecurityRepository(protected val jdbcTemplate: JdbcTemplate) : Caching
     }
 
     /* (non-Javadoc) */
-    protected fun newResourcePermission(resource: String, operation: String, region: String, key: String): ResourcePermission {
+    protected fun newResourcePermission(resource: String?, operation: String?, region: String?, key: String?): ResourcePermission {
         return ResourcePermission(resource, operation, region, key)
     }
 }

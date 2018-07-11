@@ -23,31 +23,22 @@ import org.jdom2.input.SAXBuilder
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.Resource
-import org.springframework.util.Assert
 
 /**
  * The [XmlSecurityRepository] class is a [example.app.geode.security.repository.SecurityRepository]
  * implementation that accesses security configuration meta-data stored in an XML document, accessed via JDOM.
  *
  * @author John Blum
+ * @author Udo Kohlmeyer
  * @see ResourcePermission
- *
  * @see org.jdom2.Document
- *
  * @see org.jdom2.input.SAXBuilder
- *
  * @see org.springframework.beans.factory.InitializingBean
- *
  * @see org.springframework.core.io.ClassPathResource
- *
  * @see org.springframework.core.io.Resource
- *
- * @see example.app.geode.security.model.Role
- *
- * @see example.app.geode.security.model.User
- *
- * @see example.app.geode.security.repository.CachingSecurityRepository
- *
+ * @see example.springdata.geode.client.security.kt.domain.Role
+ * @see example.springdata.geode.client.security.kt.domain.User
+ * @see example.springdata.geode.client.security.kt.server.repo.CachingSecurityRepository
  * @since 1.0.0
  */
 
@@ -65,25 +56,8 @@ import org.springframework.util.Assert
  */
 class XmlSecurityRepository
 @JvmOverloads constructor(
-        /**
-         * Return a reference to the [Resource] containing roles and permissions security configuration meta-data.
-         *
-         * @return a reference to the roles/permissions security configuration meta-data [Resource].
-         * @see org.springframework.core.io.Resource
-         */
         private val rolesPermissions: Resource = ClassPathResource(ROLES_PERMISSIONS_XML),
-        /**
-         * Return a reference to the [Resource] containing usesrs and roles security configuration meta-data.
-         *
-         * @return a reference to the users/roles security configuration meta-data [Resource].
-         * @see org.springframework.core.io.Resource
-         */
         private val usersRoles: Resource = ClassPathResource(USERS_ROLES_XML)) : CachingSecurityRepository(), InitializingBean {
-
-    init {
-        Assert.notNull(rolesPermissions, "The rolesPermissions Resource cannot be null")
-        Assert.notNull(usersRoles, "The usersRoles Resource cannot be null")
-    }
 
     companion object {
         private const val ROLES_PERMISSIONS_XML = "roles-permissions.xml"
@@ -98,9 +72,8 @@ class XmlSecurityRepository
         saveAll(parseUsersRoles(usersRoles, parseRolesPermissions(rolesPermissions)))
     }
 
-    /* (non-Javadoc) */
     @Throws(Exception::class)
-    protected fun parseRolesPermissions(rolesPermissions: Resource): Map<String, Role> {
+    private fun parseRolesPermissions(rolesPermissions: Resource): Map<String, Role> {
         val document = SAXBuilder().build(rolesPermissions.inputStream)
         val rolesElement = document.rootElement
 
@@ -123,9 +96,8 @@ class XmlSecurityRepository
         return roleNameMapping
     }
 
-    /* (non-Javadoc) */
     @Throws(Exception::class)
-    protected fun parseUsersRoles(usersRoles: Resource, roles: Map<String, Role>): List<User> {
+    private fun parseUsersRoles(usersRoles: Resource, roles: Map<String, Role>): List<User> {
         val document = SAXBuilder().build(usersRoles.inputStream)
 
         return document?.rootElement?.children?.mapNotNull {

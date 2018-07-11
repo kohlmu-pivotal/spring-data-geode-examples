@@ -32,7 +32,7 @@ class ApacheShiroIniConfiguration {
 
 @Configuration
 @EnableSecurity
-@Profile({"default", "shiro-properties-configuration"})
+@Profile({"shiro-properties-configuration"})
 class ApacheShiroRealmConfiguration {
     @Bean
     public PropertiesRealm shiroRealm() {
@@ -47,8 +47,8 @@ class ApacheShiroRealmConfiguration {
 }
 
 @Configuration
-@EnableSecurity(securityManagerClassName = "example.app.geode.security.SecurityManagerProxy")
-@Profile("geode-security-manager-proxy-configuration")
+@EnableSecurity(securityManagerClassName = "example.springdata.geode.client.security.server.managers.SecurityManagerProxy")
+@Profile({"default", "geode-security-manager-proxy-configuration"})
 class GeodeIntegratedSecurityProxyConfiguration {
 
     @Bean
@@ -57,15 +57,15 @@ class GeodeIntegratedSecurityProxyConfiguration {
                 .setName("geode_security")
                 .setScriptEncoding("UTF-8")
                 .setType(EmbeddedDatabaseType.HSQL)
-                .addScript("geode-security-schema-ddl.sql")
-                .addScript("define-roles-table-ddl.sql")
-                .addScript("define-roles-permissions-table-ddl.sql")
-                .addScript("define-users-table-ddl.sql")
-                .addScript("define-users-roles-table-ddl.sql")
-                .addScript("insert-roles-dml.sql")
-                .addScript("insert-roles-permissions-dml.sql")
-                .addScript("insert-users-dml.sql")
-                .addScript("insert-users-roles-dml.sql")
+                .addScript("sql/geode-security-schema-ddl.sql")
+                .addScript("sql/define-roles-table-ddl.sql")
+                .addScript("sql/define-roles-permissions-table-ddl.sql")
+                .addScript("sql/define-users-table-ddl.sql")
+                .addScript("sql/define-users-roles-table-ddl.sql")
+                .addScript("sql/insert-roles-dml.sql")
+                .addScript("sql/insert-roles-permissions-dml.sql")
+                .addScript("sql/insert-users-dml.sql")
+                .addScript("sql/insert-users-roles-dml.sql")
                 .build();
     }
 
