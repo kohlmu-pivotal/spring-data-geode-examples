@@ -9,10 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>examples.springdata.geode.domain</groupId>
     <artifactId>common-domain-models</artifactId>
     <name>Common-Domain-Model</name>
     <version>1.0-SNAPSHOT</version>
-    <groupId>examples.springdata.geode</groupId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

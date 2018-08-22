@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>client-server-examples</artifactId>
+        <groupId>examples.springdata.geode.client</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>entity-defined-regions</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>examples.springdata.geode.client</groupId>
+            <artifactId>common-client-utilities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <client.class>examples.springdata.geode.client.entity.EntityClient</client.class>
+        <client.kt.class>examples.springdata.geode.kt.client.entity.EntityClientKTKt
+        </client.kt.class>
+    </properties>
+
+</project>

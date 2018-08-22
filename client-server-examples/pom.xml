@@ -21,6 +21,7 @@
 		<module>common-client-utilities</module>
 		<module>continuous-queries</module>
 		<module>security</module>
+		<module>entity-defined-regions</module>
 	</modules>
 
 	<properties>

@@ -8,12 +8,14 @@
     <artifactId>spring-data-geode-examples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <url>https://github.com/spring-projects/spring-geode-examples</url>
+    <packaging>pom</packaging>
+
     <modules>
         <module>common-domain-models</module>
         <module>client-server-examples</module>
         <module>embedded-server-examples</module>
     </modules>
-    <packaging>pom</packaging>
+
 
     <organization>
         <name>SpringSource</name>
@@ -44,11 +46,11 @@
         <slf4j.log4j.version>1.7.25</slf4j.log4j.version>
         <spring.shell.version>1.2.0.RELEASE</spring.shell.version>
         <commons.cli.version>1.4</commons.cli.version>
-        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
 
         <!--Kotlin properties-->
-        <kotlin.version>1.2.51</kotlin.version>
-        <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
+        <kotlin.version>1.2.61</kotlin.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlin.compiler.languageVersion>1.2</kotlin.compiler.languageVersion>
         <kotlin.compiler.apiVersion>1.2</kotlin.compiler.apiVersion>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
@@ -92,6 +94,11 @@
                         <artifactId>spring-boot-starter-logging</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.annotation</groupId>
@@ -182,7 +189,7 @@
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-allopen</artifactId>
-                        <version>${kotlin.version}</version>
+                        <version>1.2.51</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
@@ -259,6 +266,13 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>localrepository</id>
+            <url>file:///home/ukohlmeyer/.m2/repository</url>
+        </repository>
+    </repositories>
+
     <!--<repositories>-->
     <!--<repository>-->
     <!--<id>spring-libs-snapshot</id>-->
@@ -272,6 +286,5 @@
     <!--<url>https://repo.spring.io/libs-snapshot</url>-->
     <!--</pluginRepository>-->
     <!--</pluginRepositories>-->
-
 
 </project>
