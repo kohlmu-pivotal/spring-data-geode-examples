@@ -16,7 +16,6 @@ package org.apache.geode.management.internal;/*
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,8 +48,8 @@ public class AgentUtil {
    * geode-web-api
    */
   public String findWarLocation(String warFilePrefix) {
-//    List<String> classpathWarLocation = classpathWarLocation(warFilePrefix);
-    List<String> classpathWarLocation = Collections.EMPTY_LIST;
+    List<String> classpathWarLocation = classpathWarLocation(warFilePrefix);
+//    List<String> classpathWarLocation = Collections.EMPTY_LIST;
     String geodeHome = getGeodeHome();
     if (StringUtils.isNotBlank(geodeHome) || classpathWarLocation.size() > 0) {
 
