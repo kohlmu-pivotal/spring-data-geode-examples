@@ -25,9 +25,9 @@ import java.math.BigDecimal
  */
 data class LineItem @JvmOverloads constructor(private val product: Product, private val amount: Int = 1) : Serializable {
 
-    val unitPrice = product.price
+    private val unitPrice = product.price
     val productId = product.id
-    val productName = product.name
+    private val productName = product.name
 
     val total: BigDecimal
         get() = unitPrice.multiply(BigDecimal.valueOf(amount.toLong()))

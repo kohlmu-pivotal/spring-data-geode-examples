@@ -18,7 +18,6 @@ package example.springdata.geode.client.security.kt.shiro.realm.support
 
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken
-import org.cp.elements.lang.ObjectUtils
 import org.springframework.core.convert.converter.Converter
 import java.security.MessageDigest
 
@@ -36,8 +35,7 @@ import java.security.MessageDigest
 class CredentialsMatcher : org.apache.shiro.authc.credential.CredentialsMatcher {
 
     private var converter: Converter<Any, ByteArray>? = null
-        get() =
-            ObjectUtils.defaultIfNull<Converter<Any, ByteArray>>(field, DEFAULT_OBJECT_TO_BYTE_ARRAY_CONVERTER)
+        get() = field ?: DEFAULT_OBJECT_TO_BYTE_ARRAY_CONVERTER
 
 
     /**

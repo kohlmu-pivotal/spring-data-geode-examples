@@ -23,6 +23,7 @@ import org.springframework.util.Assert
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
+import javax.persistence.Entity
 
 /**
  * A product.
@@ -32,11 +33,11 @@ import java.util.*
  * @author Udo Kohlmeyer
  */
 @Region("Products")
-@javax.persistence.Entity
+@Entity
 data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.persistence.Id val id: Long?,
                                                                      val name: String, val price: BigDecimal,
                                                                      val description: String? = null) : Serializable {
-    @javax.persistence.Transient
+    @Transient
     private val attributes = HashMap<String, String>()
 
     init {

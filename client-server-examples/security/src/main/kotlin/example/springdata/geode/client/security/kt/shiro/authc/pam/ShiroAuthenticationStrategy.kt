@@ -4,7 +4,7 @@ import org.apache.shiro.authc.pam.AllSuccessfulStrategy
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy
 import org.apache.shiro.authc.pam.AuthenticationStrategy
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy
-import org.cp.elements.lang.Assert
+import org.springframework.util.Assert
 
 /**
  * The [ShiroAuthenticationStrategy] class is enumerated type that enumerates all the

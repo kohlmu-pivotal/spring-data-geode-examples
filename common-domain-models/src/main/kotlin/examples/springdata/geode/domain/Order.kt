@@ -21,6 +21,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.gemfire.mapping.annotation.Region
 import java.io.Serializable
 import java.math.BigDecimal
+import javax.persistence.Entity
 
 /**
  * @author Oliver Gierke
@@ -28,6 +29,7 @@ import java.math.BigDecimal
  * @author Udo Kohlmeyer
  */
 @Region("Orders")
+@Entity
 data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, private val customerId: Long,
                                            private val billingAddress: Address, private val shippingAddress: Address = billingAddress) : Serializable {
     private val lineItems: MutableList<LineItem> = mutableListOf()
@@ -56,9 +58,9 @@ data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Lon
      *
      * @return
      */
-    fun getLineItems(): List<LineItem> = lineItems.asSequence().toList()
+    fun getLineItems(): List<LineItem> = lineItems.toList()
 
     companion object {
-        private val serialVersionUID = -3779061453639083037L
+        private const val serialVersionUID = -3779061453639083037L
     }
 }

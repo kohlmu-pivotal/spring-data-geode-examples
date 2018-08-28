@@ -1,18 +1,23 @@
 package examples.springdata.geode.client.function.client;
 
-import examples.springdata.geode.client.function.client.config.FunctionInvocationClientApplicationConfig;
-import examples.springdata.geode.client.function.client.services.CustomerService;
-import examples.springdata.geode.client.function.client.services.OrderService;
-import examples.springdata.geode.client.function.client.services.ProductService;
-import examples.springdata.geode.domain.*;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-
 import java.math.BigDecimal;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+
+import examples.springdata.geode.client.function.client.config.FunctionInvocationClientApplicationConfig;
+import examples.springdata.geode.client.function.client.services.CustomerService;
+import examples.springdata.geode.client.function.client.services.OrderService;
+import examples.springdata.geode.client.function.client.services.ProductService;
+import examples.springdata.geode.domain.Address;
+import examples.springdata.geode.domain.Customer;
+import examples.springdata.geode.domain.EmailAddress;
+import examples.springdata.geode.domain.LineItem;
+import examples.springdata.geode.domain.Order;
+import examples.springdata.geode.domain.Product;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Creates a client to demonstrate server-side function invocations. This example will run queries against that local client data set and
@@ -76,9 +81,14 @@ public class FunctionInvocationClient {
 	}
 
 	private void createProducts(ProductService productService) {
-		productService.save(new Product(1L, "Apple iPod", new BigDecimal(99.99), "An Apple portable music player"));
-		productService.save(new Product(2L, "Apple iPad", new BigDecimal(499.99), "An Apple tablet device"));
-		Product macbook = new Product(3L, "Apple macBook", new BigDecimal(899.99), "An Apple notebook computer");
+		productService.save(new Product(1L, "Apple iPod", new BigDecimal("99.99"),
+				"An Apple portable music player"));
+		productService.save(new Product(2L, "Apple iPad", new BigDecimal("499.99"),
+				"An Apple tablet device"));
+		Product
+				macbook =
+				new Product(3L, "Apple macBook", new BigDecimal("899.99"),
+						"An Apple notebook computer");
 		macbook.addAttribute("warranty", "included");
 		productService.save(macbook);
 	}

@@ -20,7 +20,7 @@ import example.springdata.geode.client.security.kt.domain.User
 import example.springdata.geode.client.security.kt.shiro.authz.support.AuthorizationInfoSupport
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.authz.Permission
-import org.cp.elements.lang.Assert
+import org.springframework.util.Assert
 
 /**
  * The [UserAuthorizationInfo] class is an implementation of the Apache Shiro [AuthorizationInfo] interface

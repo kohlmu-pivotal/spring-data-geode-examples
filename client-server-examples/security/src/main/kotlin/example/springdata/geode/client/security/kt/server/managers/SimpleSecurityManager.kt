@@ -22,7 +22,6 @@ import example.springdata.geode.client.security.kt.server.repo.XmlSecurityReposi
 import org.apache.geode.security.AuthenticationFailedException
 import org.apache.geode.security.ResourcePermission
 import org.apache.shiro.util.Assert
-import org.cp.elements.lang.ObjectUtils
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 import java.util.*
@@ -127,7 +126,7 @@ class SimpleSecurityManager
 
     /* (non-Javadoc) */
     protected fun isAuthentic(user: User?, credentials: String): Boolean {
-        return user != null && ObjectUtils.equalsIgnoreNull(user!!.credentials, credentials)
+        return user?.run { user.credentials == credentials } ?: false
     }
 
     /* (non-Javadoc) */

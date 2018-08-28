@@ -41,7 +41,7 @@ data class EmailAddress(val value: String) : Serializable {
 		 * (non-Javadoc)
 		 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
 		 */
-        override fun convert(source: EmailAddress): String = source?.value
+        override fun convert(source: EmailAddress): String = source.value
     }
 
     @Component
@@ -50,12 +50,12 @@ data class EmailAddress(val value: String) : Serializable {
 		 * (non-Javadoc)
 		 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
 		 */
-        override fun convert(source: String): EmailAddress = StringUtils.hasText(source)?.let { EmailAddress(source) }
+        override fun convert(source: String): EmailAddress = StringUtils.hasText(source).run { EmailAddress(source) }
     }
 
     companion object {
         private const val serialVersionUID = -2990839949384592331L
-        private val EMAIL_REGEX = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+        private const val EMAIL_REGEX = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         private val PATTERN = Pattern.compile(EMAIL_REGEX)
 
         /**

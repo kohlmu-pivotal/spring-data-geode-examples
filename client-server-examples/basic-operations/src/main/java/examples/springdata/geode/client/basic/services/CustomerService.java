@@ -1,13 +1,15 @@
 package examples.springdata.geode.client.basic.services;
 
-import examples.springdata.geode.client.basic.repo.CustomerRepository;
-import examples.springdata.geode.domain.Customer;
-import org.apache.geode.cache.Region;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+
+import javax.annotation.Resource;
+
+import examples.springdata.geode.client.basic.repo.CustomerRepository;
+import examples.springdata.geode.domain.Customer;
+import org.springframework.stereotype.Service;
+
+import org.apache.geode.cache.Region;
 
 @Service
 public class CustomerService {
@@ -18,7 +20,6 @@ public class CustomerService {
 
 	public CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
-		this.customerRegion = customerRegion;
 	}
 
 	private CustomerRepository getCustomerRepository() {

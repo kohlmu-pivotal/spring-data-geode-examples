@@ -1,16 +1,17 @@
 package examples.springdata.geode.client.cq.consumer;
 
 
-import org.apache.geode.cache.query.CqEvent;
+import static org.springframework.data.gemfire.config.annotation.ClientCacheApplication.Locator;
+
+import java.util.Scanner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.config.annotation.EnableContinuousQueries;
 import org.springframework.data.gemfire.listener.annotation.ContinuousQuery;
 
-import java.util.Scanner;
-
-import static org.springframework.data.gemfire.config.annotation.ClientCacheApplication.Locator;
+import org.apache.geode.cache.query.CqEvent;
 
 /**
  * @author Udo Kohlmeyer
@@ -24,7 +25,7 @@ public class CQConsumerClient {
 
     public static void main(String[] args) {
         SpringApplication.run(CQConsumerClient.class, args);
-        new Scanner(System.in).nextLine();
+        new Scanner(System.in, "UTF-8").nextLine();
     }
 
     @ContinuousQuery(name = "CustomerJudeCQ", query = "SELECT * FROM /Customers", durable = true)

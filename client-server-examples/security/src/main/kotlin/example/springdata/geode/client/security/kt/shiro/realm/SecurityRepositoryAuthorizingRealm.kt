@@ -28,7 +28,7 @@ import org.apache.shiro.authc.AuthenticationToken
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
-import org.cp.elements.lang.Assert
+import org.springframework.util.Assert
 import java.security.Principal
 
 /**

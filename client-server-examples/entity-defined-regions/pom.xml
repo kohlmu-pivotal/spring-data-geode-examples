@@ -14,16 +14,126 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.3.18.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>examples.springdata.geode.client</groupId>
             <artifactId>common-client-utilities</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.geode/geode-web-api -->
+        <dependency>
+            <groupId>org.apache.geode</groupId>
+            <artifactId>geode-web-api</artifactId>
+            <version>1.2.1</version>
+            <type>war</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geode</groupId>
+            <artifactId>geode-web</artifactId>
+            <version>1.2.1</version>
+            <type>war</type>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.8.v20171121</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>9.4.8.v20171121</version>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-core</artifactId>-->
+        <!--<version>2.9.6</version>-->
+        <!--</dependency><dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-annotations</artifactId>-->
+        <!--<version>2.9.6</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-databind</artifactId>-->
+        <!--<version>2.9.6</version>-->
+        <!--</dependency>-->
+
     </dependencies>
 
     <properties>
-        <client.class>examples.springdata.geode.client.entity.EntityClient</client.class>
-        <client.kt.class>examples.springdata.geode.kt.client.entity.EntityClientKTKt
+        <!--<client.class>examples.springdata.geode.client.entityregion.EntityClient</client.class>-->
+        <client.kt.class>
+            examples.springdata.geode.kt.client.entityregion.EntityDefinedRegionClientKTKt
         </client.kt.class>
+        <server.class>Server</server.class>
+        <server.kt.class>examples.springdata.geode.client.kt.server.ServerKTKt</server.kt.class>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>Server</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>server</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>${server.class}</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>ServerKT</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>serverKT</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.2.2</version>
+                        <configuration>
+                            <attachClasses>true</attachClasses>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>${server.kt.class}</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

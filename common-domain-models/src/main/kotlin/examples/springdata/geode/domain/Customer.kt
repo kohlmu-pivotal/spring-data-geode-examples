@@ -20,6 +20,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.gemfire.mapping.annotation.Region
 import org.springframework.util.Assert
 import java.io.Serializable
+import javax.persistence.Entity
 
 /**
  * A customer.
@@ -37,10 +38,11 @@ import java.io.Serializable
  * @param firstName must not be empty.
  * @param lastName must not be empty.
  */
+@Entity
 data class Customer(@Id @javax.persistence.Id val id: Long?, val emailAddress: EmailAddress,
                     val firstName: String, val lastName: String) : Serializable {
 
-    private var addresses = HashSet<Address>()
+    private var addresses = mutableSetOf<Address>()
 
     init {
         Assert.hasText(firstName, "First Name cannot be empty")
