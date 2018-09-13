@@ -23,22 +23,14 @@ import java.io.Serializable
 import javax.persistence.Entity
 
 /**
- * A customer.
+ * A customer used for examples.
  *
  * @author Oliver Gierke
  * @author David Turanski
  * @author Udo Kohlmeyer
  */
-@Region(name = "Customers")
-/**
- * Creates a new [Customer] from the given parameters.
- *
- * @param id the unique id;
- * @param emailAddress must not be empty.
- * @param firstName must not be empty.
- * @param lastName must not be empty.
- */
 @Entity
+@Region(name = "Customers")
 data class Customer(@Id @javax.persistence.Id val id: Long?, val emailAddress: EmailAddress,
                     val firstName: String, val lastName: String) : Serializable {
 

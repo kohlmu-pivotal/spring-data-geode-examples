@@ -24,6 +24,7 @@ import java.math.BigDecimal
 import javax.persistence.Entity
 
 /**
+ * Orders object used in the examples
  * @author Oliver Gierke
  * @author David Turanski
  * @author Udo Kohlmeyer

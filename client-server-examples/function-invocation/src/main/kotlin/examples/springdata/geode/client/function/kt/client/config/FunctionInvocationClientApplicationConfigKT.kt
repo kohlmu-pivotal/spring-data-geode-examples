@@ -17,15 +17,14 @@
 package examples.springdata.geode.client.function.kt.client.config
 
 import examples.springdata.geode.client.function.kt.client.functions.CustomerFunctionExecutionsKT
-import examples.springdata.geode.client.function.kt.client.repo.CustomerRepositoryKTKT
+import examples.springdata.geode.client.function.kt.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.function.kt.client.services.CustomerServiceKT
 import examples.springdata.geode.common.client.kt.ClientApplicationConfigKT
-import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.Product
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.context.annotation.*
-import org.springframework.data.gemfire.GemfireTemplate
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExecutions
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
@@ -37,14 +36,10 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  */
 @Configuration
 @Import(ClientApplicationConfigKT::class)
-@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKTKT::class])
+@ComponentScan(basePackageClasses = [CustomerServiceKT::class])
+@EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 @EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class])
 class FunctionInvocationClientApplicationConfigKT {
-
-    @Bean("customerTemplate")
-    @DependsOn()
-    internal fun configureCustomerTemplate(gemFireCache: GemFireCache) =
-            GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
 
     @Bean("Products")
     @Profile("proxy", "default")

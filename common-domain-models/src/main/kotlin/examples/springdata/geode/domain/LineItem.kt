@@ -21,6 +21,7 @@ import java.io.Serializable
 import java.math.BigDecimal
 
 /**
+ * A LineItem used in the examples
  * @author Udo Kohlmeyer
  */
 data class LineItem @JvmOverloads constructor(private val product: Product, private val amount: Int = 1) : Serializable {

@@ -19,6 +19,7 @@ package examples.springdata.geode.client.function.client.config;
 import examples.springdata.geode.client.common.client.config.ClientApplicationConfig;
 import examples.springdata.geode.client.function.client.functions.CustomerFunctionExecutions;
 import examples.springdata.geode.client.function.client.repo.CustomerRepository;
+import examples.springdata.geode.client.function.client.services.CustomerService;
 import examples.springdata.geode.domain.Order;
 import examples.springdata.geode.domain.Product;
 import org.apache.geode.cache.GemFireCache;
@@ -36,6 +37,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  */
 @Configuration
 @Import(ClientApplicationConfig.class)
+@ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @EnableGemfireFunctionExecutions(basePackageClasses = CustomerFunctionExecutions.class)
 public class FunctionInvocationClientApplicationConfig extends ClientApplicationConfig {

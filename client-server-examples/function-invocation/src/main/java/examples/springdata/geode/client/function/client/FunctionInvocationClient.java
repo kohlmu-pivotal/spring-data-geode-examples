@@ -5,9 +5,10 @@ import examples.springdata.geode.client.function.client.services.CustomerService
 import examples.springdata.geode.client.function.client.services.OrderService;
 import examples.springdata.geode.client.function.client.services.ProductService;
 import examples.springdata.geode.domain.*;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -24,40 +25,29 @@ import java.util.stream.LongStream;
 @SpringBootApplication(scanBasePackageClasses = FunctionInvocationClientApplicationConfig.class)
 public class FunctionInvocationClient {
 
-    private final CustomerService customerService;
-    private final OrderService orderService;
-    private final ProductService productService;
-
-    public FunctionInvocationClient(CustomerService customerService, OrderService orderService,
-                                    ProductService productService) {
-        this.customerService = customerService;
-        this.orderService = orderService;
-        this.productService = productService;
+    public static void main(String[] args) {
+        SpringApplication.run(FunctionInvocationClient.class, args);
     }
 
-    public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(FunctionInvocationClient.class, args);
-        FunctionInvocationClient client = applicationContext.getBean(FunctionInvocationClient.class);
+    @Bean
+    ApplicationRunner runner(CustomerService customerService, OrderService orderService,
+                             ProductService productService) {
+        return args -> {
+            createCustomerData(customerService);
 
+            System.out.println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t "
+                    + customerService.listAllCustomersForEmailAddress("2@2.com", "3@3.com"));
 
-        CustomerService customerService = client.customerService;
-        ProductService productService = client.productService;
-        OrderService orderService = client.orderService;
+            createProducts(productService);
+            System.out.println(
+                    "Running function to sum up all product prices: \n\t" + productService.sumPricesForAllProducts().get(0));
 
-        client.createCustomerData(customerService);
-
-        System.out.println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t "
-                + customerService.listAllCustomersForEmailAddress("2@2.com", "3@3.com"));
-
-        client.createProducts(productService);
-        System.out.println(
-                "Running function to sum up all product prices: \n\t" + productService.sumPricesForAllProducts().get(0));
-
-        client.createOrders(productService, orderService);
-        System.out.println(
-                "Running function to sum up all order lineItems prices for order 1: \n\t"
-                        + orderService.sumPricesForAllProductsForOrder(1L).get(0));
-        System.out.println("For order: \n\t " + orderService.findById(1L));
+            createOrders(productService, orderService);
+            System.out.println(
+                    "Running function to sum up all order lineItems prices for order 1: \n\t"
+                            + orderService.sumPricesForAllProductsForOrder(1L).get(0));
+            System.out.println("For order: \n\t " + orderService.findById(1L));
+        };
     }
 
     private void createOrders(ProductService productService, OrderService orderService) {

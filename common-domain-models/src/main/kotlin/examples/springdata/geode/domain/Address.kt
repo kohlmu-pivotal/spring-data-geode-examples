@@ -20,7 +20,7 @@ import org.springframework.util.Assert
 import java.io.Serializable
 
 /**
- * An address.
+ * An address used in the examples.
  *
  * @author Oliver Gierke
  * @author Udo Kohlmeyer

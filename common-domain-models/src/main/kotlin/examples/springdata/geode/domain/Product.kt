@@ -26,7 +26,7 @@ import java.util.*
 import javax.persistence.Entity
 
 /**
- * A product.
+ * A product used in the examples.
  *
  * @author Oliver Gierke
  * @author David Turanski

@@ -6,7 +6,7 @@ import org.springframework.data.gemfire.repository.query.annotation.Hint
 import org.springframework.data.gemfire.repository.query.annotation.Limit
 import org.springframework.data.gemfire.repository.query.annotation.Trace
 
-interface CustomerRepositoryKTKT : BaseCustomerRepositoryKT {
+interface CustomerRepositoryKT : BaseCustomerRepositoryKT {
 
     @Trace
     @Limit(100)

@@ -17,13 +17,11 @@
 package examples.springdata.geode.client.oql.kt.config
 
 import examples.springdata.geode.client.oql.kt.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.oql.kt.services.CustomerServiceKT
 import examples.springdata.geode.common.client.kt.ClientApplicationConfigKT
 import examples.springdata.geode.domain.Customer
 import org.apache.geode.cache.GemFireCache
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.DependsOn
-import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.*
 import org.springframework.data.gemfire.GemfireTemplate
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
@@ -34,6 +32,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  */
 @Configuration
 @Import(ClientApplicationConfigKT::class)
+@ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 class OQLClientApplicationConfigKT {
 

@@ -1,7 +1,7 @@
 Spring Data For Pivotal GemFire and Apache Geode Examples
 =========================================================
 
-This project provides a number of examples to get you started using Spring Data for Apache Geode or Pivotal GemFire. These examples are designed to work with [Spring Data for Pivotal GemFire](http://projects.spring.io/spring-data-gemfire) 2.0.7 or higher and are organized into the following sub projects:
+This project provides a number of examples to get you started using Spring Data for Apache Geode or Pivotal GemFire. These examples are designed to work with [Spring Data for Pivotal GemFire](http://projects.spring.io/spring-data-gemfire) 2.0.9-RELEASE or higher and are organized into the following sub projects:
 
 * **Client Server** - These examples pertain to the client-server paradigm. The examples will have a stand-alone server with a client connecting into the server to perform operations. 
 * **Data / Cache Node examples** - These examples demonstrate the configuration of data/cache nodes. This would include regions, persistence, wan, subscriptions, functions and indexes.
@@ -21,8 +21,8 @@ GemFireRepositories to query and implements indexes to increase query performanc
 In this example there is not difference in the output when it comes to what type of client is used.
 * **continuous-queries** - In this example there are 2 clients and 1 server. 1 client (CQConsumer) will register itself with a continuous query. 
 The other client (CQProducer) will save 3 entries, which the CQConsumer will log 
-* **security** - //TODO
-* **subscriptions** - //TODO
+* **security** - In this example the servers and clients are set up with security (username/password) authentication using Apache Shiro
+* **entity-defined-regions** - In this example a server is deployed with no regions defined. The client will use the `@EnableEntityDefinedRegions` to configure regions on the server(s). 
 
  
 # Data / Cache Node examples
