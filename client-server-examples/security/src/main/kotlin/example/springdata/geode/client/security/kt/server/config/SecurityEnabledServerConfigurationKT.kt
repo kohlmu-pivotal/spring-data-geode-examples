@@ -35,14 +35,9 @@ class ApacheShiroIniConfigurationKT
 @Profile("default", "shiro-ini-configuration")
 class ApacheShiroRealmConfigurationKT {
     @Bean
-    fun shiroRealm(): PropertiesRealm {
-
-        val propertiesRealm = PropertiesRealm()
-
-        propertiesRealm.setResourcePath("classpath:server/shiro.properties")
-        propertiesRealm.permissionResolver = GeodePermissionResolver()
-
-        return propertiesRealm
+    fun shiroRealm(): PropertiesRealm = PropertiesRealm().apply {
+        setResourcePath("classpath:server/shiro.properties")
+        permissionResolver = GeodePermissionResolver()
     }
 }
 
@@ -50,23 +45,17 @@ class ApacheShiroRealmConfigurationKT {
 @EnableSecurity
 @Profile("shiro-custom-realm-configuration")
 internal class ApacheShiroCustomRealmConfigurationKT {
+    @Bean
+    fun securityRepository(): SecurityRepository<User> = XmlSecurityRepository()
 
     @Bean
-    fun securityRepository(): SecurityRepository<User> {
-        return XmlSecurityRepository()
-    }
-
-    @Bean
-    fun geodeRealm(securityRepository: SecurityRepository<User>): Realm {
-        return SecurityRepositoryAuthorizingRealm(securityRepository)
-    }
+    fun geodeRealm(securityRepository: SecurityRepository<User>): Realm = SecurityRepositoryAuthorizingRealm(securityRepository)
 }
 
 @Configuration
 @EnableSecurity(securityManagerClassName = "example.springdata.geode.client.security.server.managers.SecurityManagerProxy")
 @Profile("default", "geode-security-manager-proxy-configuration")
 internal class GeodeIntegratedSecurityProxyConfigurationKT {
-
     @Bean
     fun hsqlDataSource(): DataSource {
         return with(EmbeddedDatabaseBuilder()) {

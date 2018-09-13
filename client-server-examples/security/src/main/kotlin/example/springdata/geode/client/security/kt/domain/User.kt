@@ -12,7 +12,7 @@ import java.security.Principal
  * @param name [String] indicating the name of the [User].
  * @throws IllegalArgumentException if the username was not specified.
  */
-data class User(private val name: String, val roles: MutableSet<Role> = mutableSetOf<Role>()) :
+data class User(private val name: String, val roles: MutableSet<Role> = mutableSetOf()) :
         Comparable<User>, Cloneable, Principal, Serializable, Iterable<Role>, Identifiable<String> {
 
     var credentials: String? = null
@@ -49,20 +49,19 @@ data class User(private val name: String, val roles: MutableSet<Role> = mutableS
      * @inheritDoc
      */
     override fun equals(other: Any?): Boolean {
-        if (other !is User) {
-            return false
-        } else {
+        if (other is User) {
             if (other === this) {
                 return true
             }
-            return this.getName() == other.getName()
+            return name == other.name
         }
+        return false;
     }
 
     /**
      * @inheritDoc
      */
-    override fun hashCode(): Int = (17 * 37 + getName().hashCode())
+    override fun hashCode(): Int = (17 * 37 + name.hashCode())
 
     /**
      * Determines whether this [User] has been granted (assigned) the given [permission][ResourcePermission].
@@ -130,8 +129,6 @@ data class User(private val name: String, val roles: MutableSet<Role> = mutableS
          * @throws IllegalArgumentException if the username was not specified.
          * @see User
          */
-        fun newUser(username: String): User {
-            return User(username)
-        }
+        fun newUser(username: String): User = User(username)
     }
 }

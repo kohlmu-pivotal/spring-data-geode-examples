@@ -46,9 +46,7 @@ data class Role(private val name: String) : Comparable<Role>, Identifiable<Strin
 
     fun getName(): String = name
 
-    override fun getId(): String {
-        return name
-    }
+    override fun getId(): String = name
 
     override fun setId(id: String?) {
         throw UnsupportedOperationException("Operation Not Supported")
@@ -67,15 +65,14 @@ data class Role(private val name: String) : Comparable<Role>, Identifiable<Strin
      * @inheritDoc
      */
     override fun equals(other: Any?): Boolean {
-        if (other !is Role) {
-            return false
-        } else {
+        if (other is Role) {
             if (other === this) {
                 return true
             }
 
-            return this.name == other.name
+            return name == other.name
         }
+        return false
     }
 
     /**
