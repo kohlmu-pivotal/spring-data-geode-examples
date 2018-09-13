@@ -32,14 +32,14 @@ fun main(args: Array<String>) {
             createCustomerData(customerServiceKT)
 
             println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t " +
-                "${customerServiceKT.listAllCustomersForEmailAddress("2@2.com", "3@3.com")}")
+                    "${customerServiceKT.listAllCustomersForEmailAddress("2@2.com", "3@3.com")}")
 
             createProducts(productServiceKT)
             println("Running function to sum up all product prices:\n\t $${productServiceKT.sumPricesForAllProducts()[0]}")
 
             createOrders(productServiceKT, orderServiceKT)
             println("Running function to sum up all order lineItems prices for order 1: \n\t" +
-                "$${orderServiceKT.sumPricesForAllProductsForOrder(1)[0]}")
+                    "$${orderServiceKT.sumPricesForAllProductsForOrder(1)[0]}")
             println("For order: \n\t ${orderServiceKT.findById(1).get()}")
         }
     }

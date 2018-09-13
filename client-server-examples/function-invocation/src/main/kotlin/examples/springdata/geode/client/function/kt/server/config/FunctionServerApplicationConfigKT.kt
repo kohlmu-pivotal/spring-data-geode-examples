@@ -18,17 +18,17 @@ class FunctionServerApplicationConfigKT {
 
     @Bean("Products")
     protected fun productRegion(gemfireCache: GemFireCache) =
-        ReplicatedRegionFactoryBean<Long, Product>().apply {
-            cache = gemfireCache
-            setRegionName("Products")
-            dataPolicy = DataPolicy.REPLICATE
-        }
+            ReplicatedRegionFactoryBean<Long, Product>().apply {
+                cache = gemfireCache
+                setRegionName("Products")
+                dataPolicy = DataPolicy.REPLICATE
+            }
 
     @Bean("Orders")
     protected fun orderRegion(gemfireCache: GemFireCache) =
-        ReplicatedRegionFactoryBean<Long, Order>().apply {
-            cache = gemfireCache
-            setRegionName("Orders")
-            dataPolicy = DataPolicy.REPLICATE
-        }
+            ReplicatedRegionFactoryBean<Long, Order>().apply {
+                cache = gemfireCache
+                setRegionName("Orders")
+                dataPolicy = DataPolicy.REPLICATE
+            }
 }

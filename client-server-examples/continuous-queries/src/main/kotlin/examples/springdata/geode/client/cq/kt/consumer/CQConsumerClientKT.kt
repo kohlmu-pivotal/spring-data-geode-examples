@@ -1,8 +1,10 @@
 package examples.springdata.geode.client.cq.kt.consumer
 
 import org.apache.geode.cache.query.CqEvent
+import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.context.annotation.Bean
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.config.annotation.EnableContinuousQueries
 import org.springframework.data.gemfire.listener.annotation.ContinuousQuery
@@ -18,6 +20,9 @@ import org.springframework.data.gemfire.listener.annotation.ContinuousQuery
 @EnableContinuousQueries
 class CQConsumerClientKT {
 
+    @Bean
+    fun runner() = ApplicationRunner { readLine() }
+
     @ContinuousQuery(name = "CustomerJudeCQ", query = "SELECT * FROM /Customers", durable = true)
     fun handleEvent(event: CqEvent) {
         println("Received message for CQ 'CustomerJudeCQ': $event")
@@ -26,5 +31,4 @@ class CQConsumerClientKT {
 
 fun main(args: Array<String>) {
     SpringApplication.run(CQConsumerClientKT::class.java, *args)
-    readLine()
 }

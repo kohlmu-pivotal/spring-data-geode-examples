@@ -21,7 +21,6 @@ import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
@@ -35,37 +34,36 @@ import java.util.Collections;
  *
  * @author Udo Kohlmeyer
  */
-@Configuration
 @ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class ClientApplicationConfig {
 
-	@Bean("Customers")
-	@Profile({ "proxy", "default" })
-	protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
-		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Customers");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Customers")
+    @Profile({"proxy", "default"})
+    protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
+        ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Customers");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
+        return clientRegionFactoryBean;
+    }
 
-	@Bean("Customers")
-	@Profile("localCache")
-	protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
-		GemFireCache gemFireCache) {
-		ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Customers");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Customers")
+    @Profile("localCache")
+    protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
+            GemFireCache gemFireCache) {
+        ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Customers");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
+        return clientRegionFactoryBean;
+    }
 
-	@Bean
-	ClientCacheConfigurer clientCacheServerConfigurer(
-		@Value("${spring.data.geode.locator.host:localhost}") String hostname,
-		@Value("${spring.data.geode.locator.port:10334}") int port) {
+    @Bean
+    ClientCacheConfigurer clientCacheServerConfigurer(
+            @Value("${spring.data.geode.locator.host:localhost}") String hostname,
+            @Value("${spring.data.geode.locator.port:10334}") int port) {
 
-		return (beanName, clientCacheFactoryBean) -> clientCacheFactoryBean.setLocators(Collections.singletonList(
-			new ConnectionEndpoint(hostname, port)));
-	}
+        return (beanName, clientCacheFactoryBean) -> clientCacheFactoryBean.setLocators(Collections.singletonList(
+                new ConnectionEndpoint(hostname, port)));
+    }
 }

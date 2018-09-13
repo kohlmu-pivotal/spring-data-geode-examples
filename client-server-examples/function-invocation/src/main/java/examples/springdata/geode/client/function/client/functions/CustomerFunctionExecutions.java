@@ -9,6 +9,6 @@ import java.util.List;
 @OnRegion(region = "Customers")
 public interface CustomerFunctionExecutions {
 
-	@FunctionId("listConsumersForEmailAddressesFnc")
-	List<Customer> listAllCustomersForEmailAddress(String... emailAddresses);
+    @FunctionId("listConsumersForEmailAddressesFnc")
+    List<Customer> listAllCustomersForEmailAddress(String... emailAddresses);
 }

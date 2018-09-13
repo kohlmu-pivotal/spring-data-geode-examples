@@ -7,7 +7,6 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.IndexFactoryBean
@@ -21,7 +20,6 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
  * the cluster and the client to connect to the locator to receive a connection to a registered server.
  */
 
-@Configuration
 @Profile("default")
 @EnableLocator
 @CacheServerApplication(port = 0, logLevel = "info")

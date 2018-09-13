@@ -13,14 +13,14 @@ import java.util.List;
 @ClientRegion("Customers")
 public interface CustomerRepository extends BaseCustomerRepository {
 
-	@Trace
-	@Limit(100)
-	@Hint("emailAddressIndex")
-	@Query("select * from /Customers customer where customer.emailAddress.value = $1")
-	List<Customer> findByEmailAddressUsingIndex(String emailAddress);
+    @Trace
+    @Limit(100)
+    @Hint("emailAddressIndex")
+    @Query("select * from /Customers customer where customer.emailAddress.value = $1")
+    List<Customer> findByEmailAddressUsingIndex(String emailAddress);
 
-	@Trace
-	@Limit(100)
-	@Query("select * from /Customers customer where customer.firstName = $1")
-	List<Customer> findByFirstNameUsingIndex(String firstName);
+    @Trace
+    @Limit(100)
+    @Query("select * from /Customers customer where customer.firstName = $1")
+    List<Customer> findByFirstNameUsingIndex(String firstName);
 }

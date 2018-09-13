@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component
 class CustomerFunctionsKT {
     @GemfireFunction(id = "listConsumersForEmailAddressesFnc", HA = true, optimizeForWrite = true, batchSize = 3, hasResult = true)
     fun listAllCustomersForEmailAddress(vararg emailAddresses: String, @RegionData customerData: Map<Long, Customer>) =
-        customerData.asSequence().map { it.value }.filter { emailAddresses.contains(it.emailAddress.value) }.toList()
+            customerData.asSequence().map { it.value }.filter { emailAddresses.contains(it.emailAddress.value) }.toList()
 }

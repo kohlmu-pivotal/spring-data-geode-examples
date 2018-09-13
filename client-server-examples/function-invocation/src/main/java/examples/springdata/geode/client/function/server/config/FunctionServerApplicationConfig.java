@@ -19,21 +19,21 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class FunctionServerApplicationConfig {
 
-	@Bean
-	ReplicatedRegionFactoryBean<Long, Order> createOrderRegion(GemFireCache gemfireCache) {
-		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
-		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("Orders");
-		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
-		return replicatedRegionFactoryBean;
-	}
+    @Bean
+    ReplicatedRegionFactoryBean<Long, Order> createOrderRegion(GemFireCache gemfireCache) {
+        ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
+        replicatedRegionFactoryBean.setCache(gemfireCache);
+        replicatedRegionFactoryBean.setRegionName("Orders");
+        replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
+        return replicatedRegionFactoryBean;
+    }
 
-	@Bean
-	ReplicatedRegionFactoryBean<Long, Product> createProductRegion(GemFireCache gemfireCache) {
-		ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
-		replicatedRegionFactoryBean.setCache(gemfireCache);
-		replicatedRegionFactoryBean.setRegionName("Products");
-		replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
-		return replicatedRegionFactoryBean;
-	}
+    @Bean
+    ReplicatedRegionFactoryBean<Long, Product> createProductRegion(GemFireCache gemfireCache) {
+        ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
+        replicatedRegionFactoryBean.setCache(gemfireCache);
+        replicatedRegionFactoryBean.setRegionName("Products");
+        replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
+        return replicatedRegionFactoryBean;
+    }
 }

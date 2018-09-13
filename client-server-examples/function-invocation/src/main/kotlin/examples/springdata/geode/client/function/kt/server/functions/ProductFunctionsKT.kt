@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component
 class ProductFunctionsKT {
     @GemfireFunction(id = "sumPricesForAllProductsFnc", HA = true, optimizeForWrite = false, hasResult = true)
     fun sumPricesForAllProductsFnc(@RegionData productData: Map<Long, Product>) =
-        productData.asSequence().sumBy { it.value.price }
+            productData.asSequence().sumBy { it.value.price }
 }

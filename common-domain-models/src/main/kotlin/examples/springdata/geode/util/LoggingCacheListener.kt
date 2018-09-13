@@ -33,11 +33,11 @@ class LoggingCacheListener<K, V> : CacheListenerAdapter<K, V>() {
     private val log = LogFactory.getLog(LoggingCacheListener::class.java)
 
     override fun afterCreate(event: EntryEvent<K, V>) =
-        log.info("In region [${event.region.name}] created key [${event.key}] value [${event.newValue}]")
+            log.info("In region [${event.region.name}] created key [${event.key}] value [${event.newValue}]")
 
     override fun afterDestroy(event: EntryEvent<K, V>) =
-        log.info("In region [${event.region.name}] destroyed key [${event.key}] ")
+            log.info("In region [${event.region.name}] destroyed key [${event.key}] ")
 
     override fun afterUpdate(event: EntryEvent<K, V>) =
-        log.info("In region [${event.region.name}] updated key [${event.key}] [oldValue [${event.newValue}]] new value [${event.newValue}]")
+            log.info("In region [${event.region.name}] updated key [${event.key}] [oldValue [${event.newValue}]] new value [${event.newValue}]")
 }

@@ -44,42 +44,42 @@ class FunctionInvocationClientApplicationConfigKT {
     @Bean("customerTemplate")
     @DependsOn()
     internal fun configureCustomerTemplate(gemFireCache: GemFireCache) =
-        GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
+            GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
 
     @Bean("Products")
     @Profile("proxy", "default")
     protected fun configureProxyClientProductRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Product>()
-        .apply {
-            cache = gemFireCache
-            setName("Products")
-            setShortcut(ClientRegionShortcut.PROXY)
-        }
+            .apply {
+                cache = gemFireCache
+                setName("Products")
+                setShortcut(ClientRegionShortcut.PROXY)
+            }
 
     @Bean("Products")
     @Profile("localCache")
     protected fun configureLocalCachingClientProductRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Product>()
-        .apply {
-            cache = gemFireCache
-            setName("Products")
-            setShortcut(ClientRegionShortcut.CACHING_PROXY)
-        }
+            .apply {
+                cache = gemFireCache
+                setName("Products")
+                setShortcut(ClientRegionShortcut.CACHING_PROXY)
+            }
 
     @Bean("Orders")
     @Profile("proxy", "default")
     protected fun configureProxyClientOrderRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Order>()
-        .apply {
-            cache = gemFireCache
-            setName("Orders")
-            setShortcut(ClientRegionShortcut.PROXY)
-        }
+            .apply {
+                cache = gemFireCache
+                setName("Orders")
+                setShortcut(ClientRegionShortcut.PROXY)
+            }
 
     @Bean("Orders")
     @Profile("localCache")
     protected fun configureLocalCachingClientOrderRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Order>()
-        .apply {
-            cache = gemFireCache
-            setName("Orders")
-            setShortcut(ClientRegionShortcut.CACHING_PROXY)
+            .apply {
+                cache = gemFireCache
+                setName("Orders")
+                setShortcut(ClientRegionShortcut.CACHING_PROXY)
 
-        }
+            }
 }

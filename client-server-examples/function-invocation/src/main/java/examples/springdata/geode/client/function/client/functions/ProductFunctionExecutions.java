@@ -9,6 +9,6 @@ import java.util.List;
 @OnRegion(region = "Products")
 public interface ProductFunctionExecutions {
 
-	@FunctionId("sumPricesForAllProductsFnc")
-	List<BigDecimal> sumPricesForAllProducts();
+    @FunctionId("sumPricesForAllProductsFnc")
+    List<BigDecimal> sumPricesForAllProducts();
 }

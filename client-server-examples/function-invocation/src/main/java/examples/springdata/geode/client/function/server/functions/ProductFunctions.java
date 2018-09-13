@@ -11,8 +11,8 @@ import java.util.Map;
 @Component
 public class ProductFunctions {
 
-	@GemfireFunction(id = "sumPricesForAllProductsFnc", HA = true, optimizeForWrite = false, hasResult = true)
-	public BigDecimal sumPricesForAllProductsFnc(@RegionData Map<Long, Product> productData) {
-		return productData.values().stream().map(Product::getPrice).reduce(BigDecimal::add).get();
-	}
+    @GemfireFunction(id = "sumPricesForAllProductsFnc", HA = true, optimizeForWrite = false, hasResult = true)
+    public BigDecimal sumPricesForAllProductsFnc(@RegionData Map<Long, Product> productData) {
+        return productData.values().stream().map(Product::getPrice).reduce(BigDecimal::add).get();
+    }
 }

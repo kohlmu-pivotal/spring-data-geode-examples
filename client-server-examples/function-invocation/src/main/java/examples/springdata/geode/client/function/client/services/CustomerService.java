@@ -10,28 +10,28 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-	private final CustomerRepository customerRepository;
-	private final CustomerFunctionExecutions customerFunctionExecutions;
+    private final CustomerRepository customerRepository;
+    private final CustomerFunctionExecutions customerFunctionExecutions;
 
-	public CustomerService(CustomerRepository customerRepository,
-		CustomerFunctionExecutions customerFunctionExecutions) {
-		this.customerRepository = customerRepository;
-		this.customerFunctionExecutions = customerFunctionExecutions;
-	}
+    public CustomerService(CustomerRepository customerRepository,
+                           CustomerFunctionExecutions customerFunctionExecutions) {
+        this.customerRepository = customerRepository;
+        this.customerFunctionExecutions = customerFunctionExecutions;
+    }
 
-	private CustomerRepository getCustomerRepository() {
-		return customerRepository;
-	}
+    private CustomerRepository getCustomerRepository() {
+        return customerRepository;
+    }
 
-	public void save(Customer customer) {
-		getCustomerRepository().save(customer);
-	}
+    public void save(Customer customer) {
+        getCustomerRepository().save(customer);
+    }
 
-	public List<Customer> listAllCustomersForEmailAddress(String... emailAddresses) {
-		return customerFunctionExecutions.listAllCustomersForEmailAddress(emailAddresses);
-	}
+    public List<Customer> listAllCustomersForEmailAddress(String... emailAddresses) {
+        return customerFunctionExecutions.listAllCustomersForEmailAddress(emailAddresses);
+    }
 
-	public Customer findById(long customerId) {
-		return customerRepository.findById(customerId).get();
-	}
+    public Customer findById(long customerId) {
+        return customerRepository.findById(customerId).get();
+    }
 }

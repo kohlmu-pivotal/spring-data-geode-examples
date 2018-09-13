@@ -10,5 +10,5 @@ import java.math.BigDecimal
 class OrderFunctionsKT {
     @GemfireFunction(id = "sumPricesForAllProductsForOrderFnc", HA = true, optimizeForWrite = false, hasResult = true)
     fun sumPricesForAllProductsForOrderFnc(orderId: Long, @RegionData orderData: Map<Long, Order>) =
-        orderData[orderId]?.total ?: BigDecimal.ZERO
+            orderData[orderId]?.total ?: BigDecimal.ZERO
 }

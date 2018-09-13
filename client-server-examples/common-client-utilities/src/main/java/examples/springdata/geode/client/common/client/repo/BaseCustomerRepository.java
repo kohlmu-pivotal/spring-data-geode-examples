@@ -10,26 +10,26 @@ import java.util.List;
 @ClientRegion(name = "Customers")
 public interface BaseCustomerRepository extends CrudRepository<Customer, Long> {
 
-	/**
-	 * Returns all [Customer]s.
-	 *
-	 * @return
-	 */
-	List<Customer> findAll();
+    /**
+     * Returns all [Customer]s.
+     *
+     * @return
+     */
+    List<Customer> findAll();
 
-	/**
-	 * Finds all [Customer]s with the given lastname.
-	 *
-	 * @param lastName
-	 * @return
-	 */
-	List<Customer> findByLastName(String lastName);
+    /**
+     * Finds all [Customer]s with the given lastname.
+     *
+     * @param lastName
+     * @return
+     */
+    List<Customer> findByLastName(String lastName);
 
-	/**
-	 * Finds the Customer with the given [EmailAddress].
-	 *
-	 * @param emailAddress
-	 * @return
-	 */
-	Customer findByEmailAddress(EmailAddress emailAddress);
+    /**
+     * Finds the Customer with the given [EmailAddress].
+     *
+     * @param emailAddress
+     * @return
+     */
+    Customer findByEmailAddress(EmailAddress emailAddress);
 }

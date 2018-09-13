@@ -1,10 +1,10 @@
 package example.springdata.geode.client.security.server;
 
-import java.util.Scanner;
-
 import example.springdata.geode.client.security.server.config.SecurityEnabledServerConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Scanner;
 
 @SpringBootApplication(scanBasePackageClasses = SecurityEnabledServerConfiguration.class)
 public class SecurityEnabledServer {

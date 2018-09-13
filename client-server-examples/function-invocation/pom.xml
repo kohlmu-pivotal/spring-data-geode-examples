@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>client-server-examples</artifactId>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>client-server-examples</artifactId>
         <groupId>examples.springdata.geode.client</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>examples.springdata.geode.client</groupId>
-	<artifactId>function-invocation</artifactId>
-	<version>1.0-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>examples.springdata.geode.client</groupId>
+    <artifactId>function-invocation</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-	<dependencies>
-		<dependency>
+    <dependencies>
+        <dependency>
             <groupId>examples.springdata.geode.client</groupId>
-			<artifactId>common-client-utilities</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+            <artifactId>common-client-utilities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
-	<properties>
+    <properties>
         <server.class>examples.springdata.geode.client.function.server.FunctionServer</server.class>
         <server.kt.class>examples.springdata.geode.function.kt.server.FunctionServerKTKt</server.kt.class>
         <client.class>examples.springdata.geode.client.function.client.FunctionInvocationClient</client.class>
         <client.kt.class>examples.springdata.geode.function.kt.client.FunctionInvocationClientKTKt</client.kt.class>
-	</properties>
+    </properties>
 
 
 </project>

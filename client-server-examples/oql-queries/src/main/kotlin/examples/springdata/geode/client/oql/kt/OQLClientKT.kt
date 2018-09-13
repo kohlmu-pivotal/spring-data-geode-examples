@@ -29,7 +29,7 @@ fun main(args: Array<String>) {
 
             println("Find customer with key=2 using GemFireRepository: " + customerServiceKT.findById(2).get())
             println("Find customer with key=2 using GemFireTemplate: " +
-                "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
+                    "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
 
             customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
             println("Find customers with emailAddress=3@3.com: ${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")

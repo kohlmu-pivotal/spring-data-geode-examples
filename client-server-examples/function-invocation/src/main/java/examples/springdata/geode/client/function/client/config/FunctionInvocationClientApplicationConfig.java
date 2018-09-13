@@ -40,51 +40,51 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @EnableGemfireFunctionExecutions(basePackageClasses = CustomerFunctionExecutions.class)
 public class FunctionInvocationClientApplicationConfig extends ClientApplicationConfig {
 
-	@Bean("customerTemplate")
-	@DependsOn("Customers")
-	protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
-		return new GemfireTemplate(gemfireCache.getRegion("Customers"));
-	}
+    @Bean("customerTemplate")
+    @DependsOn("Customers")
+    protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
+        return new GemfireTemplate(gemfireCache.getRegion("Customers"));
+    }
 
-	@Bean("Products")
-	@Profile({ "proxy", "default" })
-	protected ClientRegionFactoryBean<Long, Product> configureProxyClientProductRegion(GemFireCache gemFireCache) {
-		ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Products");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Products")
+    @Profile({"proxy", "default"})
+    protected ClientRegionFactoryBean<Long, Product> configureProxyClientProductRegion(GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Products");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
+        return clientRegionFactoryBean;
+    }
 
-	@Bean("Products")
-	@Profile("localCache")
-	protected ClientRegionFactoryBean<Long, Product> configureLocalCachingClientProductRegion(
-		GemFireCache gemFireCache) {
-		ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Products");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Products")
+    @Profile("localCache")
+    protected ClientRegionFactoryBean<Long, Product> configureLocalCachingClientProductRegion(
+            GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Products");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
+        return clientRegionFactoryBean;
+    }
 
-	@Bean("Orders")
-	@Profile({ "proxy", "default" })
-	protected ClientRegionFactoryBean<Long, Order> configureProxyClientOrderRegion(GemFireCache gemFireCache) {
-		ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Orders");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Orders")
+    @Profile({"proxy", "default"})
+    protected ClientRegionFactoryBean<Long, Order> configureProxyClientOrderRegion(GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Orders");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
+        return clientRegionFactoryBean;
+    }
 
-	@Bean("Orders")
-	@Profile("localCache")
-	protected ClientRegionFactoryBean<Long, Order> configureLocalCachingClientOrderRegion(
-		GemFireCache gemFireCache) {
-		ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-		clientRegionFactoryBean.setCache(gemFireCache);
-		clientRegionFactoryBean.setName("Orders");
-		clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
-		return clientRegionFactoryBean;
-	}
+    @Bean("Orders")
+    @Profile("localCache")
+    protected ClientRegionFactoryBean<Long, Order> configureLocalCachingClientOrderRegion(
+            GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Orders");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
+        return clientRegionFactoryBean;
+    }
 }

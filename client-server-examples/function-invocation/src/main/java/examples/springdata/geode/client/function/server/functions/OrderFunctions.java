@@ -11,8 +11,8 @@ import java.util.Map;
 @Component
 public class OrderFunctions {
 
-	@GemfireFunction(id = "sumPricesForAllProductsForOrderFnc", HA = true, optimizeForWrite = false, hasResult = true)
-	public BigDecimal sumPricesForAllProductsForOrderFnc(Long orderId, @RegionData Map<Long, Order> orderData) {
-		return orderData.get(orderId).getTotal();
-	}
+    @GemfireFunction(id = "sumPricesForAllProductsForOrderFnc", HA = true, optimizeForWrite = false, hasResult = true)
+    public BigDecimal sumPricesForAllProductsForOrderFnc(Long orderId, @RegionData Map<Long, Order> orderData) {
+        return orderData.get(orderId).getTotal();
+    }
 }

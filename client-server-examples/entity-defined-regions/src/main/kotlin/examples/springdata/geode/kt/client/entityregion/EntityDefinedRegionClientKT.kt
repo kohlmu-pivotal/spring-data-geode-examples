@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication(scanBasePackageClasses = [EntityDefinedRegionClientConfigKT::class])
 class EntityDefinedRegionClientKT(val customerServiceKT: CustomerServiceKT) {
     @Bean
-    fun runner(): ApplicationRunner = ApplicationRunner { args ->
+    fun runner(): ApplicationRunner = ApplicationRunner { _ ->
         println("Inserting 3 entries for keys: 1, 2, 3")
         customerServiceKT.save(examples.springdata.geode.domain.Customer(1, examples.springdata.geode.domain.EmailAddress("2@2.com"), "John", "Smith"))
         customerServiceKT.save(examples.springdata.geode.domain.Customer(2, examples.springdata.geode.domain.EmailAddress("3@3.com"), "Frank", "Lamport"))

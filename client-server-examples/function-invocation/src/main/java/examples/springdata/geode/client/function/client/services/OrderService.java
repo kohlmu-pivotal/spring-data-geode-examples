@@ -11,23 +11,23 @@ import java.util.List;
 @Service
 public class OrderService {
 
-	private final OrderRepository orderRepository;
-	private final OrderFunctionExecutions orderFunctionExecutions;
+    private final OrderRepository orderRepository;
+    private final OrderFunctionExecutions orderFunctionExecutions;
 
-	public OrderService(OrderRepository orderRepository, OrderFunctionExecutions orderFunctionExecutions) {
-		this.orderRepository = orderRepository;
-		this.orderFunctionExecutions = orderFunctionExecutions;
-	}
+    public OrderService(OrderRepository orderRepository, OrderFunctionExecutions orderFunctionExecutions) {
+        this.orderRepository = orderRepository;
+        this.orderFunctionExecutions = orderFunctionExecutions;
+    }
 
-	public void save(Order order) {
-		orderRepository.save(order);
-	}
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
 
-	public List<BigDecimal> sumPricesForAllProductsForOrder(Long orderId) {
-		return orderFunctionExecutions.sumPricesForAllProductsForOrder(orderId);
-	}
+    public List<BigDecimal> sumPricesForAllProductsForOrder(Long orderId) {
+        return orderFunctionExecutions.sumPricesForAllProductsForOrder(orderId);
+    }
 
-	public Order findById(Long orderId) {
-		return orderRepository.findById(orderId).get();
-	}
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId).get();
+    }
 }

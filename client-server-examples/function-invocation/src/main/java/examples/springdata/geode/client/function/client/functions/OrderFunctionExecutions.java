@@ -9,6 +9,6 @@ import java.util.List;
 @OnRegion(region = "Orders")
 public interface OrderFunctionExecutions {
 
-	@FunctionId("sumPricesForAllProductsForOrderFnc")
-	List<BigDecimal> sumPricesForAllProductsForOrder(Long orderId);
+    @FunctionId("sumPricesForAllProductsForOrderFnc")
+    List<BigDecimal> sumPricesForAllProductsForOrder(Long orderId);
 }

@@ -18,13 +18,13 @@ class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
     fun findById(id: Long): Optional<Customer> = customerRepositoryKT.findById(id)
 
     fun findWithTemplate(queryString: String, vararg parameters: Any?): List<Customer> =
-        customerTemplate.find<Customer>(queryString, *parameters)?.asList() ?: emptyList()
+            customerTemplate.find<Customer>(queryString, *parameters)?.asList() ?: emptyList()
 
     fun <Customer> findByEmailAddressUsingIndex(emailAddress: String) =
-        customerRepositoryKT.findByEmailAddressUsingIndex<Customer>(emailAddress)
+            customerRepositoryKT.findByEmailAddressUsingIndex<Customer>(emailAddress)
 
     fun <Customer> findByFirstNameUsingIndex(firstName: String) =
-        customerRepositoryKT.findByFirstNameUsingIndex<Customer>(firstName)
+            customerRepositoryKT.findByFirstNameUsingIndex<Customer>(firstName)
 
     fun <Customer> findByFirstNameLocalClientRegion(queryString: String, vararg parameters: Any): List<Customer> {
         val query = gemFireCache.localQueryService.newQuery(queryString)

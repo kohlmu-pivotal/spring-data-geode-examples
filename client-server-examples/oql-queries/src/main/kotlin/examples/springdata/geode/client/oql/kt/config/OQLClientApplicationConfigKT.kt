@@ -40,6 +40,6 @@ class OQLClientApplicationConfigKT {
     @Bean("customerTemplate")
     @DependsOn("Customers")
     internal fun configureCustomerTemplate(gemFireCache: GemFireCache) =
-        GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
+            GemfireTemplate<Long, Customer>(gemFireCache.getRegion("Customers")!!)
 
 }
