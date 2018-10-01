@@ -19,7 +19,7 @@ package examples.springdata.geode.client.function.kt.client.config
 import examples.springdata.geode.client.function.kt.client.functions.CustomerFunctionExecutionsKT
 import examples.springdata.geode.client.function.kt.client.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.function.kt.client.services.CustomerServiceKT
-import examples.springdata.geode.common.client.kt.ClientApplicationConfigKT
+import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.Product
 import org.apache.geode.cache.GemFireCache

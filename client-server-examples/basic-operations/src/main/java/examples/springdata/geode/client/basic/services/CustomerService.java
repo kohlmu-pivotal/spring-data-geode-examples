@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CustomerService {
+public class CustomerService implements examples.springdata.geode.client.common.client.service.CustomerService {
     private final CustomerRepository customerRepository;
 
     @Resource(name = "Customers")
@@ -24,27 +24,33 @@ public class CustomerService {
         return customerRepository;
     }
 
+    @Override
     public void save(Customer customer) {
         getCustomerRepository().save(customer);
     }
 
+    @Override
     public List<Customer> findAll() {
         return getCustomerRepository().findAll();
     }
 
-    public Optional<Customer> findById(Long id) {
+    @Override
+    public Optional<Customer> findById(long id) {
         return getCustomerRepository().findById(id);
     }
 
+    @Override
     public int numberEntriesStoredLocally() {
         return customerRegion.size();
     }
 
+    @Override
     public int numberEntriesStoredOnServer() {
         return customerRegion.keySetOnServer().size();
     }
 
-    public void deleteById(Long id) {
+    @Override
+    public void deleteById(long id) {
         getCustomerRepository().deleteById(id);
     }
 }

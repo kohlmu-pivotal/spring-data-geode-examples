@@ -15,4 +15,6 @@ class ServerKT {
     }
 }
 
-fun main(args: Array<String>) = SpringApplication.run(ServerKT::class.java, *args)
+fun main(args: Array<String>) {
+    SpringApplication.run(ServerKT::class.java, *args)
+}

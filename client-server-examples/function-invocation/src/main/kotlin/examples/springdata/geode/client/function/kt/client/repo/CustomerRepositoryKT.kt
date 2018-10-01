@@ -1,6 +1,6 @@
 package examples.springdata.geode.client.function.kt.client.repo
 
-import examples.springdata.geode.common.client.kt.repo.BaseCustomerRepositoryKT
+import examples.springdata.geode.client.common.kt.client.repo.BaseCustomerRepositoryKT
 import org.springframework.data.gemfire.repository.Query
 import org.springframework.data.gemfire.repository.query.annotation.Hint
 import org.springframework.data.gemfire.repository.query.annotation.Limit

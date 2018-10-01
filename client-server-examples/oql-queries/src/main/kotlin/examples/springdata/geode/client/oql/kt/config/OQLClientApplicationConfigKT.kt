@@ -18,7 +18,7 @@ package examples.springdata.geode.client.oql.kt.config
 
 import examples.springdata.geode.client.oql.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.oql.kt.services.CustomerServiceKT
-import examples.springdata.geode.common.client.kt.ClientApplicationConfigKT
+import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
 import examples.springdata.geode.domain.Customer
 import org.apache.geode.cache.GemFireCache
 import org.springframework.context.annotation.*

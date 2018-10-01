@@ -21,35 +21,43 @@
         <dependency>
             <groupId>org.apache.geode</groupId>
             <artifactId>geode-web-api</artifactId>
-            <version>1.2.1</version>
+            <version>1.6.0</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geode</groupId>
             <artifactId>geode-web</artifactId>
-            <version>1.2.1</version>
+            <version>1.6.0</version>
             <type>war</type>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>9.4.8.v20180619</version>
+            <version>9.4.12.v20180830</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
-            <version>9.4.8.v20180619</version>
+            <version>9.4.12.v20180830</version>
         </dependency>
     </dependencies>
 
     <properties>
         <!--<client.class>examples.springdata.geode.client.entityregion.EntityClient</client.class>-->
         <client.kt.class>
-            examples.springdata.geode.kt.client.entityregion.EntityDefinedRegionClientKTKt
+            examples.springdata.geode.kt.entityregion.entityregion.EntityDefinedRegionClientKTKt
         </client.kt.class>
         <server.class>Server</server.class>
         <server.kt.class>examples.springdata.geode.client.kt.server.ServerKTKt</server.kt.class>

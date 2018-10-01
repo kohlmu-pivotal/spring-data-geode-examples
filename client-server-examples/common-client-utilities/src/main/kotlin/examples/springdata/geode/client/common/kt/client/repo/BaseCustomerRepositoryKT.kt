@@ -1,4 +1,4 @@
-package examples.springdata.geode.common.client.kt.repo
+package examples.springdata.geode.client.common.kt.client.repo
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress

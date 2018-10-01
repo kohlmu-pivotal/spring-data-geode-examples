@@ -1,4 +1,4 @@
-package examples.springdata.geode.common.client.kt
+package examples.springdata.geode.client.common.kt.client.config
 
 import examples.springdata.geode.domain.Customer
 import org.apache.geode.cache.GemFireCache

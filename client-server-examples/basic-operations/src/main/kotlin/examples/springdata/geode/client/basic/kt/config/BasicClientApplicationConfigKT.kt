@@ -18,7 +18,7 @@ package examples.springdata.geode.client.basic.kt.config
 
 import examples.springdata.geode.client.basic.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.basic.kt.services.CustomerServiceKT
-import examples.springdata.geode.common.client.kt.ClientApplicationConfigKT
+import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import

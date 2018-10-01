@@ -40,7 +40,7 @@ public class ClientApplicationConfig {
     @Bean("Customers")
     @Profile({"proxy", "default"})
     protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
-        ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
+        ClientRegionFactoryBean<Long,Customer> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
         clientRegionFactoryBean.setCache(gemFireCache);
         clientRegionFactoryBean.setName("Customers");
         clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
@@ -51,7 +51,7 @@ public class ClientApplicationConfig {
     @Profile("localCache")
     protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
             GemFireCache gemFireCache) {
-        ClientRegionFactoryBean clientRegionFactoryBean = new ClientRegionFactoryBean();
+        ClientRegionFactoryBean<Long,Customer> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
         clientRegionFactoryBean.setCache(gemFireCache);
         clientRegionFactoryBean.setName("Customers");
         clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);

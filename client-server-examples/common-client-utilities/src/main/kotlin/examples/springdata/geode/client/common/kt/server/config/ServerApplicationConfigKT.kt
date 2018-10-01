@@ -31,36 +31,12 @@ class ServerApplicationConfigKT {
 
     @Bean("Customers")
     @Profile("default")
-    protected open fun customerRegion(gemfireCache: GemFireCache) =
+    protected fun customerRegion(gemfireCache: GemFireCache) =
             ReplicatedRegionFactoryBean<Long, Customer>().apply {
                 cache = gemfireCache
                 setRegionName("Customers")
                 scope = Scope.DISTRIBUTED_ACK
                 dataPolicy = DataPolicy.REPLICATE
                 setCacheListeners(arrayOf(loggingCacheListener() as CacheListener<Long, Customer>))
-            }
-
-    @Bean("FirstNameIndex")
-    @DependsOn("Customers")
-    @Profile("default")
-    protected fun createFirstNameIndex(gemFireCache: GemFireCache) =
-            IndexFactoryBean().apply {
-                setCache(gemFireCache)
-                setDefine(false)
-                setName("firstNameIndex")
-                setExpression("firstName")
-                setFrom("/Customers")
-            }
-
-    @Bean("EmailAddressIndex")
-    @DependsOn("Customers")
-    @Profile("default")
-    protected fun createEmailAddressIndex(gemFireCache: GemFireCache) =
-            IndexFactoryBean().apply {
-                setCache(gemFireCache)
-                setDefine(false)
-                setName("emailAddressIndex")
-                setExpression("emailAddress.value")
-                setFrom("/Customers")
             }
 }
