@@ -61,6 +61,11 @@ data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Lon
      */
     fun getLineItems(): List<LineItem> = lineItems.toList()
 
+    override fun toString(): String =
+        "Order(id=$id, customerId=$customerId, billingAddress=$billingAddress, shippingAddress=$shippingAddress) \n\t" +
+            "LineItems:$lineItems"
+
+
     companion object {
         private const val serialVersionUID = -3779061453639083037L
     }

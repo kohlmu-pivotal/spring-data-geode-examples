@@ -22,11 +22,11 @@ import java.util.stream.LongStream
  * @author Udo Kohlmeyer
  */
 @SpringBootApplication(scanBasePackageClasses = [FunctionInvocationClientApplicationConfigKT::class])
-class FunctionInvocationClientKT(internal val customerServiceKT: CustomerServiceKT,
-                                 internal val productServiceKT: ProductServiceKT,
-                                 internal val orderServiceKT: OrderServiceKT) {
+class FunctionInvocationClientKT {
     @Bean
-    fun runner(): ApplicationRunner = ApplicationRunner { _ ->
+    fun runner(customerServiceKT: CustomerServiceKT,
+               productServiceKT: ProductServiceKT,
+               orderServiceKT: OrderServiceKT): ApplicationRunner = ApplicationRunner {
         createCustomerData(customerServiceKT)
 
         println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t " +
@@ -41,7 +41,7 @@ class FunctionInvocationClientKT(internal val customerServiceKT: CustomerService
         println("For order: \n\t ${orderServiceKT.findById(1).get()}")
     }
 
-    internal fun createOrders(productServiceKT: ProductServiceKT, orderServiceKT: OrderServiceKT) {
+    private fun createOrders(productServiceKT: ProductServiceKT, orderServiceKT: OrderServiceKT) {
         val random = Random(System.nanoTime())
         val address = Address("it", "doesn't", "matter")
 
@@ -58,17 +58,17 @@ class FunctionInvocationClientKT(internal val customerServiceKT: CustomerService
         }
     }
 
-    internal fun createProducts(productServiceKT: ProductServiceKT) {
-        productServiceKT.save(Product(1L, "Apple iPod", BigDecimal(99.99), "An Apple portable music player"))
-        productServiceKT.save(Product(2L, "Apple iPad", BigDecimal(499.99), "An Apple tablet device"))
-        Product(3L, "Apple macBook", BigDecimal(899.99), "An Apple notebook computer").also {
+    private fun createProducts(productServiceKT: ProductServiceKT) {
+        productServiceKT.save(Product(1L, "Apple iPod", BigDecimal("99.99"), "An Apple portable music player"))
+        productServiceKT.save(Product(2L, "Apple iPad", BigDecimal("499.99"), "An Apple tablet device"))
+        Product(3L, "Apple macBook", BigDecimal("899.99"), "An Apple notebook computer").also {
             it.addAttribute("warranty", "included")
             productServiceKT.save(it)
         }
 
     }
 
-    internal fun createCustomerData(customerServiceKT: CustomerServiceKT) {
+    private fun createCustomerData(customerServiceKT: CustomerServiceKT) {
         println("Inserting 3 entries for keys: 1, 2, 3")
         customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
         customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))

@@ -48,7 +48,7 @@ public class ClientApplicationConfig {
     }
 
     @Bean("Customers")
-    @Profile("localCache")
+    @Profile({"localCache"})
     protected ClientRegionFactoryBean<Long, Customer> configureLocalCacheClientCustomerRegion(
             GemFireCache gemFireCache) {
         ClientRegionFactoryBean<Long,Customer> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
