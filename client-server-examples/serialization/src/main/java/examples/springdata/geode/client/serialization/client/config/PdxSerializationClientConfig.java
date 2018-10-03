@@ -12,13 +12,16 @@ import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
 import org.springframework.data.gemfire.config.annotation.EnablePdx;
+import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.support.ConnectionEndpoint;
 
+import examples.springdata.geode.client.serialization.client.repo.CustomerRepository;
 import examples.springdata.geode.client.serialization.client.services.CustomerService;
 import examples.springdata.geode.domain.Customer;
 
 @EnablePdx
 @ComponentScan(basePackageClasses = CustomerService.class)
+@EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @ClientCacheApplication(name = "PDXSerializedClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class PdxSerializationClientConfig {
 

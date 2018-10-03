@@ -21,9 +21,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
-import examples.springdata.geode.client.common.server.config.ServerApplicationConfig;
+import examples.springdata.geode.client.serialization.server.config.ReadSerializedServerApplicationConfig;
 
-@SpringBootApplication(scanBasePackageClasses = ServerApplicationConfig.class)
+@SpringBootApplication(scanBasePackageClasses = ReadSerializedServerApplicationConfig.class)
 public class SerializationServer {
 
 	public static void main(String[] args) {
