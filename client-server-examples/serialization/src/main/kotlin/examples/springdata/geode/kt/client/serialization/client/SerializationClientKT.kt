@@ -5,8 +5,9 @@ import examples.springdata.geode.client.common.kt.client.service.CustomerService
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.kt.client.serialization.client.config.PdxSerializationClientConfigKT
 import org.springframework.boot.ApplicationRunner
-import org.springframework.boot.SpringApplication
+import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
 
 @SpringBootApplication(scanBasePackageClasses = [PdxSerializationClientConfigKT::class])
@@ -18,5 +19,8 @@ class SerializationClientKT : BaseClientKT {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(SerializationClientKT::class.java, *args)
+    SpringApplicationBuilder(SerializationClientKT::class.java)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

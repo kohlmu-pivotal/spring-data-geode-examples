@@ -6,6 +6,7 @@ import org.apache.geode.cache.CacheListener
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
+import org.apache.geode.pdx.PdxInstance
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
@@ -27,7 +28,7 @@ class ServerApplicationConfigKT {
 
     @Bean("loggingCacheListener")
     @Profile("default")
-    internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
+    internal fun loggingCacheListener() = LoggingCacheListener<Long, Customer>()
 
     @Bean("Customers")
     @Profile("default")
@@ -41,3 +42,24 @@ class ServerApplicationConfigKT {
             }
 }
 
+@Profile("readSerialized")
+@EnableLocator
+@EnablePdx(readSerialized = true)
+@CacheServerApplication(port = 0, logLevel = "info")
+class ReadSerializedServerApplicationConfigKT {
+
+    @Bean("loggingCacheListener")
+    @Profile("readSerialized")
+    internal fun loggingCacheListener() = LoggingCacheListener<Long, PdxInstance>()
+
+    @Bean("Customers")
+    @Profile("readSerialized")
+    protected fun customerRegion(gemfireCache: GemFireCache) =
+        ReplicatedRegionFactoryBean<Long, PdxInstance>().apply {
+            cache = gemfireCache
+            setRegionName("Customers")
+            scope = Scope.DISTRIBUTED_ACK
+            dataPolicy = DataPolicy.REPLICATE
+            setCacheListeners(arrayOf(loggingCacheListener() as CacheListener<Long, PdxInstance>))
+        }
+}
