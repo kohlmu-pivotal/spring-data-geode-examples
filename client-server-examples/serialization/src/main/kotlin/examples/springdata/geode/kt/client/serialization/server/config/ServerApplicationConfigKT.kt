@@ -1,4 +1,4 @@
-package examples.springdata.geode.client.common.kt.server.config
+package examples.springdata.geode.kt.client.serialization.server.config
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.util.LoggingCacheListener
@@ -7,12 +7,11 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
-import org.springframework.data.gemfire.IndexFactoryBean
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableLocator
+import org.springframework.data.gemfire.config.annotation.EnablePdx
 
 /**
  * The server application configuration file. This configuration file creates: LoggingCacheListener, CustomerRegion,
@@ -22,6 +21,7 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
 
 @Profile("default")
 @EnableLocator
+@EnablePdx
 @CacheServerApplication(port = 0, logLevel = "info")
 class ServerApplicationConfigKT {
 

@@ -29,7 +29,7 @@ import java.util.regex.Pattern
  * @author Oliver Gierke
  * @author Udo Kohlmeyer
  */
-data class EmailAddress(val value: String) : Serializable {
+data class EmailAddress (val value: String) : Serializable {
     init {
         Assert.isTrue(isValid(value), "Invalid email address!")
     }
