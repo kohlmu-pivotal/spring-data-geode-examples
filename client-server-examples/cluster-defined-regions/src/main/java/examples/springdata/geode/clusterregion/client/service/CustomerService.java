@@ -1,4 +1,4 @@
-package examples.springdata.geode.client.basic.services;
+package examples.springdata.geode.clusterregion.client.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.apache.geode.cache.Region;
 import org.springframework.stereotype.Service;
 
-import examples.springdata.geode.client.basic.repo.CustomerRepository;
+import examples.springdata.geode.clusterregion.client.repo.CustomerRepository;
 import examples.springdata.geode.domain.Customer;
 
 @Service

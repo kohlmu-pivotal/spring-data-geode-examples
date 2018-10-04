@@ -23,6 +23,7 @@
         <module>security</module>
         <module>entity-defined-regions</module>
         <module>serialization</module>
+		<module>cluster-defined-regions</module>
     </modules>
 
     <properties>

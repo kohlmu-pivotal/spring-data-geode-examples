@@ -9,7 +9,7 @@ import java.util.*
 import javax.annotation.Resource
 
 @Service("customerServiceKT")
-class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT) : CustomerServiceKT<Customer> {
+class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT) : CustomerServiceKT {
 
     @Resource(name = "Customers")
     private lateinit var customerRegion: Region<Long, Customer>
