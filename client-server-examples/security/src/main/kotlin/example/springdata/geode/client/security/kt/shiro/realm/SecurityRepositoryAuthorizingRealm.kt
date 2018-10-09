@@ -56,7 +56,7 @@ import java.security.Principal
  * @throws IllegalArgumentException if [SecurityRepository] is null.
  * @see example.springdata.geode.client.security.kt.server.repo.SecurityRepository
  */
-class SecurityRepositoryAuthorizingRealm<T : User>(private val securityRepository: SecurityRepository<T>) : AuthorizingRealm() {
+class SecurityRepositoryAuthorizingRealm(private val securityRepository: SecurityRepository) : AuthorizingRealm() {
 
     private val isRealmAuthenticationRequired: Boolean
         get() = credentialsMatcher == null

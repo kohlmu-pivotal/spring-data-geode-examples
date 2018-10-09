@@ -1,21 +1,16 @@
-package examples.springdata.geode.entityregion.client.config;
+package examples.springdata.geode.clusterregion.client.config;
 
-import java.util.Collections;
-
+import examples.springdata.geode.clusterregion.client.repo.CustomerRepository;
+import examples.springdata.geode.clusterregion.client.service.CustomerService;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
-import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer;
-import org.springframework.data.gemfire.config.annotation.EnableCachingDefinedRegions;
-import org.springframework.data.gemfire.config.annotation.EnableClusterConfiguration;
-import org.springframework.data.gemfire.config.annotation.EnableIndexing;
+import org.springframework.data.gemfire.config.annotation.*;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.support.ConnectionEndpoint;
 
-import examples.springdata.geode.clusterregion.client.repo.CustomerRepository;
-import examples.springdata.geode.clusterregion.client.service.CustomerService;
+import java.util.Collections;
 
 @ClientCacheApplication
 @EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)

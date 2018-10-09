@@ -9,7 +9,6 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.*
 
@@ -21,11 +20,9 @@ import org.springframework.data.gemfire.config.annotation.*
 class ClusterDefinedRegionServerConfigKT {
 
     @Bean("loggingCacheListener")
-    @Profile("default")
-    internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
+    internal fun loggingCacheListener() = LoggingCacheListener<Long, Customer>()
 
     @Bean("Customers")
-    @Profile("default")
     protected fun customerRegion(gemfireCache: GemFireCache) =
         ReplicatedRegionFactoryBean<Long, Customer>().apply {
             cache = gemfireCache
@@ -36,7 +33,6 @@ class ClusterDefinedRegionServerConfigKT {
         }
 
     @Bean("Orders")
-    @Profile("default")
     protected fun orderRegion(gemfireCache: GemFireCache) =
         ReplicatedRegionFactoryBean<Long, Order>().apply {
             cache = gemfireCache
@@ -46,7 +42,6 @@ class ClusterDefinedRegionServerConfigKT {
         }
 
     @Bean("Products")
-    @Profile("default")
     protected fun productRegion(gemfireCache: GemFireCache) =
         ReplicatedRegionFactoryBean<Long, Product>().apply {
             cache = gemfireCache

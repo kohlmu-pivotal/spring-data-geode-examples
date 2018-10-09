@@ -17,8 +17,6 @@
 package example.springdata.geode.client.security.kt.server.repo
 
 import example.springdata.geode.client.security.kt.domain.User
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * The [CachingSecurityRepository] class caches Security Configuration Meta-Data and is meant to be extended
@@ -30,15 +28,13 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * @since 1.0.0
  */
-abstract class CachingSecurityRepository : SecurityRepository<User> {
-    private val users: MutableMap<String, User> = ConcurrentHashMap()
+abstract class CachingSecurityRepository : SecurityRepository {
+    private val users: MutableMap<String, User> = mutableMapOf()
 
     /**
      * @inheritDoc
      */
-    override fun findAll(): Iterable<User> {
-        return Collections.unmodifiableCollection(users.values)
-    }
+    override fun findAll(): Iterable<User> = users.values.asSequence().asIterable()
 
     override fun delete(user: User?): Boolean =
             user?.run { users.remove(this.name)?.let { true } ?: false } ?: false

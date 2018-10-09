@@ -62,7 +62,7 @@ abstract class SecurityManagerSupport : org.apache.geode.security.SecurityManage
 
     /* (non-Javadoc)*/
     protected fun logDebug(message: String, vararg args: Any) {
-        if (logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled) {
             logger.debug(message, args)
         }
     }
@@ -71,7 +71,7 @@ abstract class SecurityManagerSupport : org.apache.geode.security.SecurityManage
      * @inheritDoc
      */
     override fun init(securityProperties: Properties?) {
-        if (logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled) {
             logger.debug("Security Properties [{}]", securityProperties)
         }
     }
@@ -95,7 +95,7 @@ abstract class SecurityManagerSupport : org.apache.geode.security.SecurityManage
      * @inheritDoc
      */
     override fun close() {
-        if (logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled) {
             logger.debug("Closing SecurityManager [{}]", javaClass.name)
         }
     }

@@ -38,7 +38,7 @@ data class User(private val name: String, val roles: MutableSet<Role> = mutableS
      * @inheritDoc
      */
     @Throws(CloneNotSupportedException::class)
-    override fun clone(): Any = copy(name = getName()).usingCredentials(credentials).withRoles(roles)
+    override fun clone(): Any = copy(name = getName()).withCredentials(credentials).withRoles(roles)
 
     /**
      * @inheritDoc
@@ -114,7 +114,7 @@ data class User(private val name: String, val roles: MutableSet<Role> = mutableS
      * @return this [User].
      * @see User
      */
-    fun usingCredentials(credentials: String?): User {
+    fun withCredentials(credentials: String?): User {
         this.credentials = credentials
         return this
     }

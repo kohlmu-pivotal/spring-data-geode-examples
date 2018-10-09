@@ -1,6 +1,5 @@
 package example.springdata.geode.client.security.kt.server.config
 
-import example.springdata.geode.client.security.kt.domain.User
 import example.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager
 import example.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository
 import example.springdata.geode.client.security.kt.server.repo.SecurityRepository
@@ -46,10 +45,10 @@ class ApacheShiroRealmConfigurationKT {
 @Profile("shiro-custom-realm-configuration")
 internal class ApacheShiroCustomRealmConfigurationKT {
     @Bean
-    fun securityRepository(): SecurityRepository<User> = XmlSecurityRepository()
+    fun securityRepository(): SecurityRepository = XmlSecurityRepository()
 
     @Bean
-    fun geodeRealm(securityRepository: SecurityRepository<User>): Realm = SecurityRepositoryAuthorizingRealm(securityRepository)
+    fun geodeRealm(securityRepository: SecurityRepository): Realm = SecurityRepositoryAuthorizingRealm(securityRepository)
 }
 
 @Configuration
@@ -82,6 +81,6 @@ internal class GeodeIntegratedSecurityProxyConfigurationKT {
             JdbcSecurityRepository(hsqlTemplate)
 
     @Bean
-    fun securityManager(securityRepository: SecurityRepository<User>): SimpleSecurityManager =
+    fun securityManager(securityRepository: SecurityRepository): SimpleSecurityManager =
             SimpleSecurityManager(securityRepository)
 }

@@ -66,7 +66,7 @@ class SimpleSecurityManager
          * @return a reference to the [SecurityRepository].
          * @see example.app.geode.security.repository.SecurityRepository
          */
-        protected val securityRepository: SecurityRepository<User> = defaultSecurityRepository()) : SecurityManagerSupport() {
+        protected val securityRepository: SecurityRepository = defaultSecurityRepository()) : SecurityManagerSupport() {
 
     companion object {
 
@@ -80,7 +80,7 @@ class SimpleSecurityManager
          *
          * @see example.app.geode.security.repository.SecurityRepository
          */
-        private fun defaultSecurityRepository(): SecurityRepository<User> {
+        private fun defaultSecurityRepository(): SecurityRepository {
             try {
                 val securityRepository = XmlSecurityRepository()
                 securityRepository.afterPropertiesSet()
@@ -89,7 +89,7 @@ class SimpleSecurityManager
             } catch (e: Exception) {
                 throw RuntimeException(String.format(
                         "Failed to construct and initialize an instance of the SecurityRepository [%s]",
-                        XmlSecurityRepository::class.java.name))
+                        XmlSecurityRepository::class.java))
             }
         }
     }
@@ -158,14 +158,15 @@ class SimpleSecurityManager
 
     /* (non-Javadoc) */
     protected fun resolveUser(principal: Any?): User? {
-        return if (principal is User) principal as User? else securityRepository.findBy(getName(principal!!))
+        return if (principal is User) principal else securityRepository.findBy(getName(principal!!))
     }
 
     /* (non-Javadoc) */
     protected fun isAuthorized(user: User, requiredPermission: ResourcePermission): Boolean {
         if (!user.hasPermission(requiredPermission)) {
-            return user.roles.firstOrNull {
-                it.permissions.firstOrNull { isPermitted(it, requiredPermission) }?.let { true } ?: false
+            return user.roles.firstOrNull { role ->
+                role.permissions.firstOrNull { userPermission -> isPermitted(userPermission, requiredPermission) }?.let { true }
+                        ?: false
             }?.let { true } ?: false
         }
 

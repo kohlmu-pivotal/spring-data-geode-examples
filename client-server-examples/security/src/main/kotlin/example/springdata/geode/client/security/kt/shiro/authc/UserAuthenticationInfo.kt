@@ -41,7 +41,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection
  * @see Realm
  */
 
-class UserAuthenticationInfo(val user: User, val realm: Realm) : AuthenticationInfo {
+class UserAuthenticationInfo(val user: User, private val realm: Realm) : AuthenticationInfo {
     /**
      * @inheritDoc
      */

@@ -1,19 +1,3 @@
-/*
- * Copyright 2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 package example.springdata.geode.client.security.kt.server.repo
 
 import example.springdata.geode.client.security.kt.domain.Role
@@ -50,20 +34,20 @@ import java.util.*
  */
 @Repository
 class JdbcSecurityRepository(protected val jdbcTemplate: JdbcTemplate) : CachingSecurityRepository(), InitializingBean {
-    protected val logger = LoggerFactory.getLogger(javaClass)
+    protected val logger = LoggerFactory.getLogger(javaClass)!!
 
     companion object {
-        protected const val ROLES_QUERY = "SELECT name FROM geode_security.roles"
+        private const val ROLES_QUERY = "SELECT name FROM geode_security.roles"
 
-        protected const val ROLE_PERMISSIONS_QUERY = (""
+        private const val ROLE_PERMISSIONS_QUERY = (""
                 + " SELECT rolePerms.resource, rolePerms.operation, rolePerms.region_name, rolePerms.key_name"
                 + " FROM geode_security.roles_permissions rolePerms"
                 + " INNER JOIN geode_security.roles roles ON roles.id = rolePerms.role_id "
                 + " WHERE roles.name = ?")
 
-        protected const val USERS_QUERY = "SELECT name, credentials FROM geode_security.users"
+        private const val USERS_QUERY = "SELECT name, credentials FROM geode_security.users"
 
-        protected const val USER_ROLES_QUERY = (""
+        private const val USER_ROLES_QUERY = (""
                 + " SELECT roles.name"
                 + " FROM geode_security.roles roles"
                 + " INNER JOIN geode_security.users_roles userRoles ON roles.id = userRoles.role_id"
@@ -90,7 +74,7 @@ class JdbcSecurityRepository(protected val jdbcTemplate: JdbcTemplate) : Caching
         }
 
         val users = jdbcTemplate.query(USERS_QUERY
-        ) { resultSet, _ -> createUser(resultSet.getString(1)).usingCredentials(resultSet.getString(2)) }
+        ) { resultSet, _ -> createUser(resultSet.getString(1)).withCredentials(resultSet.getString(2)) }
 
         users.forEach {
             jdbcTemplate.query(USER_ROLES_QUERY, arrayOf(it.name)
@@ -103,7 +87,6 @@ class JdbcSecurityRepository(protected val jdbcTemplate: JdbcTemplate) : Caching
     }
 
     /* (non-Javadoc) */
-    protected fun newResourcePermission(resource: String?, operation: String?, region: String?, key: String?): ResourcePermission {
-        return ResourcePermission(resource, operation, region, key)
-    }
+    protected fun newResourcePermission(resource: String?, operation: String?, region: String?, key: String?): ResourcePermission =
+            ResourcePermission(resource, operation, region, key)
 }

@@ -1,19 +1,3 @@
-/*
- * Copyright 2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 package example.springdata.geode.client.security.kt.server.repo
 
 import example.springdata.geode.client.security.kt.domain.Role
@@ -73,48 +57,36 @@ class XmlSecurityRepository
     }
 
     @Throws(Exception::class)
-    private fun parseRolesPermissions(rolesPermissions: Resource): Map<String, Role> {
-        val document = SAXBuilder().build(rolesPermissions.inputStream)
-        val rolesElement = document.rootElement
-
-        val roleNameMapping = mutableMapOf<String, Role>()
-
-        rolesElement.children?.map {
-            val roleElement = it
-            val role = Role.newRole(roleElement.getAttributeValue("name"))
-
-            roleElement.getChild("permissions").children?.map {
-                val permissionElement = it
-                role.withPermissions(ResourcePermission(permissionElement.getAttributeValue("resource"),
-                        permissionElement.getAttributeValue("operation"), permissionElement.getAttributeValue("region"),
-                        permissionElement.getAttributeValue("key")))
-            }
-            roleNameMapping[role.getName()] = role
-            roleNameMapping
-        }
-
-        return roleNameMapping
-    }
-
-    @Throws(Exception::class)
-    private fun parseUsersRoles(usersRoles: Resource, roles: Map<String, Role>): List<User> {
-        val document = SAXBuilder().build(usersRoles.inputStream)
-
-        return document?.rootElement?.children?.mapNotNull {
-            val userElement = it
-            val user = User.newUser(userElement.getAttributeValue("name"))
-                    .usingCredentials(userElement.getAttributeValue("password"))
-
-            it.getChild("roles")?.children?.forEach {
-                val roleElement = it
-                roleElement.getAttributeValue("name")?.also {
-                    val roleName = it
-                    roles[roleName]?.let {
-                        user.withRoles(it)
+    private fun parseRolesPermissions(rolesPermissions: Resource): Map<String, Role> =
+            SAXBuilder().build(rolesPermissions.inputStream)?.let { document ->
+                document.rootElement?.children?.mapNotNull { roleElement ->
+                    Role.newRole(roleElement.getAttributeValue("name")).also { role ->
+                        roleElement.getChild("permissions")?.children?.forEach { permissionElement ->
+                            role.withPermissions(
+                                    ResourcePermission(
+                                            permissionElement.getAttributeValue("resource"),
+                                            permissionElement.getAttributeValue("operation"),
+                                            permissionElement.getAttributeValue("region"),
+                                            permissionElement.getAttributeValue("key")))
+                        }
                     }
                 }
-            }
-            user
-        }?.toMutableList() ?: emptyList()
-    }
+            }?.associate { it.getName() to it } ?: emptyMap()
+
+    @Throws(Exception::class)
+    private fun parseUsersRoles(usersRoles: Resource, roles: Map<String, Role>): List<User> =
+            SAXBuilder().build(usersRoles.inputStream)?.let { document ->
+                document.rootElement?.children?.mapNotNull { userElement ->
+                    User.newUser(userElement.getAttributeValue("name"))
+                            .withCredentials(userElement.getAttributeValue("password")).also { user ->
+                                userElement.getChild("roles")?.children?.forEach { roleElement ->
+                                    roleElement.getAttributeValue("name")?.also { roleName ->
+                                        roles[roleName]?.let { role ->
+                                            user.withRoles(role)
+                                        }
+                                    }
+                                }
+                            }
+                }
+            }?.toList() ?: emptyList()
 }

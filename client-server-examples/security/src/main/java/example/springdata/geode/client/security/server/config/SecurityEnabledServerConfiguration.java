@@ -1,6 +1,5 @@
 package example.springdata.geode.client.security.server.config;
 
-import example.springdata.geode.client.security.kt.domain.User;
 import example.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager;
 import example.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository;
 import example.springdata.geode.client.security.kt.server.repo.SecurityRepository;
@@ -80,7 +79,7 @@ class GeodeIntegratedSecurityProxyConfiguration {
     }
 
     @Bean
-    SimpleSecurityManager securityManager(SecurityRepository<User> securityRepository) {
+    SimpleSecurityManager securityManager(SecurityRepository securityRepository) {
         return new SimpleSecurityManager(securityRepository);
     }
 }

@@ -14,7 +14,7 @@ import example.springdata.geode.client.security.kt.domain.User
  * @see org.springframework.stereotype.Repository
  * @since 1.0.0
  */
-interface SecurityRepository<T> {
+interface SecurityRepository {
 
     /**
      * Finds all [Users][User] of the system.
