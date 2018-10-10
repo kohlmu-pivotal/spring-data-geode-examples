@@ -1,5 +1,6 @@
 package examples.springdata.geode.clusterregion.client;
 
+import examples.springdata.geode.clusterregion.client.config.ClusterDefinedRegionClientConfig;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 import examples.springdata.geode.client.common.client.BaseClient;
 import examples.springdata.geode.clusterregion.client.service.CustomerService;
-import examples.springdata.geode.entityregion.client.config.ClusterDefinedRegionClientConfig;
 
 @SpringBootApplication(scanBasePackageClasses = ClusterDefinedRegionClientConfig.class)
 public class ClusterDefinedRegionClient implements BaseClient {
