@@ -21,14 +21,14 @@
         <dependency>
             <groupId>org.apache.geode</groupId>
             <artifactId>geode-web-api</artifactId>
-            <version>1.7.0</version>
+            <version>1.6.0</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geode</groupId>
             <artifactId>geode-web</artifactId>
-            <version>1.7.0</version>
+            <version>1.6.0</version>
             <type>war</type>
             <scope>runtime</scope>
             <exclusions>

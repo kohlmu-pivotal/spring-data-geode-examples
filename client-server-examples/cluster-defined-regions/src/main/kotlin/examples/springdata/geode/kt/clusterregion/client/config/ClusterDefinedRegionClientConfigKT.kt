@@ -11,7 +11,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 import org.springframework.data.gemfire.support.ConnectionEndpoint
 
 @ClientCacheApplication
-@EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
+//@EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 @ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableIndexing

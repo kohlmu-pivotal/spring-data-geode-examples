@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.support.ConnectionEndpoint;
 import java.util.Collections;
 
 @ClientCacheApplication
-@EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
+//@EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableIndexing

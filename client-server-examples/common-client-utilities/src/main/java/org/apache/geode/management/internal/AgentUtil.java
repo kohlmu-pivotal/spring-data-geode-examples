@@ -15,24 +15,26 @@
 
 package org.apache.geode.management.internal;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.geode.distributed.internal.DistributionConfig;
-
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Logger;
+
+import org.apache.geode.distributed.internal.DistributionConfig;
+import org.apache.geode.internal.logging.LogService;
+
 /**
  * Hosts common utility methods needed by the management package
  *
  * @since Geode 1.0.0
  */
-
-//!! A copy of this class has been made until the release of Geode 1.7
 public class AgentUtil {
 
+    private static final Logger logger = LogService.getLogger();
 
     private final String gemfireVersion;
     private static final String GEODE_HOME = "GEODE_HOME";
@@ -59,11 +61,13 @@ public class AgentUtil {
         String possiblePath =
                 lookupWarLocationFromClasspath(versionedWarFileName, unversionedWarFileName);
         if (possiblePath != null) {
+            logger.info("Located war: {} at location: {}", warFilePrefix, possiblePath);
             return possiblePath;
         }
         possiblePath =
                 findPossibleWarLocationFromGeodeHome(versionedWarFileName, unversionedWarFileName);
         if (possiblePath != null) {
+            logger.info("Located war: {} at location: {}", warFilePrefix, possiblePath);
             return possiblePath;
         }
         // if $GEODE_HOME is not set or we are not able to find it in all the possible locations under
@@ -71,9 +75,11 @@ public class AgentUtil {
         possiblePath =
                 findPossibleWarLocationFromExtraLocations(versionedWarFileName, unversionedWarFileName);
         if (possiblePath != null) {
+            logger.info("Located war: {} at location: {}", warFilePrefix, possiblePath);
             return possiblePath;
         }
 
+        logger.warn(warFilePrefix + " war file was not found");
         return null;
     }
 
@@ -89,6 +95,7 @@ public class AgentUtil {
 
         if (url != null) {
             final String path = url.getPath();
+            logger.info("War file found: {}", path);
             return path;
         }
         return null;
@@ -141,11 +148,14 @@ public class AgentUtil {
 
         String geodeHome = System.getenv(GEODE_HOME);
 
+        logger.info(GEODE_HOME + ":" + geodeHome);
         // Check for empty variable. if empty, then log message and exit HTTP server
         // startup
         if (StringUtils.isBlank(geodeHome)) {
             geodeHome = System.getProperty(DistributionConfig.GEMFIRE_PREFIX + "home");
+            logger.info("Reading gemfire.home System Property -> {}", geodeHome);
             if (StringUtils.isBlank(geodeHome)) {
+                logger.info("GEODE_HOME environment variable not set; HTTP service will not start.");
                 geodeHome = null;
             }
         }
