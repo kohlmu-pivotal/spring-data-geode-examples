@@ -31,7 +31,7 @@ import javax.persistence.Entity
  */
 @Region("Orders")
 @Entity
-data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, private val customerId: Long,
+data class Order @JvmOverloads constructor(@Id @javax.persistence.Id val id: Long?, val customerId: Long,
                                            private val billingAddress: Address, private val shippingAddress: Address = billingAddress) : Serializable {
     private val lineItems: MutableList<LineItem> = mutableListOf()
     /**
