@@ -62,8 +62,8 @@ interface SecurityRepository {
             findBy(username)?.run { delete(this) } ?: false
 
     /* (non-Javadoc) */
-    fun deleteAll(vararg usernames: String): Boolean =
-            deleteAll(findAll(*usernames))
+    fun deleteAll(vararg username: String): Boolean =
+            deleteAll(findAll(*username))
 
     /* (non-Javadoc) */
     fun deleteAll(vararg users: User): Boolean =
@@ -71,19 +71,19 @@ interface SecurityRepository {
 
     /* (non-Javadoc) */
     fun deleteAll(users: Iterable<User> = findAll()): Boolean =
-            users.firstOrNull { delete(it) == false }?.let { false } ?: true
+            users.firstOrNull { !delete(it) }?.let { false } ?: true
 
     /* (non-Javadoc) */
     fun exists(username: String): Boolean =
             findBy(username) != null
 
     /* (non-Javadoc) */
-    fun findAll(vararg usernames: String): Iterable<User> =
-            findAll(usernames.asIterable())
+    fun findAll(vararg username: String): Iterable<User> =
+            findAll(username.asIterable())
 
     /* (non-Javadoc) */
-    fun findAll(usernames: Iterable<String>): Iterable<User> =
-            usernames.mapNotNull { findBy(it) }.toMutableList()
+    fun findAll(username: Iterable<String>): Iterable<User> =
+            username.mapNotNull { findBy(it) }.toMutableList()
 
     /* (non-Javadoc) */
     fun findBy(username: String): User? = findAll().firstOrNull { it.name == username }
@@ -94,5 +94,5 @@ interface SecurityRepository {
 
     /* (non-Javadoc) */
     fun saveAll(users: Iterable<User>): Iterable<User> =
-            users.mapNotNull { save(it) }.toMutableList()
+            users.map { save(it) }.toMutableList()
 }

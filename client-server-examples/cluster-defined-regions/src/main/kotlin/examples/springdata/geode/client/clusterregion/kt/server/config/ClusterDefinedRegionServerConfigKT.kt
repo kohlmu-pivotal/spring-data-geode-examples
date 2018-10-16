@@ -9,6 +9,7 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Import
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.*
 
@@ -17,19 +18,17 @@ import org.springframework.data.gemfire.config.annotation.*
 @EnableHttpService
 @CacheServerApplication(port = 0, logLevel = "error", useClusterConfiguration = true)
 @EnableClusterConfiguration(useHttp = true)
+@Import(LoggingCacheListener::class)
 class ClusterDefinedRegionServerConfigKT {
 
-    @Bean("loggingCacheListener")
-    internal fun loggingCacheListener() = LoggingCacheListener<Long, Customer>()
-
     @Bean("Customers")
-    protected fun customerRegion(gemfireCache: GemFireCache) =
+    protected fun customerRegion(gemfireCache: GemFireCache, loggingCacheListener: CacheListener<*, *>) =
         ReplicatedRegionFactoryBean<Long, Customer>().apply {
             cache = gemfireCache
             setRegionName("Customers")
             scope = Scope.DISTRIBUTED_ACK
             dataPolicy = DataPolicy.REPLICATE
-            setCacheListeners(arrayOf(loggingCacheListener() as CacheListener<Long, Customer>))
+            setCacheListeners(arrayOf(loggingCacheListener as CacheListener<Long, Customer>))
         }
 
     @Bean("Orders")

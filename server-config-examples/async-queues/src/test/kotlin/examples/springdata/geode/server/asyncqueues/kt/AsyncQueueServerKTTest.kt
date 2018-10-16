@@ -22,34 +22,34 @@ import javax.annotation.Resource
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [AsyncQueueServerKT::class])
 class AsyncQueueServerKTTest {
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     @Resource(name = "Orders")
-    private val orders: Region<Long, Order>? = null
+    lateinit var orders: Region<Long, Order>
 
     @Resource(name = "Products")
-    private val products: Region<Long, Product>? = null
+    lateinit var products: Region<Long, Product>
 
     @Resource(name = "OrderProductSummary")
-    private val orderProductSummary: Region<Long, OrderProductSummary>? = null
+    lateinit var orderProductSummary: Region<Long, OrderProductSummary>
 
     @Autowired
-    private val customerRepository: CustomerRepositoryKT? = null
+    lateinit var customerRepository: CustomerRepositoryKT
 
     @Autowired
-    private val orderRepository: OrderRepositoryKT? = null
+    lateinit var orderRepository: OrderRepositoryKT
 
     @Autowired
-    private val productRepository: ProductRepositoryKT? = null
+    lateinit var productRepository: ProductRepositoryKT
 
     @Autowired
-    private val orderProductSummaryRepository: OrderProductSummaryRepositoryKT? = null
+    lateinit var orderProductSummaryRepository: OrderProductSummaryRepositoryKT
 
     @Test
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isNotEmpty
     }
@@ -58,7 +58,7 @@ class AsyncQueueServerKTTest {
     fun ordersRegionWasConfiguredCorrectly() {
 
         assertThat(this.orders).isNotNull
-        assertThat(this.orders!!.name).isEqualTo("Orders")
+        assertThat(this.orders.name).isEqualTo("Orders")
         assertThat(this.orders.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
         assertThat(this.orders).isNotEmpty
 
@@ -69,7 +69,7 @@ class AsyncQueueServerKTTest {
     fun productsRegionWasConfiguredCorrectly() {
 
         assertThat(this.products).isNotNull
-        assertThat(this.products!!.name).isEqualTo("Products")
+        assertThat(this.products.name).isEqualTo("Products")
         assertThat(this.products.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
         assertThat(this.products).isNotEmpty
     }
@@ -78,32 +78,30 @@ class AsyncQueueServerKTTest {
     fun orderProductSummaryRegionWasConfiguredCorrectly() {
 
         assertThat(this.orderProductSummary).isNotNull
-        assertThat(this.orderProductSummary!!.name).isEqualTo("OrderProductSummary")
+        assertThat(this.orderProductSummary.name).isEqualTo("OrderProductSummary")
         assertThat(this.orderProductSummary.fullPath).isEqualTo(RegionUtils.toRegionPath("OrderProductSummary"))
         assertThat(this.orderProductSummary).isNotEmpty
     }
 
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
-
-        assertThat(this.customerRepository!!.count()).isEqualTo(301)
+        assertThat(this.customerRepository.count()).isEqualTo(301)
     }
 
     @Test
     fun productRepositoryWasAutoConfiguredCorrectly() {
-
-        assertThat(this.productRepository!!.count()).isEqualTo(3)
+        assertThat(this.productRepository.count()).isEqualTo(3)
     }
 
     @Test
     fun orderRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.orderRepository!!.count()).isEqualTo(10)
+        assertThat(this.orderRepository.count()).isEqualTo(10)
     }
 
     @Test
     fun orderProductSummaryRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.orderProductSummaryRepository!!.count()).isBetween(3L, 6L)
+        assertThat(this.orderProductSummaryRepository.count()).isBetween(3L, 6L)
     }
 }

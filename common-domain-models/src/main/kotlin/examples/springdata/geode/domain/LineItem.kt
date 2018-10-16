@@ -30,8 +30,7 @@ data class LineItem @JvmOverloads constructor(private val product: Product, priv
     val productId = product.id
     private val productName = product.name
 
-    val total: BigDecimal
-        get() = unitPrice.multiply(BigDecimal.valueOf(amount.toLong()))
+    val total: BigDecimal by lazy { unitPrice.multiply(BigDecimal.valueOf(amount.toLong())) }
 
     init {
         Assert.isTrue(amount > 0, "The amount of Products to be bought must be greater than 0")

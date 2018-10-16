@@ -22,28 +22,28 @@ import javax.annotation.Resource
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [RegionTypeServerKT::class])
 class RegionTypeServerKTTest {
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     @Resource(name = "Orders")
-    private val orders: Region<Long, Order>? = null
+    lateinit var orders: Region<Long, Order>
 
     @Resource(name = "Products")
-    private val products: Region<Long, Product>? = null
+    lateinit var products: Region<Long, Product>
 
     @Autowired
-    private val customerRepository: CustomerRepositoryKT? = null
+    lateinit var customerRepository: CustomerRepositoryKT
 
     @Autowired
-    private val orderRepository: OrderRepositoryKT? = null
+    lateinit var orderRepository: OrderRepositoryKT
 
     @Autowired
-    private val productRepository: ProductRepositoryKT? = null
+    lateinit var productRepository: ProductRepositoryKT
 
     @Test
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isNotEmpty
         assertThat(this.customers.attributes.partitionAttributes.totalNumBuckets).isEqualTo(13)
@@ -54,7 +54,7 @@ class RegionTypeServerKTTest {
     fun ordersRegionWasConfiguredCorrectly() {
 
         assertThat(this.orders).isNotNull
-        assertThat(this.orders!!.name).isEqualTo("Orders")
+        assertThat(this.orders.name).isEqualTo("Orders")
         assertThat(this.orders.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
         assertThat(this.orders).isNotEmpty
     }
@@ -63,7 +63,7 @@ class RegionTypeServerKTTest {
     fun productsRegionWasConfiguredCorrectly() {
 
         assertThat(this.products).isNotNull
-        assertThat(this.products!!.name).isEqualTo("Products")
+        assertThat(this.products.name).isEqualTo("Products")
         assertThat(this.products.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
         assertThat(this.products).isNotEmpty
     }
@@ -71,18 +71,18 @@ class RegionTypeServerKTTest {
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.customerRepository!!.count()).isEqualTo(3001)
+        assertThat(this.customerRepository.count()).isEqualTo(3001)
     }
 
     @Test
     fun productRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.productRepository!!.count()).isEqualTo(3)
+        assertThat(this.productRepository.count()).isEqualTo(3)
     }
 
     @Test
     fun orderRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.orderRepository!!.count()).isEqualTo(100)
+        assertThat(this.orderRepository.count()).isEqualTo(100)
     }
 }

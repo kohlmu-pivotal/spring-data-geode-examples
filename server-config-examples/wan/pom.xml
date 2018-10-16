@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wan</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wan-event-filters</module>
+        <module>wan-transport-filters</module>
+		<module>wan-substitution-filter</module>
+	</modules>
 
     <dependencies>
         <dependency>

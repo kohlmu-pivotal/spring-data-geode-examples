@@ -160,7 +160,7 @@
 					<dependency>
 						<groupId>org.jetbrains.kotlin</groupId>
 						<artifactId>kotlin-maven-allopen</artifactId>
-                        <version>1.3.0</version>
+                        <version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -207,7 +207,7 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
 				<executions>
 					<execution>
 						<id>default-compile</id>

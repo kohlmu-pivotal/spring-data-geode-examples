@@ -18,6 +18,13 @@
             <groupId>examples.springdata.geode.domain</groupId>
             <artifactId>common-domain-models</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>examples.springdata.geode.domain</groupId>
+            <artifactId>common-domain-models</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.shell</groupId>

@@ -22,10 +22,10 @@ import javax.annotation.Resource
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [SecurityEnabledClientConfigurationKT::class])
 class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
-    private val customerRepo: CustomerRepositoryKT? = null
+    lateinit var customerRepo: CustomerRepositoryKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     companion object {
         @BeforeClass
@@ -40,7 +40,7 @@ class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport()
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isEmpty()
     }
@@ -57,10 +57,10 @@ class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport()
         val john = Customer(1L, EmailAddress("2@2.com"), "John", "Smith")
         val frank = Customer(2L, EmailAddress("3@3.com"), "Frank", "Lamport")
         val jude = Customer(3L, EmailAddress("5@5.com"), "Jude", "Simmons")
-        customerRepo!!.save(john)
+        customerRepo.save(john)
         customerRepo.save(frank)
         customerRepo.save(jude)
-        assertThat(customers!!.keySetOnServer().size).isEqualTo(3)
+        assertThat(customers.keySetOnServer().size).isEqualTo(3)
         println("Customers saved on server:")
         val customerList = customerRepo.findAll()
         assertThat(customerList.count()).isEqualTo(3)

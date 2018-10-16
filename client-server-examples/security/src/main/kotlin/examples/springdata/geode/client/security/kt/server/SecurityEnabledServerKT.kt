@@ -6,6 +6,7 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
+import java.util.*
 
 @SpringBootApplication(scanBasePackageClasses = [SecurityEnabledServerConfigurationKT::class])
 class SecurityEnabledServerKT {
@@ -23,6 +24,6 @@ class SecurityEnabledServerKT {
     @Bean
     fun runner() = ApplicationRunner {
         System.err.println("Press <ENTER> to exit")
-        readLine()
+        Scanner(System.`in`).nextLine()
     }
 }

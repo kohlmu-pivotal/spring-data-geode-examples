@@ -2,8 +2,9 @@ package examples.springdata.geode.client.common.server;
 
 import examples.springdata.geode.client.common.server.config.ServerApplicationConfig;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 @SpringBootApplication(scanBasePackageClasses = ServerApplicationConfig.class)
 public class Server {
     public static void main(String[] args) {
-        SpringApplication.run(Server.class, args);
+        new SpringApplicationBuilder(Server.class).web(WebApplicationType.NONE).build().run(args);
     }
 
     @Bean

@@ -18,22 +18,22 @@ import javax.annotation.Resource
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [EventHandlerServerKT::class])
 class EventHandlerServerKTTest {
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     @Resource(name = "Products")
-    private val products: Region<Long, Product>? = null
+    lateinit var products: Region<Long, Product>
 
     @Autowired
-    internal var customerRepository: CustomerRepositoryKT? = null
+    lateinit var customerRepository: CustomerRepositoryKT
 
     @Autowired
-    internal var productRepository: ProductRepositoryKT? = null
+    lateinit var productRepository: ProductRepositoryKT
 
     @Test
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isNotEmpty
     }
@@ -42,7 +42,7 @@ class EventHandlerServerKTTest {
     fun productsRegionWasConfiguredCorrectly() {
 
         assertThat(this.products).isNotNull
-        assertThat(this.products!!.name).isEqualTo("Products")
+        assertThat(this.products.name).isEqualTo("Products")
         assertThat(this.products.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
         assertThat(this.products).isNotEmpty
     }
@@ -50,12 +50,12 @@ class EventHandlerServerKTTest {
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.customerRepository!!.count()).isEqualTo(3)
+        assertThat(this.customerRepository.count()).isEqualTo(3)
     }
 
     @Test
     fun productRepositoryWasAutoConfiguredCorrectly() {
 
-        assertThat(this.productRepository!!.count()).isEqualTo(4)
+        assertThat(this.productRepository.count()).isEqualTo(4)
     }
 }
