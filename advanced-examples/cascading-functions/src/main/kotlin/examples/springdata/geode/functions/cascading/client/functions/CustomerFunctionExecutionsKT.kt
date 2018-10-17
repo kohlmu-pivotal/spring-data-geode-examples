@@ -4,10 +4,10 @@ import org.springframework.context.annotation.DependsOn
 import org.springframework.data.gemfire.function.annotation.FunctionId
 import org.springframework.data.gemfire.function.annotation.OnRegion
 
-//@OnRegion(region = "Customers")
-//@DependsOn("Customers")
+@OnRegion(region = "Customers")
+@DependsOn("Customers")
 interface CustomerFunctionExecutionsKT {
 
-//    @FunctionId("ListAllCustomers")
+    @FunctionId("ListAllCustomers")
     fun listAllCustomers(): List<Long>
 }

@@ -28,8 +28,8 @@ class CascadingFunctionClientKT {
 
         createOrders(productServiceKT, orderServiceKT)
 
-//        val listAllCustomers = customerServiceKT.listAllCustomers()
-//        println("Number of customers retrieved from servers: ${listAllCustomers.size}")
+        val listAllCustomers = customerServiceKT.listAllCustomers()
+        println("Number of customers retrieved from servers: ${listAllCustomers.size}")
 
         val findOrdersForCustomer = orderServiceKT.findOrdersForCustomers(setOf(1L))
 

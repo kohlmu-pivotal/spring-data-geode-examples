@@ -6,10 +6,8 @@ import examples.springdata.geode.functions.cascading.client.repo.CustomerReposit
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT)
-//,
-//                        private val customerFunctionExecutionsKT: CustomerFunctionExecutionsKT) {
-{
+class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
+                        private val customerFunctionExecutionsKT: CustomerFunctionExecutionsKT) {
     fun save(customer: Customer) = customerRepositoryKT.save(customer)
-//    fun listAllCustomers(): List<Long> = customerFunctionExecutionsKT.listAllCustomers()
+    fun listAllCustomers(): List<Long> = customerFunctionExecutionsKT.listAllCustomers()
 }
