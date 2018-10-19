@@ -2,8 +2,6 @@ package examples.springdata.geode.functions.cascading.client
 
 import examples.springdata.geode.domain.*
 import examples.springdata.geode.functions.cascading.client.config.CascadingFunctionClientConfigKT
-import examples.springdata.geode.functions.cascading.client.functions.CustomerFunctionExecutionsKT
-import examples.springdata.geode.functions.cascading.client.functions.OrderFunctionExecutionsKT
 import examples.springdata.geode.functions.cascading.client.services.CustomerServiceKT
 import examples.springdata.geode.functions.cascading.client.services.OrderServiceKT
 import examples.springdata.geode.functions.cascading.client.services.ProductServiceKT
@@ -31,7 +29,7 @@ class CascadingFunctionClientKT {
         val listAllCustomers = customerServiceKT.listAllCustomers()
         println("Number of customers retrieved from servers: ${listAllCustomers.size}")
 
-        val findOrdersForCustomer = orderServiceKT.findOrdersForCustomers(setOf(1L))
+        val findOrdersForCustomer = orderServiceKT.findOrdersForCustomers(listAllCustomers.get(0) as List<Long>)
 
         print(findOrdersForCustomer)
 
@@ -65,7 +63,7 @@ class CascadingFunctionClientKT {
     }
 
     private fun createCustomerData(customerServiceKT: CustomerServiceKT) {
-        IntStream.rangeClosed(1, 10000).forEach { customerId ->
+        IntStream.rangeClosed(1, 10000).parallel().forEach { customerId ->
             customerServiceKT.save(Customer(customerId.toLong(), EmailAddress("2@2.com"), "John+$customerId", "Smith+$customerId"))
 
         }

@@ -2,17 +2,15 @@ package examples.springdata.geode.functions.cascading.server.functions
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
-import org.apache.geode.cache.Region
 import org.springframework.data.gemfire.function.annotation.GemfireFunction
 import org.springframework.data.gemfire.function.annotation.RegionData
 import org.springframework.stereotype.Component
-import javax.annotation.Resource
 
 @Component
 class CascadingFunctionsKT {
 
-    @Resource(name = "Orders")
-    private lateinit var orderData: Region<Long, Order>
+//    @Resource(name = "Orders")
+//    private lateinit var orderData: Region<Long, Order>
 
     @GemfireFunction(id = "ListAllCustomers", HA = true, optimizeForWrite = false, batchSize = 0, hasResult = true)
     fun listAllCustomers(@RegionData customerData: Map<Long, Customer>): List<Long> {
@@ -22,7 +20,7 @@ class CascadingFunctionsKT {
 
 
     @GemfireFunction(id = "FindOrdersForCustomers", HA = true, optimizeForWrite = true, batchSize = 0, hasResult = true)
-    fun findOrdersForCustomers(customerIds: Set<Long>): List<Order> {
+    fun findOrdersForCustomers(customerIds: Set<Long>, @RegionData orderData: Map<Long, Order>): List<Order> {
         println("I'm executing function: \"findOrdersForCustomer\" size= ${orderData.size}")
         val returnValue = orderData.map { it.value }.filter { order -> customerIds.contains(order.customerId) }.toList()
         println("Return Value: $returnValue")
