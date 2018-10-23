@@ -10,6 +10,6 @@ class OrderServiceKT(private val orderRepositoryKT: OrderRepositoryKT,
                      private val orderFunctionExecutionsKT: OrderFunctionExecutionsKT) {
 
     fun save(order: Order) = orderRepositoryKT.save(order)
-    fun findOrdersForCustomers(customerIds: Set<Long>): List<Order> =
+    fun findOrdersForCustomers(customerIds: List<Long>): List<Order> =
             orderFunctionExecutionsKT.findOrdersForCustomers(customerIds)
 }

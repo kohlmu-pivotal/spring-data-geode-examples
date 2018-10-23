@@ -5,18 +5,18 @@ import example.springdata.geode.client.transactions.client.service.CustomerServi
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
-import org.springframework.data.gemfire.config.annotation.EnableCachingDefinedRegions;
-import org.springframework.data.gemfire.config.annotation.EnableClusterConfiguration;
+import org.springframework.data.gemfire.config.annotation.EnableClusterDefinedRegions;
 import org.springframework.data.gemfire.config.annotation.EnableIndexing;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.transaction.config.EnableGemfireCacheTransactions;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @ClientCacheApplication
-@EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
+@EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableIndexing
-@EnableClusterConfiguration(useHttp = true)
+@EnableTransactionManagement
 @EnableGemfireCacheTransactions
 public class TransactionalClientConfig {
 }
