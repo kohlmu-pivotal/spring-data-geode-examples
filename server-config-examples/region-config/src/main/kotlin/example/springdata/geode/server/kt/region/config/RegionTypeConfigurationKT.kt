@@ -1,8 +1,8 @@
-package example.springdata.geode.embedded.region.config
+package example.springdata.geode.server.kt.region.config
 
-import example.springdata.geode.embedded.region.repo.CustomerRepositoryKT
-import example.springdata.geode.embedded.region.repo.OrderRepositoryKT
-import example.springdata.geode.embedded.region.repo.ProductRepositoryKT
+import example.springdata.geode.server.kt.region.repo.CustomerRepositoryKT
+import example.springdata.geode.server.kt.region.repo.OrderRepositoryKT
+import example.springdata.geode.server.kt.region.repo.ProductRepositoryKT
 import examples.springdata.geode.domain.*
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
@@ -20,14 +20,14 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 import java.math.BigDecimal
-import java.util.*
 import java.util.stream.IntStream
 import java.util.stream.LongStream
+import kotlin.random.Random
 
 
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
-class RegionTypeConfiguration {
+class RegionTypeConfigurationKT {
 
     @Bean
     fun createCustomerRegion(gemfireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>) =
@@ -69,17 +69,17 @@ class RegionTypeConfiguration {
     @Configuration
     @EnableLocator
     @PeerCacheApplication(name = "embeddedLocator")
-    class EmbeddedLocator
+    class EmbeddedLocatorKT
 
     @Profile("peer")
     @Configuration
     @PeerCacheApplication(locators = "localhost[10334]", name = "dataPeer")
-    class PeerServer
+    class PeerServerKT
 
     @Profile("dataPopulationPeer")
     @Configuration
     @PeerCacheApplication(locators = "localhost[10334]", name = "dataPopulator")
-    class DataPopulationPeerServer {
+    class DataPopulationPeerServerKT {
         @Bean
         fun runner(customerRepositoryKT: CustomerRepositoryKT,
                    orderRepositoryKT: OrderRepositoryKT,

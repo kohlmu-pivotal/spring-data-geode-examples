@@ -13,7 +13,7 @@
 	<modules>
 		<module>common-domain-models</module>
 		<module>client-server-examples</module>
-		<module>embedded-server-examples</module>
+        <module>server-config-examples</module>
 		<module>advanced-examples</module>
 	</modules>
 

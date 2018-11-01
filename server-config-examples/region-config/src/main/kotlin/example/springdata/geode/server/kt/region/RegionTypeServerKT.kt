@@ -1,4 +1,4 @@
-package example.springdata.geode.embedded.region
+package example.springdata.geode.server.kt.region
 
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
