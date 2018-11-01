@@ -16,6 +16,7 @@
 
     <modules>
         <module>region-config</module>
+        <module>event-handlers</module>
     </modules>
 
     <dependencies>
