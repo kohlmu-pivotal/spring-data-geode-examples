@@ -22,7 +22,6 @@ import org.springframework.data.gemfire.mapping.annotation.Region
 import org.springframework.util.Assert
 import java.io.Serializable
 import java.math.BigDecimal
-import java.util.*
 import javax.persistence.Entity
 
 /**
@@ -38,7 +37,7 @@ data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.
                                                                      val name: String, val price: BigDecimal,
                                                                      val description: String? = null) : Serializable {
     @Transient
-    private val attributes = HashMap<String, String>()
+    private val attributes: MutableMap<String, String> = mutableMapOf()
 
     init {
         Assert.hasText(name, "Name must not be empty")
@@ -56,14 +55,9 @@ data class Product @JvmOverloads @PersistenceConstructor constructor(@Id @javax.
         this.attributes[name] = value
     }
 
-    /**
-     * Returns all the custom attributes of the [Product].
-     *
-     * @return
-     */
-    fun getAttributes(): Map<String, String> = attributes.toMap()
+    fun getAttributes() = attributes.toMap()
 
-    override fun toString(): String = name
+    override fun toString(): String = "$name @ $price"
 
     companion object {
         private val serialVersionUID = 831295555713696643L
