@@ -17,6 +17,8 @@
     <modules>
         <module>region-config</module>
         <module>event-handlers</module>
+        <module>wan</module>
+        <module>async-queues</module>
     </modules>
 
     <dependencies>
