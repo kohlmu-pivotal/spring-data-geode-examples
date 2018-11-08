@@ -8,6 +8,7 @@ import examples.springdata.geode.domain.Product;
 import org.apache.geode.cache.*;
 import org.apache.geode.cache.asyncqueue.AsyncEventListener;
 import org.apache.geode.cache.asyncqueue.AsyncEventQueue;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
@@ -22,8 +23,8 @@ import org.springframework.data.gemfire.wan.AsyncEventQueueFactoryBean;
 public class AsyncQueueServerConfig {
 
     @Bean
-    AsyncEventListener orderAsyncEventListener() {
-        return new OrderAsyncQueueListener();
+    AsyncEventListener orderAsyncEventListener(@Qualifier("OrderProductSummary") Region orderProductSummary) {
+        return new OrderAsyncQueueListener(orderProductSummary);
     }
 
     @Bean
@@ -46,18 +47,18 @@ public class AsyncQueueServerConfig {
     PartitionAttributesFactoryBean partitionAttributes(GemFireCache gemFireCache) {
         final PartitionAttributesFactoryBean<Long, Order> partitionAttributesFactoryBean = new PartitionAttributesFactoryBean<>();
         partitionAttributesFactoryBean.setTotalNumBuckets(13);
-        partitionAttributesFactoryBean.setRedundantCopies(1);
+        partitionAttributesFactoryBean.setRedundantCopies(0);
         return partitionAttributesFactoryBean;
     }
 
-    @Bean
-    ReplicatedRegionFactoryBean createOrderProductSummaryRegion(GemFireCache gemFireCache, AsyncEventQueue orderAsyncEventQueue) {
-        final ReplicatedRegionFactoryBean<Long, Order> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<>();
-        replicatedRegionFactoryBean.setCache(gemFireCache);
-        replicatedRegionFactoryBean.setRegionName("OrderProductSummary");
-        replicatedRegionFactoryBean.setDataPolicy(DataPolicy.PARTITION);
-        replicatedRegionFactoryBean.setAsyncEventQueues(new AsyncEventQueue[]{orderAsyncEventQueue});
-        return replicatedRegionFactoryBean;
+    @Bean(name = "OrderProductSummary")
+    PartitionedRegionFactoryBean createOrderProductSummaryRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes) {
+        final PartitionedRegionFactoryBean<Long, Order> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<>();
+        partitionedRegionFactoryBean.setCache(gemFireCache);
+        partitionedRegionFactoryBean.setRegionName("OrderProductSummary");
+        partitionedRegionFactoryBean.setDataPolicy(DataPolicy.PARTITION);
+        partitionedRegionFactoryBean.setAttributes(regionAttributes);
+        return partitionedRegionFactoryBean;
     }
 
     @Bean

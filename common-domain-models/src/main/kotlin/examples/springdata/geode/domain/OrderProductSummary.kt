@@ -30,8 +30,7 @@ import javax.persistence.Entity
 @Region("OrderProductSummary")
 @Entity
 data class OrderProductSummary @JvmOverloads constructor(@Id @javax.persistence.Id val summaryKey: OrderProductSummaryKey,
-                                                         val summaryAmount: BigDecimal) : Serializable {
-
+                                                         var summaryAmount: BigDecimal) : Serializable {
     companion object {
         private const val serialVersionUID = -3779061453639083037L
     }
