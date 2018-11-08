@@ -23,9 +23,7 @@ public class OrderAsyncQueueListener implements AsyncEventListener {
     @Override
     public boolean processEvents(List<AsyncEvent> list) {
         final Calendar calendar = Calendar.getInstance();
-        final int seconds = calendar.get(Calendar.SECOND);
-        final int mod = Math.floorMod(seconds, 10);
-        calendar.set(Calendar.SECOND, (seconds - mod));
+        calendar.set(Calendar.MILLISECOND, 0);
         HashMap<OrderProductSummaryKey, OrderProductSummary> summaryMap = new HashMap<>();
         list.forEach(asyncEvent -> {
             final Order order = (Order) asyncEvent.getDeserializedValue();
