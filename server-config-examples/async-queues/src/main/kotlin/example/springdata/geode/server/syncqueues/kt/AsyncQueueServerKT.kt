@@ -11,7 +11,6 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
-import org.springframework.format.datetime.DateFormatter
 import java.math.BigDecimal
 import java.util.*
 import java.util.stream.IntStream
@@ -33,7 +32,6 @@ class AsyncQueueServerKT {
                 println("Completed creating orders ")
 
                 val allForProductID = orderProductSummaryRepository.findAllForProductID(3L)
-                val dateFormatter = DateFormatter("dd/MM/yyyy HH:mm:ss")
                 allForProductID.forEach { orderProductSummary -> println("orderProductSummary = $orderProductSummary") }
             }
 
