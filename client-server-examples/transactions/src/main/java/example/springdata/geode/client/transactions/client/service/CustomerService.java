@@ -58,7 +58,7 @@ public class CustomerService implements examples.springdata.geode.client.common.
         getCustomerRepository().deleteById(id);
     }
 
-    @Transactional("gemfireTransactionManager")
+    @Transactional
     public List<Customer> createFiveCustomers() {
         return Arrays.stream(new Customer[]{new Customer(1L, new EmailAddress("1@1.com"), "John", "Melloncamp"),
                 new Customer(2L, new EmailAddress("2@2.com"), "Franky", "Hamilton"),
@@ -67,5 +67,25 @@ public class CustomerService implements examples.springdata.geode.client.common.
                 new Customer(5L, new EmailAddress("5@5.com"), "Kimi", "Rosberg")})
                 .map(customerRepository::save)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateCustomersSuccess() {
+        customerRepository.save(new Customer(2L, new EmailAddress("2@2.com"), "Humpty", "Hamilton"));
+    }
+
+    @Transactional
+    public void updateCustomersWithDelay(int millisDelay, Customer customer) {
+        customerRepository.save(customer);
+        try {
+            Thread.sleep(millisDelay);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    @Transactional
+    public void updateCustomersFailure() {
+        customerRepository.save(new Customer(2L, new EmailAddress("2@2.com"), "Numpty", "Hamilton"));
+        throw new IllegalArgumentException("This should fail the transactions");
     }
 }
