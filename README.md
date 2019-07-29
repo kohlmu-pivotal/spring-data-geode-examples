@@ -3,126 +3,41 @@ Spring Data For Pivotal GemFire and Apache Geode Examples
 
 This project provides a number of examples to get you started using Spring Data for Apache Geode or Pivotal GemFire. These examples are designed to work with [Spring Data for Pivotal GemFire](http://projects.spring.io/spring-data-gemfire) 2.0.9-RELEASE or higher and are organized into the following sub projects:
 
-* **Client Server** - These examples pertain to the client-server paradigm. The examples will have a stand-alone server with a client connecting into the server to perform operations. 
-* **Data / Cache Node examples** - These examples demonstrate the configuration of data/cache nodes. This would include regions, persistence, wan, subscriptions, functions and indexes.
-* **Advanced** - These examples are to show case how higher-level usecases are solved. e.g caching,write-behind/read-through,transactionality 
+* **Client Server** - These examples pertain to the client-server paradigm. These examples will involve a client connecting to a server to perform operations. 
+* **Server Config** - These examples demonstrate the configuration of servers. This includes regions, persistence, wan, subscriptions, functions and indexes.
+* **Advanced** - These examples are to show case how higher-level use cases are solved. e.g caching, write-behind/read-through, transactionality 
 
-It is important to note that all examples will follow the prescribed Maven directory structure. Also, all examples will be have a Java and [Kotlin](http://kotlinlang.org) implementation. 
+It is important to note that all examples will follow the prescribed Maven directory structure. Also, all examples will have both a Java and [Kotlin](http://kotlinlang.org) implementation. 
 
 # Client Server examples
-These examples are focused on the client-side configuration and functionality, not of the deployed server. The deployed server will be setup with the minimum required configuration to fulfill the requirements of the examples.
-Pivotal GemFire / Geode has the ability to configure a client to either be _**look-aside**_ or _**near**_. In some cases the examples will be configured in both ways to show case the capabilities that both provide.
+These examples are primarily focused on the client-side configuration and functionality, rather than that of the deployed server. The deployed server will be setup with the minimum required configuration to fulfill the requirements of the examples.
 
 Examples:
-* **basic-operations** - In this example the client will perform basic CRUD operations
-* **oql-queries** - In this example the client will perform OQL queries. This example utilizes both GemFireTemplate and 
-GemFireRepositories to query and implements indexes to increase query performance.
-* **function-invocation** - In this example the server will have 3 functions registered. The client will invoke each of the functions. 
-In this example there is not difference in the output when it comes to what type of client is used.
-* **continuous-queries** - In this example there are 2 clients and 1 server. 1 client (CQConsumer) will register itself with a continuous query. 
-The other client (CQProducer) will save 3 entries, which the CQConsumer will log 
-* **security** - In this example the servers and clients are set up with security (username/password) authentication using Apache Shiro
-* **entity-defined-regions** - In this example a server is deployed with no regions defined. The client will use the `@EnableEntityDefinedRegions` to configure regions on the server(s). 
-
+* **basic-operations** - In this example the client will perform basic CRUD operations.
+* **cluster-defined-regions** - In this example the regions are defined only on the server. The client will use `@EnableClusterConfiguration` to configure regions locally.
+* **continuous-queries** - In this example a client puts data into the region on the server, and registers a continuous query on that data.
+* **entity-defined-regions** - In this example a server is deployed with no regions defined. The client will use the `@EnableEntityDefinedRegions` to configure regions on the server(s).
+* **function-invocation** - In this example the server will have 3 functions registered. The client will invoke each of the functions.
+* **oql-queries** - In this example the client will perform OQL queries. This example utilizes both GemFireTemplate and GemFireRepositories to query and implements indexes to increase query performance.
+* **security** - In this example the servers and clients are set up with security (username/password) authentication using Geode Security and Apache Shiro.
+* **serialization** - In this example the server stores data serialized as a `PdxInstance` instead of using the `Customer` class.
+* **transactions** - In this example the client will perform operations within a transaction. First, it will do a successful transaction where entries are saved to the server, and then a failed transaction where all changes are reverted.
  
-# Data / Cache Node examples
+# Server Config examples
 These examples are focused on the configuration of the server and server components.
 
 Examples:
-* **replicate-regions** - //TODO
-* **partition-regions** - //TODO
-* **cacheloaders** - //TODO
-* **persistence** - //TODO
-* **subscriptions** - //TODO
-* **oql-queries-and-indexes** - //TODO
-* **wan** - //TODO
-* **async-event-listeners** - //TODO
-* **transactions** - //TODO
-* **rest-endpoints** - //TODO
+* **async-queues** - In this example the test inserts entries that go through an async event queue on the server which creates OrderProductSummary entries from the data inserted into the other regions.
+* **event-handlers** - In this example the server is populated with data, which triggers events in a cache listener, cache writer, and cache loader.
+* **region-config** - In this example the server makes use of `PartitionAttributes` to set the number of buckets and redundant copies.
+* **wan** - In this example two servers are deploy. One server populates itself with data and the other server gets populated with that data via WAN replication.
 
 # Advanced
-These examples will show case higher-level use cases and how the Spring Data for Pivotal GemFire simplifies the implementation of the use case.
+These examples will show case higher-level use cases and how Spring Data for Pivotal GemFire simplifies the implementation of the use case.
 
 Examples:
-* **write-behind-read-through-sync** - //TODO
-* **write-behind-read-through-async** - //TODO
-* **jpa-transactionality** - //TODO
-* **json** - //TODO
-* **spring-caching** - //TODO
-
-
-# Quickstart
-
-These examples show case the application programming model provided by Spring Data for Pivotal GemFire and are not concerned as much with of configuration of Apache Geode or Pivotal GemFire components such as Cache and Region.
-
-The Quickstart examples currently include:
-
-* spring-cache - Using Spring's Cache abstraction with Pivotal GemFire
-* repository - Using [Spring Data](http://projects.spring.io/spring-data) Repositories with Pivotal GemFire
-* gemfire-template - Using [GemfireTemplate](https://docs.spring.io/spring-data/geode/docs/current/api/org/springframework/data/gemfire/GemfireTemplate.html) to simplify and enhance accessing Region data
-* cq - Configuring and using Pivotal GemFire Continuous Queries
-* transaction - Demonstrates the use of Pivotal GemFire transactions
-
-# Basic
-
-These examples are focused more on configuring Apache Geode or Pivotal GemFire components
-such as Caches and Regions to address various scenarios.
-
-The Basic examples currently include:
-
-* replicated - A simple demonstration of using a REPLICATE Region in a peer-to-peer configuration
-* replicated-cs - Similar to the above with a client-server configuration
-* partitioned - Demonstrates the use of a PARTITION Region and a custom PartitionResolver
-* persistence - Demonstrates the use of persistent backup and disk overflow
-* write-through - Demonstrates loading data from and executing synchronous (write-through) or asynchronous (write-behind) updates to a database*
-* function - Demonstrates the use of Pivotal GemFire function execution
-* java-config - Demonstrates how to configure a Pivotal GemFire Server (data node)
-using Spring's Java-based Container Configuration and Spring Data for Pivotal GemFire
-
-# Advanced
-
-These examples demonstrate additional Apache Geode or Pivotal GemFire features
-and require a full installation of either Apache Geode or Pivotal GemFire.
-
-You can acquire Apache Geode bits from [here](http://geode.apache.org/releases/).
-
-You can download a trial version of Pivotal GemFire from [here](https://pivotal.io/pivotal-gemfire).
-
-* gateway - Demonstrates how to use and configure a WAN Gateway
-* locator-failover - Demonstrates how Pivotal GemFire handles Locator down situations
+* **cascading-functions** - In this example the client calls a function and feeds the result into another function.
 
 # Running The Examples
 
-This project is built with Gradle and each example may be run with Gradle or within your Java IDE.
-If you are using Eclipse or Spring Tool Suite, go to the directory where you downloaded this project
-and type:
-
-        ./gradlew eclipse
-
-If you are using IntelliJ IDEA,
-
-        ./gradlew idea
-
-Detailed instructions for each example may be found in its own README file.
-
-# Running a cache server with custom configuration
-
-As a convenience, this project includes [GenericServer.java](https://github.com/spring-projects/spring-gemfire-examples/blob/master/spring-gemfire-examples-common/src/main/java/org/springframework/data/gemfire/examples/GenericServer.java)
-used to start a cache server with a custom Spring configuration. Simply point to a valid Spring configuration on the file system using the built in task:
-
-	./gradlew -q run-generic-server -Pargs=path-to-spring-config-xml-file
-
-This is useful for testing or experimentation with client/server scenarios.
-If your application requires additional jars to be deployed to the server, you can create a lib directory under the project root (e.g., spring-gemfire-examples) and drop them in there.
-The gradle build is already configured to look there.
-
-Note, this is a 'quick and dirty' way to do this. In a shared integration or production environment, you should use the Pivotal GemFire Shell program, _gfsh_.
-
-
-
-
-
-
-
-
-
+Each example has at least one test file located in the test directory. The examples are driven by the tests, so simply run the test either through your IDE or via the commandline. 

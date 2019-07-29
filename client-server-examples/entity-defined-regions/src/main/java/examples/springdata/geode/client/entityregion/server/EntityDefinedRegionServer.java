@@ -13,18 +13,16 @@ import java.util.Scanner;
 public class EntityDefinedRegionServer {
     public static void main(String[] args) {
         new SpringApplicationBuilder(EntityDefinedRegionServer.class)
-                .web(WebApplicationType.NONE)
-                .build()
-                .run(args);
+            .web(WebApplicationType.NONE)
+            .build()
+            .run(args);
     }
 
     @Bean
-    @SuppressWarnings("unused")
     ApplicationRunner runner() {
         return args -> {
             System.err.println("Press <ENTER> to exit");
             new Scanner(System.in, "UTF-8").nextLine();
         };
     }
-
 }

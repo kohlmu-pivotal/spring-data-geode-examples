@@ -35,10 +35,9 @@ public class SerializationServer {
 
 	@Bean
 	public ApplicationRunner runner() {
-		return
-			args -> {
-				System.out.println("Press <ENTER> to exit");
-				new Scanner(System.in, "UTF-8").nextLine();
-			};
+		return args -> {
+			System.out.println("Press <ENTER> to exit");
+			new Scanner(System.in, "UTF-8").nextLine();
+		};
 	}
 }

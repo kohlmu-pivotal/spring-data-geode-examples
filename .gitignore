@@ -17,3 +17,7 @@
 #Directories
 .idea
 target
+client-server-examples/.DS_Store
+.DS_Store
+BACKUPDEFAULT.if
+DRLK_IFDEFAULT.lk

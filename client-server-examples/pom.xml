@@ -36,13 +36,32 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-geode-test</artifactId>
+            <version>0.0.7.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <version>2.1.6.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin.external.google</groupId>
+                    <artifactId>android-json</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
             <groupId>examples.springdata.geode.domain</groupId>
             <artifactId>common-domain-models</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

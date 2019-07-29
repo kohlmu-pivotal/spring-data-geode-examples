@@ -28,5 +28,4 @@ public interface BaseClient {
 		System.out.println("Entries:");
 		customerService.findAll().forEach(customer -> System.out.println("\t Entry: \n \t\t " + customer));
 	}
-
 }

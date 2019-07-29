@@ -2,12 +2,12 @@ package examples.springdata.geode.client.common.client.repo;
 
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.domain.EmailAddress;
-import org.springframework.data.gemfire.mapping.annotation.ClientRegion;
+import org.springframework.data.gemfire.mapping.annotation.Region;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-@ClientRegion(name = "Customers")
+@Region(name = "Customers")
 public interface BaseCustomerRepository extends CrudRepository<Customer, Long> {
 
     /**

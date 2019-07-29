@@ -16,17 +16,21 @@
 
 package examples.springdata.geode.client.function.client.config;
 
-import examples.springdata.geode.client.common.client.config.ClientApplicationConfig;
 import examples.springdata.geode.client.function.client.functions.CustomerFunctionExecutions;
 import examples.springdata.geode.client.function.client.repo.CustomerRepository;
 import examples.springdata.geode.client.function.client.services.CustomerService;
+import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.domain.Order;
 import examples.springdata.geode.domain.Product;
 import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.cache.client.ClientRegionShortcut;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.gemfire.GemfireTemplate;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
+import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExecutions;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
@@ -34,13 +38,14 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Configuration
-@Import(ClientApplicationConfig.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @EnableGemfireFunctionExecutions(basePackageClasses = CustomerFunctionExecutions.class)
-public class FunctionInvocationClientApplicationConfig extends ClientApplicationConfig {
+@ClientCacheApplication(name = "FunctionInvocationClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+public class FunctionInvocationClientApplicationConfig {
 
     @Bean("customerTemplate")
     @DependsOn("Customers")
@@ -48,8 +53,16 @@ public class FunctionInvocationClientApplicationConfig extends ClientApplication
         return new GemfireTemplate(gemfireCache.getRegion("Customers"));
     }
 
+    @Bean("Customers")
+    protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long,Customer> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Customers");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
+        return clientRegionFactoryBean;
+    }
+
     @Bean("Products")
-    @Profile({"proxy", "default"})
     protected ClientRegionFactoryBean<Long, Product> configureProxyClientProductRegion(GemFireCache gemFireCache) {
         ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
         clientRegionFactoryBean.setCache(gemFireCache);
@@ -58,35 +71,12 @@ public class FunctionInvocationClientApplicationConfig extends ClientApplication
         return clientRegionFactoryBean;
     }
 
-    @Bean("Products")
-    @Profile("localCache")
-    protected ClientRegionFactoryBean<Long, Product> configureLocalCachingClientProductRegion(
-            GemFireCache gemFireCache) {
-        ClientRegionFactoryBean<Long, Product> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-        clientRegionFactoryBean.setCache(gemFireCache);
-        clientRegionFactoryBean.setName("Products");
-        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
-        return clientRegionFactoryBean;
-    }
-
     @Bean("Orders")
-    @Profile({"proxy", "default"})
     protected ClientRegionFactoryBean<Long, Order> configureProxyClientOrderRegion(GemFireCache gemFireCache) {
         ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
         clientRegionFactoryBean.setCache(gemFireCache);
         clientRegionFactoryBean.setName("Orders");
         clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
-        return clientRegionFactoryBean;
-    }
-
-    @Bean("Orders")
-    @Profile("localCache")
-    protected ClientRegionFactoryBean<Long, Order> configureLocalCachingClientOrderRegion(
-            GemFireCache gemFireCache) {
-        ClientRegionFactoryBean<Long, Order> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
-        clientRegionFactoryBean.setCache(gemFireCache);
-        clientRegionFactoryBean.setName("Orders");
-        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.CACHING_PROXY);
         return clientRegionFactoryBean;
     }
 }

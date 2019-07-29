@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 
 import java.util.Collections;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class EventHandlerServerConfiguration {
 
@@ -32,7 +32,7 @@ public class EventHandlerServerConfiguration {
         return new ProductCacheLoader();
     }
 
-    @Bean
+    @Bean("Products")
     ReplicatedRegionFactoryBean createProductRegion(GemFireCache gemFireCache, CacheListener loggingCacheListener,
                                                     CacheLoader productCacheLoader) {
         final ReplicatedRegionFactoryBean<Long, Product> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<>();
@@ -44,10 +44,9 @@ public class EventHandlerServerConfiguration {
         return replicatedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Customers")
     PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache,
-                                                      CacheWriter customerCacheWriter, CacheListener
-                                                              loggingCacheListener) {
+                                                      CacheWriter customerCacheWriter, CacheListener loggingCacheListener) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<Long, Customer>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
         partitionedRegionFactoryBean.setRegionName("Customers");

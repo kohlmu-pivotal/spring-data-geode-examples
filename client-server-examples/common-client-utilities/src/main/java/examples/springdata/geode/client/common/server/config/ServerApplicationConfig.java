@@ -11,10 +11,12 @@ import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication;
 import org.springframework.data.gemfire.config.annotation.EnableIndexing;
 import org.springframework.data.gemfire.config.annotation.EnableLocator;
+import org.springframework.data.gemfire.config.annotation.EnableManager;
 
 @EnableLocator
 @EnableIndexing
-@CacheServerApplication(port = 0)
+@EnableManager
+@CacheServerApplication(port = 0, logLevel = "error")
 public class ServerApplicationConfig {
 
     @Bean
@@ -32,5 +34,4 @@ public class ServerApplicationConfig {
         replicatedRegionFactoryBean.setCacheListeners(new CacheListener[]{loggingCacheListener()});
         return replicatedRegionFactoryBean;
     }
-
 }

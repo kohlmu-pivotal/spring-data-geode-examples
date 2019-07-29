@@ -12,5 +12,5 @@ class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
     fun save(customer: Customer) = customerRepositoryKT.save(customer)
 
     fun listAllCustomersForEmailAddress(vararg emailAddresses: String): List<Customer> =
-            customerFunctionExecutionsKT.listAllCustomersForEmailAddress(*emailAddresses)
+            customerFunctionExecutionsKT.listAllCustomersForEmailAddress(*emailAddresses)[0]
 }

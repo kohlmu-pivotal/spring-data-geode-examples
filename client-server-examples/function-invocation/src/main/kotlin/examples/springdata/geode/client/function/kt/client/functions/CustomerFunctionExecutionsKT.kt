@@ -7,5 +7,5 @@ import org.springframework.data.gemfire.function.annotation.OnRegion
 @OnRegion(region = "Customers")
 interface CustomerFunctionExecutionsKT {
     @FunctionId("listConsumersForEmailAddressesFnc")
-    fun listAllCustomersForEmailAddress(vararg emailAddresses: String): List<Customer>
+    fun listAllCustomersForEmailAddress(vararg emailAddresses: String): List<List<Customer>>
 }

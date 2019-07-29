@@ -2,7 +2,7 @@ package examples.springdata.geode.server.eventhandlers.kt.config
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Product
-import examples.springdata.geode.server.eventhandlers.repo.CustomerRepository
+import examples.springdata.geode.server.eventhandlers.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.util.LoggingCacheListener
 import org.apache.geode.cache.*
 import org.springframework.context.annotation.Bean
@@ -11,8 +11,8 @@ import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
-@PeerCacheApplication
-@EnableGemfireRepositories(basePackageClasses = arrayOf(CustomerRepository::class))
+@PeerCacheApplication(logLevel = "error")
+@EnableGemfireRepositories(basePackageClasses = arrayOf(CustomerRepositoryKT::class))
 class EventHandlerServerConfigurationKT {
 
     @Bean
@@ -24,7 +24,7 @@ class EventHandlerServerConfigurationKT {
     @Bean
     internal fun productCacheLoader(): CacheLoader<Long, Product> = ProductCacheLoaderKT()
 
-    @Bean
+    @Bean("Products")
     internal fun createProductRegion(gemFireCache: GemFireCache, loggingCacheListener: CacheListener<*, *>,
                                      productCacheLoader: CacheLoader<Long, Product>): ReplicatedRegionFactoryBean<Long, Product> {
         return ReplicatedRegionFactoryBean<Long, Product>().apply {
@@ -36,7 +36,7 @@ class EventHandlerServerConfigurationKT {
         }
     }
 
-    @Bean
+    @Bean("Customers")
     internal fun createCustomerRegion(gemFireCache: GemFireCache,
                                       customerCacheWriter: CacheWriter<Long, Customer>,
                                       loggingCacheListener: CacheListener<*, *>): PartitionedRegionFactoryBean<Long, Customer> {
