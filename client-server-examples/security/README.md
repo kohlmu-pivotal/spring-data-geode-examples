@@ -2,7 +2,7 @@
 
 In this example a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client will run OQL queries against a `PROXY` and `LOCAL` cache.
 
-TTo the run the examples you require two terminal windows.
+To run the examples you require two terminal windows.
  1. deploy and run the stand-alone server as described in the the [Server Configuration](../README.md#server-configuration-and-deployment) of [Client-Server-Examples](../README.md)   
  1. deploy and run the client application as described in the the [Client Configuration](../README.md#client-configuration-and-deployment) of [Client-Server-Examples](../README.md) 
 
