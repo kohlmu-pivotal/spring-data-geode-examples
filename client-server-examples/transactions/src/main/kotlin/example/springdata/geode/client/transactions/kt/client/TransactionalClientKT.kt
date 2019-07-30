@@ -31,17 +31,12 @@ class TransactionalClientKT {
         customerService.updateCustomersWithDelay(1000, Customer(2L, EmailAddress("2@2.com"), "Numpty", "Hamilton"))
         customerService.updateCustomersWithDelay(10, Customer(2L, EmailAddress("2@2.com"), "Frumpy", "Hamilton"))
         println("Customer for ID after 2 updates with delay = " + customerService.findById(2L))
-
-//        val customerForIdThree = customerService.findById(6L).orElseGet { null }
-//        customerService.updateCustomersWithDelay(10, Customer(6L, EmailAddress("6@6.com"), "Should", "Not change"))
-//
-//        assert(customerForIdThree == customerService.findById(6L).orElseGet { null })
     }
 }
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(TransactionalClientKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

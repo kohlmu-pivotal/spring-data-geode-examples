@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class TransactionalClient {
     public static void main(String[] args) {
         new SpringApplicationBuilder(TransactionalClient.class)
-                .web(WebApplicationType.NONE)
-                .build()
-                .run(args);
+            .web(WebApplicationType.NONE)
+            .build()
+            .run(args);
     }
 
     @Bean

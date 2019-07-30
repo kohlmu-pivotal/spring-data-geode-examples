@@ -33,5 +33,4 @@ public class SerializationClient implements BaseClient {
 	ApplicationRunner runner(CustomerService customerService) {
 		return args -> populateData(customerService);
 	}
-
 }

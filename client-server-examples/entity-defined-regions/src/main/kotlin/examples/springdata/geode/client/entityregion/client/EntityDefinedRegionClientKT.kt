@@ -16,6 +16,6 @@ class EntityDefinedRegionClientKT(val customerServiceKT: CustomerServiceKT) : Ba
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SpringApplication.run(EntityDefinedRegionClientKT::class.java)
 }

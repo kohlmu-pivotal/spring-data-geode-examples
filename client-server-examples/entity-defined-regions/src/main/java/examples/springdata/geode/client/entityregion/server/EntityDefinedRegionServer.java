@@ -19,12 +19,10 @@ public class EntityDefinedRegionServer {
     }
 
     @Bean
-    @SuppressWarnings("unused")
     ApplicationRunner runner() {
         return args -> {
             System.err.println("Press <ENTER> to exit");
             new Scanner(System.in, "UTF-8").nextLine();
         };
     }
-
 }

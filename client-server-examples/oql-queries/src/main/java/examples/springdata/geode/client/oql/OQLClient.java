@@ -29,26 +29,21 @@ public class OQLClient {
 			customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
 			customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
 
-			System.out
-				.println("Find customer with key=2 using GemFireRepository: " + customerService.findById(2L).get());
+			System.out.println("Find customer with key=2 using GemFireRepository: " + customerService.findById(2L).get());
 			System.out.println("Find customer with key=2 using GemFireTemplate: " + customerService
 				.findWithTemplate("select * from /Customers where id=$1", 2L));
 
 			customerService.save(new Customer(1L, new EmailAddress("3@3.com"), "Jude", "Smith"));
-			System.out
-				.println("Find customers with emailAddress=3@3.com: " + customerService.findByEmailAddress("3@3.com"));
 
-			System.out
-				.println("Find customers with firstName=Frank: " + customerService.findByFirstNameUsingIndex("Frank"));
-			System.out
-				.println("Find customers with firstName=Jude: " + customerService.findByFirstNameUsingIndex("Jude"));
+			System.out.println("Find customers with emailAddress=3@3.com: " + customerService.findByEmailAddress("3@3.com"));
 
-			System.out.println("Find customers with firstName=Jude on local client region: " +
-				customerService
+			System.out.println("Find customers with firstName=Frank: " + customerService.findByFirstNameUsingIndex("Frank"));
+			System.out.println("Find customers with firstName=Jude: " + customerService.findByFirstNameUsingIndex("Jude"));
+
+			System.out.println("Find customers with firstName=Jude on local client region: " + customerService
 					.findByFirstNameLocalClientRegion("select * from /Customers where firstName=$1", "Jude"));
 		};
 	}
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(OQLClient.class, args);

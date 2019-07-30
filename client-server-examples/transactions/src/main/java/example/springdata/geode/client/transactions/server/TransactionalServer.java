@@ -12,11 +12,10 @@ import java.util.Scanner;
 @SpringBootApplication(scanBasePackageClasses = TransactionalServerConfig.class)
 public class TransactionalServer {
     public static void main(String[] args) {
-
         new SpringApplicationBuilder(TransactionalServer.class)
-                .web(WebApplicationType.NONE)
-                .build()
-                .run(args);
+            .web(WebApplicationType.NONE)
+            .build()
+            .run(args);
     }
 
     @Bean

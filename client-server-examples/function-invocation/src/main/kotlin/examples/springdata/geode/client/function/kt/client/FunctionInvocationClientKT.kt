@@ -65,7 +65,6 @@ class FunctionInvocationClientKT {
             it.addAttribute("warranty", "included")
             productServiceKT.save(it)
         }
-
     }
 
     private fun createCustomerData(customerServiceKT: CustomerServiceKT) {

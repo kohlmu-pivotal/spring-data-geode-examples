@@ -19,27 +19,25 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication(scanBasePackageClasses = [OQLClientApplicationConfigKT::class])
 class OQLClientKT(val customerServiceKT: CustomerServiceKT) {
     @Bean
-    fun runner(): ApplicationRunner =
-            ApplicationRunner {
-                println("Inserting 3 entries for keys: 1, 2, 3")
-                customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
-                customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))
-                customerServiceKT.save(Customer(3, EmailAddress("5@5.com"), "Jude", "Simmons"))
+    fun runner(): ApplicationRunner = ApplicationRunner {
+        println("Inserting 3 entries for keys: 1, 2, 3")
+        customerServiceKT.save(Customer(1, EmailAddress("2@2.com"), "John", "Smith"))
+        customerServiceKT.save(Customer(2, EmailAddress("3@3.com"), "Frank", "Lamport"))
+        customerServiceKT.save(Customer(3, EmailAddress("5@5.com"), "Jude", "Simmons"))
 
-                println("Find customer with key=2 using GemFireRepository: " + customerServiceKT.findById(2).get())
-                println("Find customer with key=2 using GemFireTemplate: " +
-                        "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
+        println("Find customer with key=2 using GemFireRepository: " + customerServiceKT.findById(2).get())
+        println("Find customer with key=2 using GemFireTemplate: " +
+                "${customerServiceKT.findWithTemplate("select * from /Customers where id=$1", 2)}")
 
-                customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
-                println("Find customers with emailAddress=3@3.com: ${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
+        customerServiceKT.save(Customer(1, EmailAddress("3@3.com"), "Jude", "Smith"))
+        println("Find customers with emailAddress=3@3.com: ${customerServiceKT.findByEmailAddressUsingIndex<Customer>("3@3.com")}")
 
-                println("Find customers with firstName=Frank: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
-                println("Find customers with firstName=Jude: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
+        println("Find customers with firstName=Frank: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Frank")}")
+        println("Find customers with firstName=Jude: ${customerServiceKT.findByFirstNameUsingIndex<Customer>("Jude")}")
 
-                println("Find customers with firstName=Jude on local client region: " +
-                        "${customerServiceKT.findByFirstNameLocalClientRegion<Customer>("select * from /Customers where firstName=$1", "Jude")}")
-            }
-
+        println("Find customers with firstName=Jude on local client region: " +
+                "${customerServiceKT.findByFirstNameLocalClientRegion<Customer>("select * from /Customers where firstName=$1", "Jude")}")
+    }
 }
 
 fun main(args: Array<String>) {

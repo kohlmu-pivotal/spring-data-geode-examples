@@ -19,7 +19,7 @@ class TransactionalServerKT {
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(TransactionalServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

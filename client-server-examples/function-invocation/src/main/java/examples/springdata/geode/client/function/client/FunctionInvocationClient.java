@@ -78,9 +78,7 @@ public class FunctionInvocationClient {
 			"An Apple portable music player"));
 		productService.save(new Product(2L, "Apple iPad", new BigDecimal("499.99"),
 			"An Apple tablet device"));
-		Product
-			macbook =
-			new Product(3L, "Apple macBook", new BigDecimal("899.99"),
+		Product macbook = new Product(3L, "Apple macBook", new BigDecimal("899.99"),
 				"An Apple notebook computer");
 		macbook.addAttribute("warranty", "included");
 		productService.save(macbook);

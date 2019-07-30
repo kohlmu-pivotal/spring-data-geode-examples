@@ -16,6 +16,6 @@ class ClusterDefinedRegionClientKT(val customerServiceKT: CustomerServiceKT) : B
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SpringApplication.run(ClusterDefinedRegionClientKT::class.java)
 }

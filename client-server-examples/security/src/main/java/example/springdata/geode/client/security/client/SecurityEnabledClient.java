@@ -16,8 +16,7 @@ public class SecurityEnabledClient {
 	@Bean
 	ApplicationRunner runner(CustomerRepository customerRepository) {
 		return args -> {
-			customerRepository.save(
-				new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
+			customerRepository.save(new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
 			System.out.println("Customers saved on server:");
 			customerRepository.findAll().forEach(customer -> System.out.println("\t Entry: \n \t\t " + customer));
 		};

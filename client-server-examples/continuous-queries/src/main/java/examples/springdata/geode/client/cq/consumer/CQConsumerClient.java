@@ -33,6 +33,7 @@ public class CQConsumerClient {
     }
 
     @ContinuousQuery(name = "CustomerJudeCQ", query = "SELECT * FROM /Customers", durable = true)
+    @SuppressWarnings("unused")
     public void handleEvent(CqEvent event) {
         System.out.println("Received message for CQ 'CustomerJudeCQ'" + event);
     }
