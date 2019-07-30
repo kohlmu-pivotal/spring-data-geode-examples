@@ -17,7 +17,7 @@ import java.util.Collections;
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableIndexing
-@EnableClusterConfiguration(useHttp = true)
+@EnableClusterConfiguration
 public class ClusterDefinedRegionClientConfig {
 
 	@Bean
