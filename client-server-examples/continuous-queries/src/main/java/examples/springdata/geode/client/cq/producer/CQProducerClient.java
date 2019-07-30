@@ -13,10 +13,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(scanBasePackageClasses = CQProducerClientApplicationConfig.class)
 public class CQProducerClient {
     public static void main(String[] args) {
-        ConfigurableApplicationContext
-                applicationContext =
-                SpringApplication.run(CQProducerClient.class, args);
-
+        SpringApplication.run(CQProducerClient.class, args);
     }
 
     private static void insertData(CustomerService customerService, Customer customer) {
