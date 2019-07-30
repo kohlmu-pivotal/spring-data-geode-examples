@@ -39,8 +39,6 @@ public class TransactionalClient {
             customerService.updateCustomersWithDelay(1000, new Customer(2L, new EmailAddress("2@2.com"), "Numpty", "Hamilton"));
             customerService.updateCustomersWithDelay(10, new Customer(2L, new EmailAddress("2@2.com"), "Frumpy", "Hamilton"));
             System.out.println("Customer for ID after 2 updates with delay = " + customerService.findById(2L));
-            System.err.println("Press <ENTER> to exit");
-            new Scanner(System.in, "UTF-8").nextLine();
         };
     }
 }
