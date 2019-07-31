@@ -20,7 +20,6 @@ class CascadingFunctionsKT {
         return customerData.map { it.value }.mapNotNull { customer -> customer.id }.toList()
     }
 
-
     @GemfireFunction(id = "FindOrdersForCustomers", HA = true, optimizeForWrite = true, batchSize = 0, hasResult = true)
     fun findOrdersForCustomers(customerIds: List<Long>): List<Order> {
         println("I'm executing function: \"findOrdersForCustomer\" size= ${orderData.size}")

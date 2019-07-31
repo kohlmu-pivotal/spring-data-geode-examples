@@ -23,14 +23,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @ClientCacheApplication(name = "CascadingFunctionClientCache", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 @EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class])
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
-//@Import(ProductServiceKT::class, OrderServiceKT::class, CustomerFunctionExecutionsKT::class)
 @ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableGemfireCacheTransactions
 @EnableTransactionManagement
 class CascadingFunctionClientConfigKT {
-//
-//    @Bean
-//    protected fun customerService(customerRepositoryKT: CustomerRepositoryKT, customerFunctionExecutionsKT: CustomerFunctionExecutionsKT) = CustomerServiceKT(customerRepositoryKT, customerFunctionExecutionsKT)
 
     @Bean("Customers")
     protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) =

@@ -32,7 +32,6 @@ class CascadingFunctionClientKT {
         val findOrdersForCustomer = orderServiceKT.findOrdersForCustomers(listAllCustomers)
 
         print(findOrdersForCustomer)
-
     }
 
     private fun createOrders(productServiceKT: ProductServiceKT, orderServiceKT: OrderServiceKT) {
@@ -59,13 +58,11 @@ class CascadingFunctionClientKT {
             it.addAttribute("warranty", "included")
             productServiceKT.save(it)
         }
-
     }
 
     private fun createCustomerData(customerServiceKT: CustomerServiceKT) {
         IntStream.rangeClosed(1, 10000).parallel().forEach { customerId ->
             customerServiceKT.save(Customer(customerId.toLong(), EmailAddress("2@2.com"), "John+$customerId", "Smith+$customerId"))
-
         }
     }
 }

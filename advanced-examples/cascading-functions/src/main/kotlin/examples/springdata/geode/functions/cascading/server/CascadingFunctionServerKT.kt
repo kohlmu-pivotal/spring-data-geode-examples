@@ -9,8 +9,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
+import org.springframework.data.gemfire.config.annotation.EnableManager
 
 @SpringBootApplication
+@EnableManager(start = true)
 @ComponentScan(basePackages = ["examples.springdata.geode.functions.cascading.server.functions"])
 @Import(ServerCascadingFunctionServerConfigKT::class, LocatorCascadingFunctionServerConfigKT::class)
 class CascadingFunctionServerKT {
@@ -23,8 +25,8 @@ class CascadingFunctionServerKT {
 
 fun main(args: Array<String>) {
     val springApplication = SpringApplicationBuilder(CascadingFunctionServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
+        .web(WebApplicationType.NONE)
+        .build()
     val profile = if (args.isNotEmpty()) {
         args[0]
     } else {
@@ -32,5 +34,4 @@ fun main(args: Array<String>) {
     }
     springApplication.setAdditionalProfiles(profile)
     springApplication.run(*args)
-
 }
