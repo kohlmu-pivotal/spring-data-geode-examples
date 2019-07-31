@@ -29,7 +29,7 @@ import javax.persistence.Entity
  * @author David Turanski
  * @author Udo Kohlmeyer
  */
-@Entity
+
 @Region(name = "Customers")
 data class Customer (@Id @javax.persistence.Id val id: Long?, val emailAddress: EmailAddress,
                     val firstName: String, val lastName: String) : Serializable {
