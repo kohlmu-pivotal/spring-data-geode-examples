@@ -41,17 +41,15 @@ class WanEnableServerConfigKT {
     internal fun customerCacheListener() = LoggingCacheListener<Long, Customer>()
 
     @Bean
-    internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) =
-            RegionAttributesFactoryBean().apply {
-                setPartitionAttributes(partitionAttributes)
-            }
+    internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) = RegionAttributesFactoryBean().apply {
+        setPartitionAttributes(partitionAttributes)
+    }
 
     @Bean
-    internal fun partitionAttributes(gemFireCache: GemFireCache) =
-            PartitionAttributesFactoryBean<Long, Customer>().apply {
-                setTotalNumBuckets(13)
-                setRedundantCopies(0)
-            }
+    internal fun partitionAttributes(gemFireCache: GemFireCache) = PartitionAttributesFactoryBean<Long, Customer>().apply {
+        setTotalNumBuckets(13)
+        setRedundantCopies(0)
+    }
 
     @Bean
     internal fun createCustomerRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>,
@@ -71,23 +69,21 @@ class WanEnableServerConfigKT {
     @EnableGemFireProperties(distributedSystemId = 1, remoteLocators = "localhost[20334]")
     internal inner class SiteAWanEnabledServer {
         @Bean
-        fun createGatewayReceiver(gemFireCache: GemFireCache) =
-                GatewayReceiverFactoryBean(gemFireCache as Cache).apply {
-                    setStartPort(15000)
-                    setEndPort(15010)
-                    setManualStart(false)
-                }
+        fun createGatewayReceiver(gemFireCache: GemFireCache) = GatewayReceiverFactoryBean(gemFireCache as Cache).apply {
+            setStartPort(15000)
+            setEndPort(15010)
+            setManualStart(false)
+        }
 
         @Bean
         @DependsOn("DiskStore")
-        fun createGatewaySender(gemFireCache: GemFireCache) =
-                GatewaySenderFactoryBean(gemFireCache as Cache).apply {
-                    setBatchSize(15)
-                    setBatchTimeInterval(1000)
-                    setRemoteDistributedSystemId(2)
-                    isPersistent = false
-                    setDiskStoreRef("DiskStore")
-                }
+        fun createGatewaySender(gemFireCache: GemFireCache) = GatewaySenderFactoryBean(gemFireCache as Cache).apply {
+            setBatchSize(15)
+            setBatchTimeInterval(1000)
+            setRemoteDistributedSystemId(2)
+            isPersistent = false
+            setDiskStoreRef("DiskStore")
+        }
     }
 
     @PeerCacheApplication
@@ -96,20 +92,18 @@ class WanEnableServerConfigKT {
     @EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[10334]")
     internal inner class SiteBWanEnabledServer {
         @Bean
-        fun createGatewayReceiver(gemFireCache: GemFireCache) =
-                GatewayReceiverFactoryBean(gemFireCache as Cache).apply {
-                    setStartPort(25000)
-                    setEndPort(25010)
-                }
+        fun createGatewayReceiver(gemFireCache: GemFireCache) = GatewayReceiverFactoryBean(gemFireCache as Cache).apply {
+            setStartPort(25000)
+            setEndPort(25010)
+        }
 
         @Bean
         @DependsOn("DiskStore")
-        fun createGatewaySender(gemFireCache: GemFireCache) =
-                GatewaySenderFactoryBean(gemFireCache as Cache).apply {
-                    setBatchSize(15)
-                    setBatchTimeInterval(1000)
-                    setRemoteDistributedSystemId(1)
-                    setDiskStoreRef("DiskStore")
-                }
+        fun createGatewaySender(gemFireCache: GemFireCache) = GatewaySenderFactoryBean(gemFireCache as Cache).apply {
+            setBatchSize(15)
+            setBatchTimeInterval(1000)
+            setRemoteDistributedSystemId(1)
+            setDiskStoreRef("DiskStore")
+        }
     }
 }

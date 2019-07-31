@@ -18,34 +18,32 @@ class WanEnableServerKT {
 
     @Bean
     @Profile("default", "SiteA")
-    fun siteARunner(customerRepository: CustomerRepository) =
-            ApplicationRunner {
-                createCustomerData(customerRepository)
-            }
+    fun siteARunner(customerRepository: CustomerRepository) = ApplicationRunner {
+        createCustomerData(customerRepository)
+    }
 
     @Bean
     @Profile("SiteB")
-    fun siteBRunner() =
-            ApplicationRunner {
-                readLine()
-            }
+    fun siteBRunner() = ApplicationRunner {
+        readLine()
+    }
 
     private fun createCustomerData(customerRepository: CustomerRepository) {
         println("Inserting 3 entries for keys: 1, 2, 3")
         val faker = Faker()
         LongStream.rangeClosed(0, 300)
-                .parallel()
-                .forEach { customerId ->
-                    customerRepository.save(
-                            Customer(customerId,
-                                    EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName()))
-                }
+            .parallel()
+            .forEach { customerId ->
+                customerRepository.save(
+                    Customer(customerId,
+                        EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName()))
+            }
     }
 }
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(WanEnableServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

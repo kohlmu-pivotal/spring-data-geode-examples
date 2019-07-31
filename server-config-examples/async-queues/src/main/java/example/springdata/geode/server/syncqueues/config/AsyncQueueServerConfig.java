@@ -89,5 +89,4 @@ public class AsyncQueueServerConfig {
         replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
         return replicatedRegionFactoryBean;
     }
-
 }

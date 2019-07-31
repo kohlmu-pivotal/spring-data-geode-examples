@@ -24,7 +24,6 @@ import java.util.stream.IntStream
 import java.util.stream.LongStream
 import kotlin.random.Random
 
-
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 class RegionTypeConfigurationKT {
@@ -43,27 +42,24 @@ class RegionTypeConfigurationKT {
             RegionAttributesFactoryBean().apply { setPartitionAttributes(partitionAttributes) }
 
     @Bean
-    fun partitionAttributes(gemfireCache: GemFireCache) =
-            PartitionAttributesFactoryBean<Long, Order>().apply {
-                setTotalNumBuckets(13)
-                setRedundantCopies(1)
-            }
+    fun partitionAttributes(gemfireCache: GemFireCache) = PartitionAttributesFactoryBean<Long, Order>().apply {
+        setTotalNumBuckets(13)
+        setRedundantCopies(1)
+    }
 
     @Bean
-    fun createOrderRegion(gemfireCache: GemFireCache) =
-            ReplicatedRegionFactoryBean<Long, Order>().apply {
-                cache = gemfireCache
-                setRegionName("Orders")
-                dataPolicy = DataPolicy.REPLICATE
-            }
+    fun createOrderRegion(gemfireCache: GemFireCache) = ReplicatedRegionFactoryBean<Long, Order>().apply {
+        cache = gemfireCache
+        setRegionName("Orders")
+        dataPolicy = DataPolicy.REPLICATE
+    }
 
     @Bean
-    fun createProductRegion(gemfireCache: GemFireCache) =
-            ReplicatedRegionFactoryBean<Long, Product>().apply {
-                cache = gemfireCache
-                setRegionName("Products")
-                dataPolicy = DataPolicy.REPLICATE
-            }
+    fun createProductRegion(gemfireCache: GemFireCache) = ReplicatedRegionFactoryBean<Long, Product>().apply {
+        cache = gemfireCache
+        setRegionName("Products")
+        dataPolicy = DataPolicy.REPLICATE
+    }
 
     @Profile("default", "embeddedLocator")
     @Configuration
@@ -116,7 +112,6 @@ class RegionTypeConfigurationKT {
                 it.addAttribute("warranty", "included")
                 productRepositoryKT.save(it)
             }
-
         }
 
         private fun createCustomerData(customerRepositoryKT: CustomerRepositoryKT) {

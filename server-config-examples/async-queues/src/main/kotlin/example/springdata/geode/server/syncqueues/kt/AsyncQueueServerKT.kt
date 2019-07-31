@@ -65,14 +65,14 @@ class AsyncQueueServerKT {
     private fun createCustomerData(customerRepository: CustomerRepositoryKT) {
         println("Inserting 3 entries for keys: 1, 2, 3")
         LongStream.rangeClosed(0, 300)
-                .parallel()
-                .forEach { customerId -> customerRepository.save(Customer(customerId, EmailAddress(customerId.toString() + "@2.com"), "John$customerId", "Smith$customerId")) }
+            .parallel()
+            .forEach { customerId -> customerRepository.save(Customer(customerId, EmailAddress(customerId.toString() + "@2.com"), "John$customerId", "Smith$customerId")) }
     }
 }
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(AsyncQueueServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

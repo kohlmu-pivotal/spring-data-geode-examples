@@ -19,9 +19,9 @@ import java.util.stream.LongStream;
 public class WanEnableServer {
     public static void main(String[] args) {
         new SpringApplicationBuilder(WanEnableServer.class)
-                .web(WebApplicationType.NONE)
-                .build()
-                .run(args);
+            .web(WebApplicationType.NONE)
+            .build()
+            .run(args);
     }
 
     @Bean
@@ -40,10 +40,10 @@ public class WanEnableServer {
         System.out.println("Inserting 3 entries for keys: 1, 2, 3");
         Faker faker = new Faker();
         LongStream.rangeClosed(0, 300)
-                .parallel()
-                .forEach(customerId ->
-                        customerRepository.save(
-                                new Customer(customerId,
-                                        new EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName())));
+            .parallel()
+            .forEach(customerId ->
+                customerRepository.save(
+                    new Customer(customerId,
+                        new EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName())));
     }
 }

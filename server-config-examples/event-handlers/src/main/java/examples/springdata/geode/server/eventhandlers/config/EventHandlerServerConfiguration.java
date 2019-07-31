@@ -46,8 +46,7 @@ public class EventHandlerServerConfiguration {
 
     @Bean
     PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache,
-                                                      CacheWriter customerCacheWriter, CacheListener
-                                                              loggingCacheListener) {
+                                                      CacheWriter customerCacheWriter, CacheListener loggingCacheListener) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<Long, Customer>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
         partitionedRegionFactoryBean.setRegionName("Customers");

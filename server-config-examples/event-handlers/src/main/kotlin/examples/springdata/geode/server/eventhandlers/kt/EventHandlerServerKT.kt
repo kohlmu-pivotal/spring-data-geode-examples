@@ -18,14 +18,13 @@ import java.util.stream.LongStream
 class EventHandlerServerKT {
 
     @Bean
-    internal fun runner(customerRepository: CustomerRepository, productRepository: ProductRepository) =
-            ApplicationRunner {
-                createCustomerData(customerRepository)
-                createProducts(productRepository)
+    internal fun runner(customerRepository: CustomerRepository, productRepository: ProductRepository) = ApplicationRunner {
+        createCustomerData(customerRepository)
+        createProducts(productRepository)
 
-                val product = productRepository.findById(5L)
-                println("product = " + product.get())
-            }
+        val product = productRepository.findById(5L)
+        println("product = " + product.get())
+    }
 
     private fun createProducts(productRepository: ProductRepository) {
         productRepository.save(Product(1L, "Apple iPod", BigDecimal("99.99"),
@@ -41,16 +40,16 @@ class EventHandlerServerKT {
     private fun createCustomerData(customerRepository: CustomerRepository) {
         println("Inserting 3 entries for keys: 1, 2, 3")
         LongStream.rangeClosed(1, 3)
-                .forEach { customerId ->
-                    customerRepository.save(Customer(customerId,
-                            EmailAddress("$customerId@2.com"), "John$customerId", "Smith$customerId"))
-                }
+            .forEach { customerId ->
+                customerRepository.save(Customer(customerId,
+                        EmailAddress("$customerId@2.com"), "John$customerId", "Smith$customerId"))
+            }
     }
 }
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(EventHandlerServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }

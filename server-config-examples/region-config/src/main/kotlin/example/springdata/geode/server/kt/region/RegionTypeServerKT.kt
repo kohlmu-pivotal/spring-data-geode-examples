@@ -18,7 +18,7 @@ class RegionTypeServerKT {
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(RegionTypeServerKT::class.java)
-            .web(WebApplicationType.NONE)
-            .build()
-            .run(*args)
+        .web(WebApplicationType.NONE)
+        .build()
+        .run(*args)
 }
