@@ -3,8 +3,6 @@ package examples.springdata.geode.client.basic;
 import examples.springdata.geode.client.basic.config.BasicClientApplicationConfig;
 import examples.springdata.geode.client.basic.services.CustomerService;
 import examples.springdata.geode.client.common.client.BaseClient;
-import examples.springdata.geode.domain.Customer;
-import examples.springdata.geode.domain.EmailAddress;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
