@@ -1,4 +1,4 @@
-package examples.springdata.geode.functions.cascading.server.functions
+package examples.springdata.geode.functions.cascading.kt.server.functions
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order

@@ -1,6 +1,6 @@
-package examples.springdata.geode.functions.cascading.client.services
+package examples.springdata.geode.functions.cascading.kt.client.services
 
-import examples.springdata.geode.functions.cascading.client.repo.ProductRepositoryKT
+import examples.springdata.geode.functions.cascading.kt.client.repo.ProductRepositoryKT
 import examples.springdata.geode.domain.Product
 import org.springframework.stereotype.Service
 

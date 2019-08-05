@@ -1,10 +1,10 @@
-package examples.springdata.geode.functions.cascading.client
+package examples.springdata.geode.functions.cascading.kt.client
 
 import examples.springdata.geode.domain.*
-import examples.springdata.geode.functions.cascading.client.config.CascadingFunctionClientConfigKT
-import examples.springdata.geode.functions.cascading.client.services.CustomerServiceKT
-import examples.springdata.geode.functions.cascading.client.services.OrderServiceKT
-import examples.springdata.geode.functions.cascading.client.services.ProductServiceKT
+import examples.springdata.geode.functions.cascading.kt.client.config.CascadingFunctionClientConfigKT
+import examples.springdata.geode.functions.cascading.kt.client.services.CustomerServiceKT
+import examples.springdata.geode.functions.cascading.kt.client.services.OrderServiceKT
+import examples.springdata.geode.functions.cascading.kt.client.services.ProductServiceKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

@@ -1,7 +1,7 @@
-package examples.springdata.geode.functions.cascading.server
+package examples.springdata.geode.functions.cascading.kt.server
 
-import examples.springdata.geode.functions.cascading.server.config.LocatorCascadingFunctionServerConfigKT
-import examples.springdata.geode.functions.cascading.server.config.ServerCascadingFunctionServerConfigKT
+import examples.springdata.geode.functions.cascading.kt.server.config.LocatorCascadingFunctionServerConfigKT
+import examples.springdata.geode.functions.cascading.kt.server.config.ServerCascadingFunctionServerConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication

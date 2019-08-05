@@ -1,4 +1,4 @@
-package examples.springdata.geode.functions.cascading.client.repo
+package examples.springdata.geode.functions.cascading.kt.client.repo
 
 import examples.springdata.geode.domain.Customer
 import org.springframework.data.gemfire.mapping.annotation.ClientRegion

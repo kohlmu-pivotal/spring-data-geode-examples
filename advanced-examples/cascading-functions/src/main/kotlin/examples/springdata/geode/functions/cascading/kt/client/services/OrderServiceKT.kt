@@ -1,8 +1,8 @@
-package examples.springdata.geode.functions.cascading.client.services
+package examples.springdata.geode.functions.cascading.kt.client.services
 
 import examples.springdata.geode.domain.Order
-import examples.springdata.geode.functions.cascading.client.functions.OrderFunctionExecutionsKT
-import examples.springdata.geode.functions.cascading.client.repo.OrderRepositoryKT
+import examples.springdata.geode.functions.cascading.kt.client.functions.OrderFunctionExecutionsKT
+import examples.springdata.geode.functions.cascading.kt.client.repo.OrderRepositoryKT
 import org.springframework.stereotype.Service
 
 @Service

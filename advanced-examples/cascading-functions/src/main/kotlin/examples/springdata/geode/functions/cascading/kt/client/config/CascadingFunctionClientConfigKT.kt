@@ -1,11 +1,11 @@
-package examples.springdata.geode.functions.cascading.client.config
+package examples.springdata.geode.functions.cascading.kt.client.config
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.Product
-import examples.springdata.geode.functions.cascading.client.functions.CustomerFunctionExecutionsKT
-import examples.springdata.geode.functions.cascading.client.repo.CustomerRepositoryKT
-import examples.springdata.geode.functions.cascading.client.services.CustomerServiceKT
+import examples.springdata.geode.functions.cascading.kt.client.functions.CustomerFunctionExecutionsKT
+import examples.springdata.geode.functions.cascading.kt.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.functions.cascading.kt.client.services.CustomerServiceKT
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.beans.factory.annotation.Value
