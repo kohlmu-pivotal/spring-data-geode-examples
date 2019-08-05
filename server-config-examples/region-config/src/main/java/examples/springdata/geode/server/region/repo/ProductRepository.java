@@ -1,4 +1,4 @@
-package example.springdata.geode.server.region.repo;
+package examples.springdata.geode.server.region.repo;
 
 import examples.springdata.geode.domain.Product;
 import org.springframework.data.gemfire.mapping.annotation.Region;

@@ -1,6 +1,6 @@
-package example.springdata.geode.server.kt.region
+package examples.springdata.geode.server.region.kt
 
-import example.springdata.geode.server.kt.region.config.RegionTypeConfigurationKT
+import examples.springdata.geode.server.region.kt.config.RegionTypeConfigurationKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication

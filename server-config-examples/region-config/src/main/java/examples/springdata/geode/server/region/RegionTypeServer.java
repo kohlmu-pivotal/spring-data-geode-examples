@@ -1,6 +1,6 @@
-package example.springdata.geode.server.region;
+package examples.springdata.geode.server.region;
 
-import example.springdata.geode.server.region.config.RegionTypeConfiguration;
+import examples.springdata.geode.server.region.config.RegionTypeConfiguration;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

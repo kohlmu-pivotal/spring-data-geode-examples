@@ -1,8 +1,8 @@
-package example.springdata.geode.server.kt.region.config
+package examples.springdata.geode.server.region.kt.config
 
-import example.springdata.geode.server.kt.region.repo.CustomerRepositoryKT
-import example.springdata.geode.server.kt.region.repo.OrderRepositoryKT
-import example.springdata.geode.server.kt.region.repo.ProductRepositoryKT
+import examples.springdata.geode.server.region.kt.repo.CustomerRepositoryKT
+import examples.springdata.geode.server.region.kt.repo.OrderRepositoryKT
+import examples.springdata.geode.server.region.kt.repo.ProductRepositoryKT
 import examples.springdata.geode.domain.*
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache

@@ -1,4 +1,4 @@
-package example.springdata.geode.server.kt.region.repo
+package examples.springdata.geode.server.region.kt.repo
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
