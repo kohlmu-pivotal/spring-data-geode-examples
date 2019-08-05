@@ -1,7 +1,7 @@
-package examples.springdata.geode.kt.clusterregion.client.service
+package examples.springdata.geode.clusterregion.kt.client.service
 
 import examples.springdata.geode.domain.Product
-import examples.springdata.geode.kt.clusterregion.client.repo.ProductRepositoryKT
+import examples.springdata.geode.clusterregion.kt.client.repo.ProductRepositoryKT
 import org.springframework.stereotype.Service
 import java.util.*
 

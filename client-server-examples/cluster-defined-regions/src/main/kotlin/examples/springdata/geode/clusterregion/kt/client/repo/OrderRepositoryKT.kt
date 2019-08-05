@@ -1,4 +1,4 @@
-package examples.springdata.geode.kt.clusterregion.client.repo
+package examples.springdata.geode.clusterregion.kt.client.repo
 
 import examples.springdata.geode.domain.Order
 import org.springframework.data.gemfire.mapping.annotation.ClientRegion

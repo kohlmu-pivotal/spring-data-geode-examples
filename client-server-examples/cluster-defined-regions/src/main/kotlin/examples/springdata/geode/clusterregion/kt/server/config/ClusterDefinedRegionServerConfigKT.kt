@@ -1,4 +1,4 @@
-package examples.springdata.geode.kt.clusterregion.server.config
+package examples.springdata.geode.clusterregion.kt.server.config
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order

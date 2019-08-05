@@ -1,6 +1,6 @@
-package examples.springdata.geode.kt.clusterregion.server
+package examples.springdata.geode.clusterregion.kt.server
 
-import examples.springdata.geode.kt.clusterregion.server.config.ClusterDefinedRegionServerConfigKT
+import examples.springdata.geode.clusterregion.kt.server.config.ClusterDefinedRegionServerConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
