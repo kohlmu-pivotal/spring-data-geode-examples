@@ -1,8 +1,8 @@
-package example.springdata.geode.server.wan.kt
+package examples.springdata.geode.server.wan.kt
 
 import com.github.javafaker.Faker
-import example.springdata.geode.server.wan.config.WanEnableServerConfig
-import example.springdata.geode.server.wan.repo.CustomerRepository
+import examples.springdata.geode.server.wan.config.WanEnableServerConfig
+import examples.springdata.geode.server.wan.repo.CustomerRepository
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
 import org.springframework.boot.ApplicationRunner

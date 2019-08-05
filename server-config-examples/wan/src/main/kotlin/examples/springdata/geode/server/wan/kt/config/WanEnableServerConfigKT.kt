@@ -1,7 +1,7 @@
-package example.springdata.geode.server.wan.kt.config
+package examples.springdata.geode.server.wan.kt.config
 
 import com.github.javafaker.Faker
-import example.springdata.geode.server.wan.repo.CustomerRepository
+import examples.springdata.geode.server.wan.repo.CustomerRepository
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.util.LoggingCacheListener
 import org.apache.geode.cache.*
