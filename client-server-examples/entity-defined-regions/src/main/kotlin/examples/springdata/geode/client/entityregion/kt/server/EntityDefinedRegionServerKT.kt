@@ -1,6 +1,6 @@
-package examples.springdata.geode.client.entityregion.server
+package examples.springdata.geode.client.entityregion.kt.server
 
-import examples.springdata.geode.client.entityregion.server.config.EntityDefinedRegionServerConfigKT
+import examples.springdata.geode.client.entityregion.kt.server.config.EntityDefinedRegionServerConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication

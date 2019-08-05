@@ -1,4 +1,4 @@
-package examples.springdata.geode.client.entityregion.client.repo
+package examples.springdata.geode.client.entityregion.kt.client.repo
 
 import examples.springdata.geode.domain.Product
 import org.springframework.data.gemfire.mapping.annotation.ClientRegion

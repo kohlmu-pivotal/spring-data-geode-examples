@@ -1,8 +1,8 @@
-package examples.springdata.geode.client.entityregion.client
+package examples.springdata.geode.client.entityregion.kt.client
 
 import examples.springdata.geode.client.common.kt.client.BaseClientKT
-import examples.springdata.geode.client.entityregion.client.config.EntityDefinedRegionClientConfigKT
-import examples.springdata.geode.client.entityregion.client.service.CustomerServiceKT
+import examples.springdata.geode.client.entityregion.kt.client.config.EntityDefinedRegionClientConfigKT
+import examples.springdata.geode.client.entityregion.kt.client.service.CustomerServiceKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

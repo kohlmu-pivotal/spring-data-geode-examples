@@ -5,9 +5,7 @@ import examples.springdata.geode.client.entityregion.client.config.EntityDefined
 import examples.springdata.geode.client.entityregion.client.service.CustomerService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackageClasses = EntityDefinedRegionClientConfig.class)

@@ -1,4 +1,4 @@
-package examples.springdata.geode.client.entityregion.server.config
+package examples.springdata.geode.client.entityregion.kt.server.config
 
 import org.springframework.data.gemfire.config.annotation.*
 

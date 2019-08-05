@@ -1,8 +1,8 @@
-package examples.springdata.geode.client.entityregion.client.config
+package examples.springdata.geode.client.entityregion.kt.client.config
 
 import examples.springdata.geode.domain.Customer
-import examples.springdata.geode.client.entityregion.client.repo.CustomerRepositoryKT
-import examples.springdata.geode.client.entityregion.client.service.CustomerServiceKT
+import examples.springdata.geode.client.entityregion.kt.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.entityregion.kt.client.service.CustomerServiceKT
 import org.apache.geode.cache.RegionShortcut
 import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.beans.factory.annotation.Value
