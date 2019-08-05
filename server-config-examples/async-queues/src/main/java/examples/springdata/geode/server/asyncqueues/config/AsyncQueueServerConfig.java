@@ -1,7 +1,7 @@
-package example.springdata.geode.server.syncqueues.config;
+package examples.springdata.geode.server.asyncqueues.config;
 
-import example.springdata.geode.server.syncqueues.listener.OrderAsyncQueueListener;
-import example.springdata.geode.server.syncqueues.repo.CustomerRepository;
+import examples.springdata.geode.server.asyncqueues.listener.OrderAsyncQueueListener;
+import examples.springdata.geode.server.asyncqueues.repo.CustomerRepository;
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.domain.Order;
 import examples.springdata.geode.domain.Product;

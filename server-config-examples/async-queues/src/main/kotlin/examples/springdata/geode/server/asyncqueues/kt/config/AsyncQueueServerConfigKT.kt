@@ -1,7 +1,7 @@
-package example.springdata.geode.server.syncqueues.kt.config
+package examples.springdata.geode.server.asyncqueues.kt.config
 
-import example.springdata.geode.server.syncqueues.kt.listener.OrderAsyncQueueListenerKT
-import example.springdata.geode.server.syncqueues.kt.repo.CustomerRepositoryKT
+import examples.springdata.geode.server.asyncqueues.kt.listener.OrderAsyncQueueListenerKT
+import examples.springdata.geode.server.asyncqueues.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.domain.*
 import org.apache.geode.cache.*
 import org.apache.geode.cache.asyncqueue.AsyncEventListener

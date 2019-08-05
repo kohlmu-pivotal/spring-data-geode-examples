@@ -1,4 +1,4 @@
-package example.springdata.geode.server.syncqueues.kt.listener
+package examples.springdata.geode.server.asyncqueues.kt.listener
 
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.OrderProductSummary

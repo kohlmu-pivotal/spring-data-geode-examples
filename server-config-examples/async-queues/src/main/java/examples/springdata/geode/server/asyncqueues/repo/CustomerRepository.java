@@ -1,4 +1,4 @@
-package example.springdata.geode.server.syncqueues.repo;
+package examples.springdata.geode.server.asyncqueues.repo;
 
 import examples.springdata.geode.domain.Customer;
 import org.springframework.data.repository.CrudRepository;

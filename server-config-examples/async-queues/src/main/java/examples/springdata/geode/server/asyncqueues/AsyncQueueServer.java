@@ -1,10 +1,10 @@
-package example.springdata.geode.server.syncqueues;
+package examples.springdata.geode.server.asyncqueues;
 
-import example.springdata.geode.server.syncqueues.config.AsyncQueueServerConfig;
-import example.springdata.geode.server.syncqueues.repo.CustomerRepository;
-import example.springdata.geode.server.syncqueues.repo.OrderProductSummaryRepository;
-import example.springdata.geode.server.syncqueues.repo.OrderRepository;
-import example.springdata.geode.server.syncqueues.repo.ProductRepository;
+import examples.springdata.geode.server.asyncqueues.config.AsyncQueueServerConfig;
+import examples.springdata.geode.server.asyncqueues.repo.CustomerRepository;
+import examples.springdata.geode.server.asyncqueues.repo.OrderProductSummaryRepository;
+import examples.springdata.geode.server.asyncqueues.repo.OrderRepository;
+import examples.springdata.geode.server.asyncqueues.repo.ProductRepository;
 import examples.springdata.geode.domain.*;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.WebApplicationType;

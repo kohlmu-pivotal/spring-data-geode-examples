@@ -1,10 +1,10 @@
-package example.springdata.geode.server.syncqueues.kt
+package examples.springdata.geode.server.asyncqueues.kt
 
-import example.springdata.geode.server.syncqueues.kt.config.AsyncQueueServerConfigKT
-import example.springdata.geode.server.syncqueues.kt.repo.CustomerRepositoryKT
-import example.springdata.geode.server.syncqueues.kt.repo.OrderProductSummaryRepositoryKT
-import example.springdata.geode.server.syncqueues.kt.repo.OrderRepositoryKT
-import example.springdata.geode.server.syncqueues.kt.repo.ProductRepositoryKT
+import examples.springdata.geode.server.asyncqueues.kt.config.AsyncQueueServerConfigKT
+import examples.springdata.geode.server.asyncqueues.kt.repo.CustomerRepositoryKT
+import examples.springdata.geode.server.asyncqueues.kt.repo.OrderProductSummaryRepositoryKT
+import examples.springdata.geode.server.asyncqueues.kt.repo.OrderRepositoryKT
+import examples.springdata.geode.server.asyncqueues.kt.repo.ProductRepositoryKT
 import examples.springdata.geode.domain.*
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
