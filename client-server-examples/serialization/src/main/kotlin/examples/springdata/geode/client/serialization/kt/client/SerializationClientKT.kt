@@ -1,8 +1,8 @@
-package examples.springdata.geode.kt.client.serialization.client
+package examples.springdata.geode.client.serialization.kt.client
 
 import examples.springdata.geode.client.common.kt.client.BaseClientKT
 import examples.springdata.geode.client.common.kt.client.service.CustomerServiceKT
-import examples.springdata.geode.kt.client.serialization.client.config.PdxSerializationClientConfigKT
+import examples.springdata.geode.client.serialization.kt.client.config.PdxSerializationClientConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication

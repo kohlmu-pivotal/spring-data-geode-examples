@@ -1,8 +1,8 @@
-package examples.springdata.geode.kt.client.serialization.client.config
+package examples.springdata.geode.client.serialization.kt.client.config
 
 import examples.springdata.geode.domain.Customer
-import examples.springdata.geode.kt.client.serialization.client.repo.CustomerRepositoryKT
-import examples.springdata.geode.kt.client.serialization.client.services.CustomerServiceKT
+import examples.springdata.geode.client.serialization.kt.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.serialization.kt.client.services.CustomerServiceKT
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.beans.factory.annotation.Value

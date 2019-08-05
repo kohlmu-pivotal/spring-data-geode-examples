@@ -1,4 +1,4 @@
-package examples.springdata.geode.kt.client.serialization.server.config
+package examples.springdata.geode.client.serialization.kt.server.config
 
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.util.LoggingCacheListener

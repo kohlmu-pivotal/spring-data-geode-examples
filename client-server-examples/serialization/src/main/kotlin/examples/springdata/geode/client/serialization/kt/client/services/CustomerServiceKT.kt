@@ -1,8 +1,8 @@
-package examples.springdata.geode.kt.client.serialization.client.services
+package examples.springdata.geode.client.serialization.kt.client.services
 
 import examples.springdata.geode.client.common.kt.client.service.CustomerServiceKT
 import examples.springdata.geode.domain.Customer
-import examples.springdata.geode.kt.client.serialization.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.serialization.kt.client.repo.CustomerRepositoryKT
 import org.apache.geode.cache.Region
 import org.springframework.stereotype.Service
 import java.util.*
