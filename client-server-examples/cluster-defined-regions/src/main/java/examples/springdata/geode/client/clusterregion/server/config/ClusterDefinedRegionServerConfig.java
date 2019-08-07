@@ -1,4 +1,4 @@
-package examples.springdata.geode.clusterregion.server.config;
+package examples.springdata.geode.client.clusterregion.server.config;
 
 import org.apache.geode.cache.CacheListener;
 import org.apache.geode.cache.DataPolicy;
