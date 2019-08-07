@@ -11,9 +11,11 @@ import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication;
 import org.springframework.data.gemfire.config.annotation.EnableIndexing;
 import org.springframework.data.gemfire.config.annotation.EnableLocator;
+import org.springframework.data.gemfire.config.annotation.EnableManager;
 
 @EnableLocator
 @EnableIndexing
+@EnableManager
 @CacheServerApplication(port = 0)
 public class ServerApplicationConfig {
 
