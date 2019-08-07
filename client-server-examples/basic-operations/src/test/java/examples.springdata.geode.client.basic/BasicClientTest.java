@@ -16,7 +16,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class BasicClientTest {
@@ -47,15 +46,16 @@ public class BasicClientTest {
 
         Customer jonDoe = new Customer(15L, new EmailAddress("example@example.org"), "Jon", "Doe");
 
-        assertThat(jonDoe).isNotNull();
-        assertThat(jonDoe.getFirstName()).isEqualTo("Jon");
-        assertThat(jonDoe.getLastName()).isEqualTo("Doe");
-
         this.customerService.save(jonDoe);
 
+        assertThat(this.customerService.numberEntriesStoredOnServer()).isEqualTo(3);
+
         Optional<Customer> jonOptional = this.customerService.findById(15);
-        assertThat(jonOptional.isPresent()).isEqualTo(true);
-        Customer jon2 = jonOptional.get();
+
+        Customer jon2 = null;
+        if(jonOptional.isPresent()) {
+            jon2 = jonOptional.get();
+        }
         assertThat(jon2).isEqualTo(jonDoe);
     }
 }
