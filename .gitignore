@@ -17,3 +17,5 @@
 #Directories
 .idea
 target
+client-server-examples/.DS_Store
+.DS_Store
