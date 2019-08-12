@@ -59,6 +59,7 @@ public class ClientApplicationConfig {
     }
 
     @Bean
+    @Profile("!test")
     ClientCacheConfigurer clientCacheServerConfigurer(
             @Value("${spring.data.geode.locator.host:localhost}") String hostname,
             @Value("${spring.data.geode.locator.port:10334}") int port) {

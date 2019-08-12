@@ -34,5 +34,4 @@ public class ServerApplicationConfig {
         replicatedRegionFactoryBean.setCacheListeners(new CacheListener[]{loggingCacheListener()});
         return replicatedRegionFactoryBean;
     }
-
 }

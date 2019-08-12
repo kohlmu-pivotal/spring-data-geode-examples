@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication(scanBasePackageClasses = BasicClientApplicationConfig.class)
 public class BasicClient implements BaseClient {
+
     public static void main(String[] args) {
         SpringApplication.run(BasicClient.class, args);
     }

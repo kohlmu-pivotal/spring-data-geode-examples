@@ -1,7 +1,7 @@
 package examples.springdata.geode.client.security.kt.client
 
-import example.springdata.geode.client.security.kt.client.config.SecurityEnabledClientConfigurationKT
-import example.springdata.geode.client.security.kt.client.repo.CustomerRepositoryKT
+import examples.springdata.geode.client.security.kt.client.config.SecurityEnabledClientConfigurationKT
+import examples.springdata.geode.client.security.kt.client.repo.CustomerRepositoryKT
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
 import org.springframework.boot.ApplicationRunner
