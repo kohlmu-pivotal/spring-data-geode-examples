@@ -4,22 +4,28 @@ import examples.springdata.geode.client.clusterregion.client.ClusterDefinedRegio
 import examples.springdata.geode.client.clusterregion.client.service.CustomerService;
 import examples.springdata.geode.client.clusterregion.client.service.OrderService;
 import examples.springdata.geode.client.clusterregion.client.service.ProductService;
+import examples.springdata.geode.client.clusterregion.server.ClusterDefinedRegionServer;
+import examples.springdata.geode.client.common.server.Server;
 import examples.springdata.geode.domain.*;
 import org.apache.geode.cache.Region;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.gemfire.util.RegionUtils;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
-
+@ActiveProfiles({"test", "default"})
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = ClusterDefinedRegionClient.class)
 public class ClusterDefinedRegionClientTest {
@@ -42,10 +48,27 @@ public class ClusterDefinedRegionClientTest {
     @Resource(name = "Products")
     private Region<Long, Product> products;
 
+    @BeforeClass
+    public static void setup() throws IOException {
+        startGemFireServer(ClusterDefinedRegionServer.class);
+    }
+
     @Test
     public void customerServiceWasConfiguredCorrectly() {
 
         assertThat(this.customerService).isNotNull();
+    }
+
+    @Test
+    public void orderServiceWasConfiguredCorrectly() {
+
+        assertThat(this.orderService).isNotNull();
+    }
+
+    @Test
+    public void productServiceWasConfiguredCorrectly() {
+
+        assertThat(this.productService).isNotNull();
     }
 
     @Test
