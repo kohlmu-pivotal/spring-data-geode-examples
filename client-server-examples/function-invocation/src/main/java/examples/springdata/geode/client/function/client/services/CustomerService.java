@@ -28,7 +28,7 @@ public class CustomerService {
     }
 
     public List<Customer> listAllCustomersForEmailAddress(String... emailAddresses) {
-        return customerFunctionExecutions.listAllCustomersForEmailAddress(emailAddresses);
+        return customerFunctionExecutions.listAllCustomersForEmailAddress(emailAddresses).get(0);
     }
 
     public Customer findById(long customerId) {

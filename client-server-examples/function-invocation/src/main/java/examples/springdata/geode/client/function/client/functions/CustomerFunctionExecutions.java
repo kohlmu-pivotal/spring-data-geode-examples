@@ -10,5 +10,5 @@ import java.util.List;
 public interface CustomerFunctionExecutions {
 
     @FunctionId("listConsumersForEmailAddressesFnc")
-    List<Customer> listAllCustomersForEmailAddress(String... emailAddresses);
+    List<List<Customer>> listAllCustomersForEmailAddress(String... emailAddresses);
 }
