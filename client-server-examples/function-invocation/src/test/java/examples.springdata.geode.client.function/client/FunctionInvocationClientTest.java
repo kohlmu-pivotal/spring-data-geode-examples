@@ -64,7 +64,7 @@ public class FunctionInvocationClientTest {
         this.customerService.save(jonDoe);
 
         Customer jon2 = this.customerService.listAllCustomersForEmailAddress("example@example.org").get(0);
-        assertThat(jon2.getFirstName()).isEqualTo("Jon");
+        assertThat(jon2).isEqualTo(jonDoe);
     }
 
     @Test
