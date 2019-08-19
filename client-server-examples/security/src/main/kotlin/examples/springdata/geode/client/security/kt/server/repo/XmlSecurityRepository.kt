@@ -1,7 +1,7 @@
 package examples.springdata.geode.client.security.kt.server.repo
 
-import example.springdata.geode.client.security.kt.domain.Role
-import example.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.domain.Role
+import examples.springdata.geode.client.security.kt.domain.User
 import org.apache.geode.security.ResourcePermission
 import org.jdom2.input.SAXBuilder
 import org.springframework.beans.factory.InitializingBean

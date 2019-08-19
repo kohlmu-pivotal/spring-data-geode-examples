@@ -1,7 +1,7 @@
 package examples.springdata.geode.client.security.kt.client.config
 
-import example.springdata.geode.client.security.kt.client.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
+import examples.springdata.geode.client.security.kt.client.repo.CustomerRepositoryKT
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.data.gemfire.config.annotation.EnableSecurity

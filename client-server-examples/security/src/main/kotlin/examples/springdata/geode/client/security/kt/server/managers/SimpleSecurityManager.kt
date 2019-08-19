@@ -16,9 +16,9 @@
 
 package examples.springdata.geode.client.security.kt.server.managers
 
-import example.springdata.geode.client.security.kt.domain.User
-import example.springdata.geode.client.security.kt.server.repo.SecurityRepository
-import example.springdata.geode.client.security.kt.server.repo.XmlSecurityRepository
+import examples.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository
+import examples.springdata.geode.client.security.kt.server.repo.XmlSecurityRepository
 import org.apache.geode.security.AuthenticationFailedException
 import org.apache.geode.security.ResourcePermission
 import org.apache.shiro.util.Assert

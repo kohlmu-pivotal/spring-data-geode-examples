@@ -16,7 +16,7 @@
 
 package examples.springdata.geode.client.security.kt.server.repo
 
-import example.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.domain.User
 
 /**
  * The [CachingSecurityRepository] class caches Security Configuration Meta-Data and is meant to be extended

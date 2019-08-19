@@ -16,12 +16,12 @@
 
 package examples.springdata.geode.client.security.kt.shiro.realm
 
-import example.springdata.geode.client.security.kt.domain.User
-import example.springdata.geode.client.security.kt.server.repo.SecurityRepository
-import example.springdata.geode.client.security.kt.shiro.authc.UserAuthenticationInfo.Companion.newAuthenticationInfo
-import example.springdata.geode.client.security.kt.shiro.authz.UserAuthorizationInfo.Companion.newAuthorizationInfo
-import example.springdata.geode.client.security.kt.shiro.authz.support.ComposableAuthorizationInfo
-import example.springdata.geode.client.security.kt.shiro.realm.support.CredentialsMatcher.Companion.newCredentialsMatcher
+import examples.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository
+import examples.springdata.geode.client.security.kt.shiro.authc.UserAuthenticationInfo.Companion.newAuthenticationInfo
+import examples.springdata.geode.client.security.kt.shiro.authz.UserAuthorizationInfo.Companion.newAuthorizationInfo
+import examples.springdata.geode.client.security.kt.shiro.authz.support.ComposableAuthorizationInfo
+import examples.springdata.geode.client.security.kt.shiro.realm.support.CredentialsMatcher.Companion.newCredentialsMatcher
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken

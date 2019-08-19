@@ -16,7 +16,7 @@
 
 package examples.springdata.geode.client.security.kt.shiro.authc
 
-import example.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.domain.User
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.realm.Realm
 import org.apache.shiro.subject.PrincipalCollection

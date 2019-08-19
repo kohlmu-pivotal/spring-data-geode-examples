@@ -1,10 +1,10 @@
 package examples.springdata.geode.client.security.kt.server.config
 
-import example.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager
-import example.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository
-import example.springdata.geode.client.security.kt.server.repo.SecurityRepository
-import example.springdata.geode.client.security.kt.server.repo.XmlSecurityRepository
-import example.springdata.geode.client.security.kt.shiro.realm.SecurityRepositoryAuthorizingRealm
+import examples.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager
+import examples.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository
+import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository
+import examples.springdata.geode.client.security.kt.server.repo.XmlSecurityRepository
+import examples.springdata.geode.client.security.kt.shiro.realm.SecurityRepositoryAuthorizingRealm
 import examples.springdata.geode.client.common.kt.server.config.ServerApplicationConfigKT
 import org.apache.geode.internal.security.shiro.GeodePermissionResolver
 import org.apache.shiro.realm.Realm
@@ -52,7 +52,7 @@ internal class ApacheShiroCustomRealmConfigurationKT {
 }
 
 @Configuration
-@EnableSecurity(securityManagerClassName = "example.springdata.geode.client.security.server.managers.SecurityManagerProxy")
+@EnableSecurity(securityManagerClassName = "examples.springdata.geode.client.security.server.managers.SecurityManagerProxy")
 @Profile("default", "geode-security-manager-proxy-configuration")
 internal class GeodeIntegratedSecurityProxyConfigurationKT {
     @Bean

@@ -1,7 +1,7 @@
 package examples.springdata.geode.client.security.kt.server.repo
 
-import example.springdata.geode.client.security.kt.domain.Role
-import example.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.domain.Role
+import examples.springdata.geode.client.security.kt.domain.User
 
 /**
  * The [SecurityRepository] interface is a contract for Data Access Objects (DAO) implementing this interface

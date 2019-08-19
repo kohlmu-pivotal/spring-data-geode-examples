@@ -16,7 +16,7 @@
 
 package examples.springdata.geode.client.security.kt.server.managers
 
-import example.springdata.geode.client.security.kt.domain.Constants
+import examples.springdata.geode.client.security.kt.domain.Constants
 import org.apache.geode.security.AuthenticationFailedException
 import org.apache.geode.security.ResourcePermission
 import org.slf4j.LoggerFactory

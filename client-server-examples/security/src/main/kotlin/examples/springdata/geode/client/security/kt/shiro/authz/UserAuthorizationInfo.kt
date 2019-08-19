@@ -16,8 +16,8 @@
 
 package examples.springdata.geode.client.security.kt.shiro.authz
 
-import example.springdata.geode.client.security.kt.domain.User
-import example.springdata.geode.client.security.kt.shiro.authz.support.AuthorizationInfoSupport
+import examples.springdata.geode.client.security.kt.domain.User
+import examples.springdata.geode.client.security.kt.shiro.authz.support.AuthorizationInfoSupport
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.authz.Permission
 import org.springframework.util.Assert

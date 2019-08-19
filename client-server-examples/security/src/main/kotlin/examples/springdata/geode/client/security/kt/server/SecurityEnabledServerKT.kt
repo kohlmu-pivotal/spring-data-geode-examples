@@ -1,6 +1,6 @@
 package examples.springdata.geode.client.security.kt.server
 
-import example.springdata.geode.client.security.kt.server.config.SecurityEnabledServerConfigurationKT
+import examples.springdata.geode.client.security.kt.server.config.SecurityEnabledServerConfigurationKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication

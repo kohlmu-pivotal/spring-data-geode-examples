@@ -1,7 +1,7 @@
 package examples.springdata.geode.client.security.kt.server.repo
 
-import example.springdata.geode.client.security.kt.domain.Role
-import example.springdata.geode.client.security.kt.domain.Role.Companion.newRole
+import examples.springdata.geode.client.security.kt.domain.Role
+import examples.springdata.geode.client.security.kt.domain.Role.Companion.newRole
 import org.apache.geode.security.ResourcePermission
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean

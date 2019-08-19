@@ -1,8 +1,8 @@
 package examples.springdata.geode.client.security.server.config;
 
-import example.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager;
-import example.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository;
-import example.springdata.geode.client.security.kt.server.repo.SecurityRepository;
+import examples.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager;
+import examples.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository;
+import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository;
 import examples.springdata.geode.client.common.server.config.ServerApplicationConfig;
 import org.apache.geode.internal.security.shiro.GeodePermissionResolver;
 import org.apache.shiro.realm.text.PropertiesRealm;
@@ -46,7 +46,7 @@ class ApacheShiroRealmConfiguration {
 }
 
 @Configuration
-@EnableSecurity(securityManagerClassName = "example.springdata.geode.client.security.server.managers.SecurityManagerProxy")
+@EnableSecurity(securityManagerClassName = "examples.springdata.geode.client.security.server.managers.SecurityManagerProxy")
 @Profile({"default", "geode-security-manager-proxy-configuration"})
 class GeodeIntegratedSecurityProxyConfiguration {
 
