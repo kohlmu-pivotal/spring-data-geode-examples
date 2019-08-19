@@ -13,9 +13,9 @@ import java.util.Scanner;
 public class EntityDefinedRegionServer {
     public static void main(String[] args) {
         new SpringApplicationBuilder(EntityDefinedRegionServer.class)
-                .web(WebApplicationType.NONE)
-                .build()
-                .run(args);
+            .web(WebApplicationType.NONE)
+            .build()
+            .run(args);
     }
 
     @Bean
