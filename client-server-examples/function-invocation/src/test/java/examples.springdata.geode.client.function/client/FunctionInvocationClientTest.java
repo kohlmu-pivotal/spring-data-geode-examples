@@ -5,14 +5,17 @@ import examples.springdata.geode.client.function.client.services.OrderService;
 import examples.springdata.geode.client.function.client.services.ProductService;
 import examples.springdata.geode.client.function.server.FunctionServer;
 import examples.springdata.geode.domain.*;
+import org.apache.geode.cache.Region;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.util.RegionUtils;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -33,6 +36,9 @@ public class FunctionInvocationClientTest {
     @Autowired
     private ProductService productService;
 
+    @Resource(name = "Customers")
+    private Region<Long, Customer> customers;
+
     @BeforeClass
     public static void setup() throws IOException {
         startGemFireServer(FunctionServer.class);
@@ -42,6 +48,15 @@ public class FunctionInvocationClientTest {
     public void customerServiceWasConfiguredCorrectly() {
 
         assertThat(this.customerService).isNotNull();
+    }
+
+    @Test
+    public void customersRegionWasConfiguredCorrectly() {
+
+        assertThat(this.customers).isNotNull();
+        assertThat(this.customers.getName()).isEqualTo("Customers");
+        assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
+        assertThat(this.customers).isEmpty();
     }
 
     @Test
