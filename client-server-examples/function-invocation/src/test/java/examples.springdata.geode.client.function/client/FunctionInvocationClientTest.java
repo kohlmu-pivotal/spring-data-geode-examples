@@ -39,6 +39,12 @@ public class FunctionInvocationClientTest {
     @Resource(name = "Customers")
     private Region<Long, Customer> customers;
 
+    @Resource(name = "Orders")
+    private Region<Long, Order> orders;
+
+    @Resource(name = "Products")
+    private Region<Long, Product> products;
+
     @BeforeClass
     public static void setup() throws IOException {
         startGemFireServer(FunctionServer.class);
@@ -57,6 +63,24 @@ public class FunctionInvocationClientTest {
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
         assertThat(this.customers).isEmpty();
+    }
+
+    @Test
+    public void ordersRegionWasConfiguredCorrectly() {
+
+        assertThat(this.orders).isNotNull();
+        assertThat(this.orders.getName()).isEqualTo("Orders");
+        assertThat(this.orders.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Orders"));
+        assertThat(this.orders).isEmpty();
+    }
+
+    @Test
+    public void productsRegionWasConfiguredCorrectly() {
+
+        assertThat(this.products).isNotNull();
+        assertThat(this.products.getName()).isEqualTo("Products");
+        assertThat(this.products.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Products"));
+        assertThat(this.products).isEmpty();
     }
 
     @Test
