@@ -69,7 +69,5 @@ public class SerializationClientTest {
             jon2 = jonOptional.get();
         }
         assertThat(jon2).isEqualTo(jonDoe);
-
-        assertThat(this.customerService.numberEntriesStoredOnServer()).isEqualTo(3);
     }
 }
