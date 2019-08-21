@@ -1,9 +1,9 @@
 package examples.springdata.geode.server.region.config;
 
+import examples.springdata.geode.domain.*;
 import examples.springdata.geode.server.region.repo.CustomerRepository;
 import examples.springdata.geode.server.region.repo.OrderRepository;
 import examples.springdata.geode.server.region.repo.ProductRepository;
-import examples.springdata.geode.domain.*;
 import org.apache.geode.cache.DataPolicy;
 import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.cache.PartitionAttributes;
@@ -22,7 +22,6 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 
 import java.math.BigDecimal;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
@@ -45,7 +44,7 @@ public class RegionTypeConfiguration {
         return partitionAttributesFactoryBean;
     }
 
-    @Bean
+    @Bean("Orders")
     ReplicatedRegionFactoryBean createOrderRegion(GemFireCache gemFireCache) {
         final ReplicatedRegionFactoryBean<Long, Order> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<>();
         replicatedRegionFactoryBean.setCache(gemFireCache);
@@ -54,7 +53,7 @@ public class RegionTypeConfiguration {
         return replicatedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Products")
     ReplicatedRegionFactoryBean createProductRegion(GemFireCache gemFireCache) {
         final ReplicatedRegionFactoryBean<Long, Product> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<>();
         replicatedRegionFactoryBean.setCache(gemFireCache);
@@ -63,7 +62,7 @@ public class RegionTypeConfiguration {
         return replicatedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Customers")
     PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes<Long, Customer> regionAttributes) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<Long, Customer>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
@@ -73,7 +72,7 @@ public class RegionTypeConfiguration {
         return partitionedRegionFactoryBean;
     }
 
-    @Profile({"default", "embeddedLocator"})
+    @Profile("embeddedLocator")
     @Configuration
     @EnableLocator
     @PeerCacheApplication(name = "embeddedLocator")
@@ -81,28 +80,26 @@ public class RegionTypeConfiguration {
         @Bean
         public ApplicationRunner runner() {
             return args -> {
-                System.err.println("Press <ENTER> to exit");
-                new Scanner(System.in).nextLine();
+
             };
         }
     }
 
     @Profile("peer")
     @Configuration
-    @PeerCacheApplication(locators = "localhost[10334]", name = "dataPeer")
+    @PeerCacheApplication(name = "dataPeer")
     class PeerServer {
         @Bean
         public ApplicationRunner runner() {
             return args -> {
-                System.err.println("Press <ENTER> to exit");
-                new Scanner(System.in).nextLine();
+
             };
         }
     }
 
-    @Profile("dataPopulationPeer")
+    @Profile({"default", "dataPopulationPeer"})
     @Configuration
-    @PeerCacheApplication(locators = "localhost[10334]", name = "dataPopulationPeer")
+    @PeerCacheApplication(name = "dataPopulationPeer")
     class DataPopulationPeerServerKT {
         @Bean
         public ApplicationRunner runner(CustomerRepository customerRepository, OrderRepository orderRepository,
@@ -114,10 +111,9 @@ public class RegionTypeConfiguration {
 
                 createOrders(productRepository, orderRepository);
 
-                System.err.println("Press <ENTER> to exit");
-
-                new Scanner(System.in).nextLine();
-
+                System.out.println("There are " + customerRepository.count() + " customers");
+                System.out.println("There are " + productRepository.count() + " products");
+                System.out.println("There are " + orderRepository.count() + " orders");
             };
         }
 
