@@ -1,11 +1,11 @@
 package examples.springdata.geode.server.asyncqueues;
 
+import examples.springdata.geode.domain.*;
 import examples.springdata.geode.server.asyncqueues.config.AsyncQueueServerConfig;
 import examples.springdata.geode.server.asyncqueues.repo.CustomerRepository;
 import examples.springdata.geode.server.asyncqueues.repo.OrderProductSummaryRepository;
 import examples.springdata.geode.server.asyncqueues.repo.OrderRepository;
 import examples.springdata.geode.server.asyncqueues.repo.ProductRepository;
-import examples.springdata.geode.domain.*;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
@@ -42,9 +41,6 @@ public class AsyncQueueServer {
 
             final List<OrderProductSummary> allForProductID = orderProductSummaryRepository.findAllForProductID(3L);
             allForProductID.forEach(orderProductSummary -> System.out.println("orderProductSummary = " + orderProductSummary));
-
-            System.err.println("Press <ENTER> to exit");
-            new Scanner(System.in, "UTF-8").nextLine();
         };
     }
 

@@ -14,15 +14,11 @@ import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
 import org.springframework.data.gemfire.RegionAttributesFactoryBean;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
-import org.springframework.data.gemfire.config.annotation.CacheServerApplication;
-import org.springframework.data.gemfire.config.annotation.EnableLocator;
-import org.springframework.data.gemfire.config.annotation.EnableManager;
+import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.wan.AsyncEventQueueFactoryBean;
 
-@CacheServerApplication(port = 0)
-@EnableLocator
-@EnableManager(start = true)
+@PeerCacheApplication
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class AsyncQueueServerConfig {
 
@@ -65,7 +61,7 @@ public class AsyncQueueServerConfig {
         return partitionedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Orders")
     PartitionedRegionFactoryBean createOrderRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes, AsyncEventQueue orderAsyncEventQueue) {
         final PartitionedRegionFactoryBean<Long, Order> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
@@ -76,7 +72,7 @@ public class AsyncQueueServerConfig {
         return partitionedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Products")
     ReplicatedRegionFactoryBean createProductRegion(GemFireCache gemFireCache) {
         final ReplicatedRegionFactoryBean<Long, Product> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<>();
         replicatedRegionFactoryBean.setCache(gemFireCache);
@@ -85,7 +81,7 @@ public class AsyncQueueServerConfig {
         return replicatedRegionFactoryBean;
     }
 
-    @Bean
+    @Bean("Customers")
     ReplicatedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes<Long, Customer> regionAttributes) {
         final ReplicatedRegionFactoryBean<Long, Customer> replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean<Long, Customer>();
         replicatedRegionFactoryBean.setCache(gemFireCache);

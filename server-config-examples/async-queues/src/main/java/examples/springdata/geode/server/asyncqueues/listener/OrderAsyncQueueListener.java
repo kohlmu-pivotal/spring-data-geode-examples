@@ -27,15 +27,17 @@ public class OrderAsyncQueueListener implements AsyncEventListener {
         HashMap<OrderProductSummaryKey, OrderProductSummary> summaryMap = new HashMap<>();
         list.forEach(asyncEvent -> {
             final Order order = (Order) asyncEvent.getDeserializedValue();
-            order.getLineItems().forEach(lineItem -> {
-                final OrderProductSummaryKey key = new OrderProductSummaryKey(lineItem.getProductId(), calendar.getTimeInMillis());
-                OrderProductSummary orderProductSummary = summaryMap.get(key);
-                if (orderProductSummary == null) {
-                    orderProductSummary = new OrderProductSummary(key, new BigDecimal("0.00"));
-                }
-                orderProductSummary.setSummaryAmount(orderProductSummary.getSummaryAmount().add(lineItem.getTotal()));
-                summaryMap.put(key, orderProductSummary);
-            });
+            if(order != null) {
+                order.getLineItems().forEach(lineItem -> {
+                    final OrderProductSummaryKey key = new OrderProductSummaryKey(lineItem.getProductId(), calendar.getTimeInMillis());
+                    OrderProductSummary orderProductSummary = summaryMap.get(key);
+                    if (orderProductSummary == null) {
+                        orderProductSummary = new OrderProductSummary(key, new BigDecimal("0.00"));
+                    }
+                    orderProductSummary.setSummaryAmount(orderProductSummary.getSummaryAmount().add(lineItem.getTotal()));
+                    summaryMap.put(key, orderProductSummary);
+                });
+            }
         });
 
         summaryMap.forEach((orderProductSummaryKey, orderProductSummary) -> {
