@@ -1,10 +1,10 @@
 package examples.springdata.geode.server.asyncqueues.config;
 
-import examples.springdata.geode.server.asyncqueues.listener.OrderAsyncQueueListener;
-import examples.springdata.geode.server.asyncqueues.repo.CustomerRepository;
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.domain.Order;
 import examples.springdata.geode.domain.Product;
+import examples.springdata.geode.server.asyncqueues.listener.OrderAsyncQueueListener;
+import examples.springdata.geode.server.asyncqueues.repo.CustomerRepository;
 import org.apache.geode.cache.*;
 import org.apache.geode.cache.asyncqueue.AsyncEventListener;
 import org.apache.geode.cache.asyncqueue.AsyncEventQueue;
@@ -14,11 +14,15 @@ import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
 import org.springframework.data.gemfire.RegionAttributesFactoryBean;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
-import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
+import org.springframework.data.gemfire.config.annotation.CacheServerApplication;
+import org.springframework.data.gemfire.config.annotation.EnableLocator;
+import org.springframework.data.gemfire.config.annotation.EnableManager;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.wan.AsyncEventQueueFactoryBean;
 
-@PeerCacheApplication
+@CacheServerApplication(port = 0)
+@EnableLocator
+@EnableManager(start = true)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class AsyncQueueServerConfig {
 
