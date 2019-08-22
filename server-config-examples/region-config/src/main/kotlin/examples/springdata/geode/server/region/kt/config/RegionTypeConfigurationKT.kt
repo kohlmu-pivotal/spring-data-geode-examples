@@ -39,7 +39,7 @@ class RegionTypeConfigurationKT {
 
     @Bean
     fun regionAttributes(partitionAttributes: PartitionAttributes<Any, Any>) =
-            RegionAttributesFactoryBean().apply { setPartitionAttributes(partitionAttributes) }
+            RegionAttributesFactoryBean<Any, Any>().apply { setPartitionAttributes(partitionAttributes) }
 
     @Bean
     fun partitionAttributes(gemfireCache: GemFireCache) = PartitionAttributesFactoryBean<Long, Order>().apply {

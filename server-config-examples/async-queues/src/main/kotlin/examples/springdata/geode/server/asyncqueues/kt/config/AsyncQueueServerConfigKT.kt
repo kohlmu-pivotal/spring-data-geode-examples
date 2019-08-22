@@ -35,7 +35,7 @@ class AsyncQueueServerConfigKT {
 
     @Bean
     internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) =
-            RegionAttributesFactoryBean().apply {
+            RegionAttributesFactoryBean<Any, Any>().apply {
                 setPartitionAttributes(partitionAttributes)
             }
 

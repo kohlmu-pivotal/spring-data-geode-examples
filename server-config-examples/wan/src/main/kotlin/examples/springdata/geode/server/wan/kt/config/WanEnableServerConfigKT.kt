@@ -41,7 +41,7 @@ class WanEnableServerConfigKT {
     internal fun customerCacheListener() = LoggingCacheListener<Long, Customer>()
 
     @Bean
-    internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) = RegionAttributesFactoryBean().apply {
+    internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) = RegionAttributesFactoryBean<Any, Any>().apply {
         setPartitionAttributes(partitionAttributes)
     }
 
