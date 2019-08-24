@@ -1,10 +1,10 @@
 package examples.springdata.geode.server.wan.kt
 
 import com.github.javafaker.Faker
-import examples.springdata.geode.server.wan.config.WanEnableServerConfig
-import examples.springdata.geode.server.wan.repo.CustomerRepository
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
+import examples.springdata.geode.server.wan.server.kt.config.WanEnableServerConfigKT
+import examples.springdata.geode.server.wan.server.repo.CustomerRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import java.util.stream.LongStream
 
-@SpringBootApplication(scanBasePackageClasses = [WanEnableServerConfig::class])
+@SpringBootApplication(scanBasePackageClasses = [WanEnableServerConfigKT::class])
 class WanEnableServerKT {
 
     @Bean
