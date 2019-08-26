@@ -11,6 +11,7 @@ import org.apache.geode.cache.client.ClientRegionShortcut
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer
@@ -53,6 +54,7 @@ class CascadingFunctionClientConfigKT {
         }
 
     @Bean
+    @Profile("!test")
     internal fun clientCacheServerConfigurer(
         @Value("\${spring.data.geode.locator.host:localhost}") hostname: String,
         @Value("\${spring.data.geode.locator.port:10334}") port: Int) =

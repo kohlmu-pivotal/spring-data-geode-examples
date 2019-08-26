@@ -21,7 +21,7 @@ import javax.annotation.Resource
 @ActiveProfiles("wan-integration-test", "test", "default")
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientKT::class])
-class WanEnabledServerTest {
+class WanEnabledServerTestKT {
 
     @Resource(name = "Customers")
     private val customers: Region<Long, Customer>? = null
