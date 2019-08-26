@@ -17,6 +17,6 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @Import(ClientApplicationConfig.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-public class BasicWANClientApplicationConfig {
+public class WanClientConfig {
 
 }

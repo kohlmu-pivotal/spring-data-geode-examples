@@ -1,28 +1,31 @@
-package examples.springdata.geode.server.wan.server.siteB.config;
+package examples.springdata.geode.server.wan.server.siteA.config;
 
 import com.github.javafaker.Faker;
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.server.wan.client.repo.CustomerRepository;
 import org.apache.geode.cache.*;
+import org.apache.geode.cache.wan.GatewaySender;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.gemfire.DiskStoreFactoryBean;
 import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
 import org.springframework.data.gemfire.RegionAttributesFactoryBean;
 import org.springframework.data.gemfire.config.annotation.*;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
-import org.springframework.data.gemfire.wan.GatewayReceiverFactoryBean;
+import org.springframework.data.gemfire.wan.GatewaySenderFactoryBean;
 
 import java.io.File;
 import java.util.Arrays;
 
-@CacheServerApplication(port = 0, locators = "localhost[10334]")
-@EnableLocator(port = 10334)
-@EnableManager(start = true, port = 2099)
+@Configuration
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[20334]", enableNetworkPartitionDetection = false, conserveSockets = false)
-@EnableLogging
-public class WanEnableServerSiteBConfig {
+@CacheServerApplication(port = 0, locators = "localhost[20334]")
+@EnableLocator(port = 20334)
+@EnableManager(start = true, port = 1099)
+@EnableGemFireProperties(distributedSystemId = 1, remoteLocators = "localhost[10334]", enableNetworkPartitionDetection = false, conserveSockets = false)
+public class WanEnabledServerSiteAConfig {
     private Faker faker = new Faker();
 
     @Bean(name = "DiskStore")
@@ -43,7 +46,7 @@ public class WanEnableServerSiteBConfig {
     }
 
     @Bean
-    PartitionAttributesFactoryBean partitionAttributes() {
+    PartitionAttributesFactoryBean partitionAttributes(GemFireCache gemFireCache) {
         final PartitionAttributesFactoryBean<Long, Customer> partitionAttributesFactoryBean = new PartitionAttributesFactoryBean<>();
         partitionAttributesFactoryBean.setTotalNumBuckets(13);
         partitionAttributesFactoryBean.setRedundantCopies(0);
@@ -51,20 +54,25 @@ public class WanEnableServerSiteBConfig {
     }
 
     @Bean("Customers")
-    PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes) {
+    PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes, GatewaySender gatewaySender) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
         partitionedRegionFactoryBean.setRegionName("Customers");
         partitionedRegionFactoryBean.setDataPolicy(DataPolicy.PARTITION);
         partitionedRegionFactoryBean.setAttributes(regionAttributes);
+        partitionedRegionFactoryBean.setGatewaySenders(new GatewaySender[]{gatewaySender});
         return partitionedRegionFactoryBean;
     }
 
     @Bean
-    GatewayReceiverFactoryBean createGatewayReceiver(GemFireCache gemFireCache) {
-        final GatewayReceiverFactoryBean gatewayReceiverFactoryBean = new GatewayReceiverFactoryBean((Cache) gemFireCache);
-        gatewayReceiverFactoryBean.setStartPort(25000);
-        gatewayReceiverFactoryBean.setEndPort(25010);
-        return gatewayReceiverFactoryBean;
+    @DependsOn("DiskStore")
+    GatewaySenderFactoryBean createGatewaySender(GemFireCache gemFireCache) {
+        final GatewaySenderFactoryBean gatewaySenderFactoryBean = new GatewaySenderFactoryBean((Cache) gemFireCache);
+        gatewaySenderFactoryBean.setBatchSize(15);
+        gatewaySenderFactoryBean.setBatchTimeInterval(1000);
+        gatewaySenderFactoryBean.setRemoteDistributedSystemId(2);
+        gatewaySenderFactoryBean.setPersistent(false);
+        gatewaySenderFactoryBean.setDiskStoreRef("DiskStore");
+        return gatewaySenderFactoryBean;
     }
 }

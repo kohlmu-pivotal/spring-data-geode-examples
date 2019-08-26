@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.wan.server;
 
 import examples.springdata.geode.domain.Customer;
-import examples.springdata.geode.server.wan.client.WANBasicClient;
+import examples.springdata.geode.server.wan.client.WanClient;
 import examples.springdata.geode.server.wan.server.siteA.WanEnabledServerSiteA;
 import examples.springdata.geode.server.wan.server.siteB.WanEnabledServerSiteB;
 import org.apache.geode.cache.Region;
@@ -22,12 +22,11 @@ import static org.springframework.data.gemfire.tests.integration.ForkingClientSe
 
 @ActiveProfiles({"wan-integration-test", "test", "default"})
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = WANBasicClient.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = WanClient.class)
 public class WanEnabledServerTest {
 
     @Resource(name = "Customers")
     private Region<Long, Customer> customers;
-
 
     @BeforeClass
     public static void setup() throws IOException {

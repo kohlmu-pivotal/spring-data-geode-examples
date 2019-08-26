@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.domain.EmailAddress;
 import examples.springdata.geode.server.wan.client.repo.CustomerRepository;
-import examples.springdata.geode.server.wan.server.siteA.config.WanEnableServerSiteAConfig;
+import examples.springdata.geode.server.wan.server.siteA.config.WanEnabledServerSiteAConfig;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.Scanner;
 import java.util.stream.LongStream;
 
-@SpringBootApplication(scanBasePackageClasses = WanEnableServerSiteAConfig.class)
+@SpringBootApplication(scanBasePackageClasses = WanEnabledServerSiteAConfig.class)
 public class WanEnabledServerSiteA {
     public static void main(String[] args) {
         new SpringApplicationBuilder(WanEnabledServerSiteA.class)

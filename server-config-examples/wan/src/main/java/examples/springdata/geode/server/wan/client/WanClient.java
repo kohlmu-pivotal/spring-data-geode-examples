@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.wan.client;
 
 import examples.springdata.geode.client.common.client.BaseClient;
-import examples.springdata.geode.server.wan.client.config.BasicWANClientApplicationConfig;
+import examples.springdata.geode.server.wan.client.config.WanClientConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Udo Kohlmeyer
  */
-@SpringBootApplication(scanBasePackageClasses = BasicWANClientApplicationConfig.class)
-public class WANBasicClient implements BaseClient {
+@SpringBootApplication(scanBasePackageClasses = WanClientConfig.class)
+public class WanClient implements BaseClient {
 
     public static void main(String[] args) {
-        SpringApplication.run(WANBasicClient.class, args);
+        SpringApplication.run(WanClient.class, args);
     }
 }
