@@ -16,12 +16,11 @@ import org.springframework.data.gemfire.wan.GatewayReceiverFactoryBean;
 import java.io.File;
 import java.util.Arrays;
 
-
-@CacheServerApplication(port = 0,locators = "localhost[10334]")
+@CacheServerApplication(port = 0, locators = "localhost[10334]")
 @EnableLocator(port = 10334)
-@EnableManager(start = true,port = 2099)
+@EnableManager(start = true, port = 2099)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[20334]",enableNetworkPartitionDetection = false,conserveSockets = false)
+@EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[20334]", enableNetworkPartitionDetection = false, conserveSockets = false)
 @EnableLogging
 public class WanEnableServerSiteBConfig {
     private Faker faker = new Faker();

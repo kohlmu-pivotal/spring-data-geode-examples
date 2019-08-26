@@ -1,6 +1,5 @@
 package examples.springdata.geode.server.wan.server;
 
-import examples.springdata.geode.client.basic.BasicClient;
 import examples.springdata.geode.domain.Customer;
 import examples.springdata.geode.server.wan.client.WANBasicClient;
 import examples.springdata.geode.server.wan.server.siteA.WanEnabledServerSiteA;

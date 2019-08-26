@@ -1,7 +1,6 @@
 package examples.springdata.geode.server.wan.server.siteB;
 
 import examples.springdata.geode.server.wan.server.siteB.config.WanEnableServerSiteBConfig;
-import examples.springdata.geode.server.wan.server.siteB.config.WanEnableServerSiteBConfig;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

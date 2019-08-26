@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Scanner;
 import java.util.stream.LongStream;
 
 @SpringBootApplication(scanBasePackageClasses = WanEnableServerSiteAConfig.class)
@@ -24,7 +25,10 @@ public class WanEnabledServerSiteA {
 
     @Bean
     public ApplicationRunner siteARunner(CustomerRepository customerRepository) {
-        return args -> createCustomerData(customerRepository);
+        return args -> {
+            createCustomerData(customerRepository);
+            new Scanner(System.in).nextLine();
+        };
     }
 
     private void createCustomerData(CustomerRepository customerRepository) {
