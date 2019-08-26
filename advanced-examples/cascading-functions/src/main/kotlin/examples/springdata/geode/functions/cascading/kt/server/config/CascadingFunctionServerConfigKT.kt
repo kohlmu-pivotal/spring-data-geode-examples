@@ -21,25 +21,25 @@ class ServerCascadingFunctionServerConfigKT {
 
     @Bean("Customers")
     protected fun customerRegion(gemfireCache: GemFireCache) =
-            PartitionedRegionFactoryBean<Long, Product>().apply {
-                cache = gemfireCache
-                setRegionName("Customers")
-                dataPolicy = DataPolicy.PARTITION
-            }
+        PartitionedRegionFactoryBean<Long, Product>().apply {
+            cache = gemfireCache
+            setRegionName("Customers")
+            dataPolicy = DataPolicy.PARTITION
+        }
 
     @Bean("Products")
     protected fun productRegion(gemfireCache: GemFireCache) =
-            PartitionedRegionFactoryBean<Long, Product>().apply {
-                cache = gemfireCache
-                setRegionName("Products")
-                dataPolicy = DataPolicy.PARTITION
-            }
+        PartitionedRegionFactoryBean<Long, Product>().apply {
+            cache = gemfireCache
+            setRegionName("Products")
+            dataPolicy = DataPolicy.PARTITION
+        }
 
     @Bean("Orders")
     protected fun orderRegion(gemfireCache: GemFireCache) =
-            PartitionedRegionFactoryBean<Long, Order>().apply {
-                cache = gemfireCache
-                setRegionName("Orders")
-                dataPolicy = DataPolicy.PARTITION
-            }
+        PartitionedRegionFactoryBean<Long, Order>().apply {
+            cache = gemfireCache
+            setRegionName("Orders")
+            dataPolicy = DataPolicy.PARTITION
+        }
 }
