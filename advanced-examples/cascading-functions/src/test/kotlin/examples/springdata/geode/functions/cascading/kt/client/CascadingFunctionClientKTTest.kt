@@ -75,6 +75,7 @@ class CascadingFunctoinClientKTTest {
         assertThat(this.customers?.name).isEqualTo("Customers")
         assertThat(this.customers?.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isEmpty()
+        assertThat(this.customers?.keySetOnServer()?.size).isEqualTo(10000);
     }
 
     @Test

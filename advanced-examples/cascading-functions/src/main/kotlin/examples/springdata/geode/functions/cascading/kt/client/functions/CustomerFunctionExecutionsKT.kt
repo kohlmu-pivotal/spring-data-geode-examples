@@ -7,5 +7,5 @@ import org.springframework.data.gemfire.function.annotation.OnRegion
 interface CustomerFunctionExecutionsKT {
 
     @FunctionId("ListAllCustomers")
-    fun listAllCustomers(): List<Long>
+    fun listAllCustomers(): List<List<Long>>
 }

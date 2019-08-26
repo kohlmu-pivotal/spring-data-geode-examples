@@ -11,5 +11,5 @@ class CustomerServiceKT(private val customerRepositoryKT: CustomerRepositoryKT,
                         private val customerFunctionExecutionsKT: CustomerFunctionExecutionsKT) {
 
     fun save(customer: Customer) = customerRepositoryKT.save(customer)
-    fun listAllCustomers(): List<Long> = customerFunctionExecutionsKT.listAllCustomers()
+    fun listAllCustomers(): List<Long> = customerFunctionExecutionsKT.listAllCustomers()[0];
 }

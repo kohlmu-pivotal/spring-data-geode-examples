@@ -1,5 +1,6 @@
 package examples.springdata.geode.functions.cascading.kt.server.config
 
+import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.Product
 import examples.springdata.geode.functions.cascading.kt.server.functions.CascadingFunctionsKT
@@ -17,11 +18,11 @@ import org.springframework.data.gemfire.function.config.EnableGemfireFunctions
 @EnableGemfireFunctions
 @EnableLocator(host = "localhost", port = 10334)
 @Import(CascadingFunctionsKT::class)
-class ServerCascadingFunctionServerConfigKT {
+class CascadingFunctionServerConfigKT {
 
     @Bean("Customers")
     protected fun customerRegion(gemfireCache: GemFireCache) =
-        PartitionedRegionFactoryBean<Long, Product>().apply {
+        PartitionedRegionFactoryBean<Long, Customer>().apply {
             cache = gemfireCache
             setRegionName("Customers")
             dataPolicy = DataPolicy.PARTITION

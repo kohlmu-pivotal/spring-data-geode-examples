@@ -1,6 +1,6 @@
 package examples.springdata.geode.functions.cascading.kt.server
 
-import examples.springdata.geode.functions.cascading.kt.server.config.ServerCascadingFunctionServerConfigKT
+import examples.springdata.geode.functions.cascading.kt.server.config.CascadingFunctionServerConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -14,7 +14,7 @@ import java.util.*
 @SpringBootApplication
 @EnableManager(start = true)
 @ComponentScan(basePackages = ["examples.springdata.geode.functions.cascading.kt.server.functions"])
-@Import(ServerCascadingFunctionServerConfigKT::class)
+@Import(CascadingFunctionServerConfigKT::class)
 class CascadingFunctionServerKT {
     companion object {
         @JvmStatic
