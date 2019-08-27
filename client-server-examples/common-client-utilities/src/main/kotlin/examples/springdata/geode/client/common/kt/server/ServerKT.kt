@@ -8,13 +8,17 @@ import org.springframework.context.annotation.Bean
 
 @SpringBootApplication(scanBasePackageClasses = [ServerApplicationConfigKT::class])
 class ServerKT {
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(ServerKT::class.java, *args)
+        }
+    }
+
     @Bean
     fun runner() = ApplicationRunner {
         println("Press <ENTER> to exit")
         readLine()
     }
-}
-
-fun main(args: Array<String>) {
-    SpringApplication.run(ServerKT::class.java, *args)
 }

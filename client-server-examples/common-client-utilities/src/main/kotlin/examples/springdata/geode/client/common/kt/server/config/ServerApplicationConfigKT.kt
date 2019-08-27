@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication
+import org.springframework.data.gemfire.config.annotation.EnableIndexing
 import org.springframework.data.gemfire.config.annotation.EnableLocator
+import org.springframework.data.gemfire.config.annotation.EnableManager
 
 /**
  * The server application configuration file. This configuration file creates: LoggingCacheListener, CustomerRegion,
@@ -18,17 +20,16 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
  * the cluster and the client to connect to the locator to receive a connection to a registered server.
  */
 
-@Profile("default")
 @EnableLocator
+@EnableIndexing
+@EnableManager
 @CacheServerApplication(port = 0, logLevel = "info")
 class ServerApplicationConfigKT {
 
-    @Bean("loggingCacheListener")
-    @Profile("default")
+    @Bean
     internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
 
-    @Bean("Customers")
-    @Profile("default")
+    @Bean
     protected fun customerRegion(gemfireCache: GemFireCache) =
             ReplicatedRegionFactoryBean<Long, Customer>().apply {
                 cache = gemfireCache

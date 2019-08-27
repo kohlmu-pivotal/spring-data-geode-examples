@@ -18,19 +18,32 @@ package examples.springdata.geode.client.basic.kt.config
 
 import examples.springdata.geode.client.basic.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.basic.kt.services.CustomerServiceKT
-import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
+import examples.springdata.geode.domain.Customer
+import org.apache.geode.cache.GemFireCache
+import org.apache.geode.cache.client.ClientRegionShortcut
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Import
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean
+import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
 /**
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Configuration
-@Import(ClientApplicationConfigKT::class)
 @ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
-class BasicClientApplicationConfigKT
+@ClientCacheApplication(name = "DemoClientCache", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+class BasicClientApplicationConfigKT {
+    @Bean("Customers")
+    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
+            .apply {
+                cache = gemFireCache
+                setName("Customers")
+                setShortcut(ClientRegionShortcut.PROXY)
+            }
+}
