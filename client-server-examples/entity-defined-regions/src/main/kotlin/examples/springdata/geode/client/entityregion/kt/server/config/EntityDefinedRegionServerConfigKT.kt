@@ -1,10 +1,12 @@
 package examples.springdata.geode.client.entityregion.kt.server.config
 
-import org.springframework.data.gemfire.config.annotation.*
+import org.springframework.data.gemfire.config.annotation.CacheServerApplication
+import org.springframework.data.gemfire.config.annotation.EnableHttpService
+import org.springframework.data.gemfire.config.annotation.EnableLocator
+import org.springframework.data.gemfire.config.annotation.EnableManager
 
-@EnableLocator(host = "localhost", port = 10334)
+@EnableLocator
 @EnableManager(start = true)
-@EnableHttpService(startDeveloperRestApi = true, port = 7070)
+@EnableHttpService(startDeveloperRestApi = true)
 @CacheServerApplication(port = 0, logLevel = "info", useClusterConfiguration = true)
-@EnableClusterConfiguration(useHttp = true)
 class EntityDefinedRegionServerConfigKT
