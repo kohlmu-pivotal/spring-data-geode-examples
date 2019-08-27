@@ -16,33 +16,44 @@
 
 package examples.springdata.geode.client.oql.config;
 
-import examples.springdata.geode.client.common.client.config.ClientApplicationConfig;
 import examples.springdata.geode.client.oql.repo.CustomerRepository;
 import examples.springdata.geode.client.oql.services.CustomerService;
-
+import examples.springdata.geode.domain.Customer;
 import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.gemfire.GemfireTemplate;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
+import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 /**
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Configuration
-@Import(ClientApplicationConfig.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
+@ClientCacheApplication(name = "OQLClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class OQLClientApplicationConfig {
 
     @Bean("customerTemplate")
     @DependsOn("Customers")
     protected GemfireTemplate configureCustomerTemplate(GemFireCache gemfireCache) {
         return new GemfireTemplate(gemfireCache.getRegion("Customers"));
+    }
+
+    @Bean("Customers")
+    protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {
+        ClientRegionFactoryBean<Long,Customer> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+        clientRegionFactoryBean.setCache(gemFireCache);
+        clientRegionFactoryBean.setName("Customers");
+        clientRegionFactoryBean.setShortcut(ClientRegionShortcut.PROXY);
+        return clientRegionFactoryBean;
     }
 }

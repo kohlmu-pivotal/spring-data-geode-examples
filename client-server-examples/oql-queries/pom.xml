@@ -19,11 +19,4 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
-    <properties>
-        <client.class>examples.springdata.geode.client.oql.OQLClient</client.class>
-        <client.kt.class>examples.springdata.geode.oql.kt.client.OQLClientKTKt</client.kt.class>
-    </properties>
-
-
 </project>
