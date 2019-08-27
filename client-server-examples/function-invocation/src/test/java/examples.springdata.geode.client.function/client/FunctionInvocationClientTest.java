@@ -1,5 +1,6 @@
 package examples.springdata.geode.client.function.client;
 
+import examples.springdata.geode.client.function.client.config.FunctionInvocationClientApplicationConfig;
 import examples.springdata.geode.client.function.client.services.CustomerService;
 import examples.springdata.geode.client.function.client.services.OrderService;
 import examples.springdata.geode.client.function.client.services.ProductService;
@@ -11,21 +12,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.data.gemfire.util.RegionUtils;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
-@ActiveProfiles({"test", "default"})
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class FunctionInvocationClientTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = FunctionInvocationClientApplicationConfig.class)
+public class FunctionInvocationClientTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Autowired
     private CustomerService customerService;
@@ -96,43 +99,61 @@ public class FunctionInvocationClientTest {
     }
 
     @Test
-    public void customerRepositoryWasAutoConfiguredCorrectly() {
+    public void functionsExecuteCorrectly() {
+        createCustomerData();
 
-        Customer jonDoe = new Customer(15L, new EmailAddress("example@example.org"), "Jon", "Doe");
+        List<Customer> cust = customerService.listAllCustomersForEmailAddress("2@2.com", "3@3.com");
+        assertThat(cust.size()).isEqualTo(2);
+        System.out.println("All customers for emailAddresses:3@3.com,2@2.com using function invocation: \n\t " + cust);
 
-        this.customerService.save(jonDoe);
+        createProducts();
+        BigDecimal sum = productService.sumPricesForAllProducts().get(0);
+        assertThat(sum).isEqualTo(BigDecimal.valueOf(1499.97));
+        System.out.println("Running function to sum up all product prices: \n\t" + sum);
 
-        Customer jon2 = this.customerService.listAllCustomersForEmailAddress("example@example.org").get(0);
-        assertThat(jon2).isEqualTo(jonDoe);
+        createOrders();
+
+        sum = orderService.sumPricesForAllProductsForOrder(1L).get(0);
+        assertThat(sum).isGreaterThanOrEqualTo(BigDecimal.valueOf(99.99));
+        System.out.println("Running function to sum up all order lineItems prices for order 1: \n\t" + sum);
+        Order order = orderService.findById(1L);
+        System.out.println("For order: \n\t " + order);
     }
 
-    @Test
-    public void orderRepositoryWasAutoConfiguredCorrectly() {
-        Address address = new Address("Sesame ", "London", "Japan");
-        Order order = new Order(1L, 1L, address, address);
-        order.add(new LineItem(new Product(1L, "Magic Beans", new BigDecimal(5))));
+    public void createCustomerData() {
 
-        this.orderService.save(order);
-
-        assertThat(this.orderService.findById(1L)).isEqualTo(order);
+        System.out.println("Inserting 3 entries for keys: 1, 2, 3");
+        customerService.save(new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith"));
+        customerService.save(new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport"));
+        customerService.save(new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons"));
+        assertThat(customers.keySetOnServer().size()).isEqualTo(3);
     }
 
-    @Test
-    public void sumPricesForAllProductsForOrderTest() {
-        assertThat(this.orderService.sumPricesForAllProductsForOrder(1L).get(0).doubleValue()).isEqualTo(5);
+    public void createProducts() {
+        productService.save(new Product(1L, "Apple iPod", new BigDecimal("99.99"),
+                "An Apple portable music player"));
+        productService.save(new Product(2L, "Apple iPad", new BigDecimal("499.99"),
+                "An Apple tablet device"));
+        Product macbook = new Product(3L, "Apple macBook", new BigDecimal("899.99"),
+                "An Apple notebook computer");
+        macbook.addAttribute("warranty", "included");
+        productService.save(macbook);
+        assertThat(products.keySetOnServer().size()).isEqualTo(3);
     }
 
-    @Test
-    public void productRepositoryWasAutoConfiguredCorrectly() {
-        Product product = new Product(1L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need");
-
-        this.productService.save(product);
-
-        assertThat(this.productService.findById(1L)).isEqualTo(product);
-    }
-
-    @Test
-    public void sumPricesForAllProductsTest() {
-        assertThat(this.productService.sumPricesForAllProducts().get(0).doubleValue()).isEqualTo(1499.97);
+    public void createOrders() {
+        Random random = new Random();
+        Address address = new Address("it", "doesn't", "matter");
+        LongStream.rangeClosed(1, 100).forEach((orderId) ->
+                LongStream.rangeClosed(1, 3).forEach((customerId) -> {
+                    Order order = new Order(orderId, customerId, address);
+                    IntStream.rangeClosed(0, random.nextInt(3) + 1).forEach((lineItemCount) -> {
+                        int quantity = random.nextInt(3) + 1;
+                        long productId = random.nextInt(3) + 1;
+                        order.add(new LineItem(productService.findById(productId), quantity));
+                    });
+                    orderService.save(order);
+                }));
+        assertThat(orders.keySetOnServer().size()).isEqualTo(100);
     }
 }

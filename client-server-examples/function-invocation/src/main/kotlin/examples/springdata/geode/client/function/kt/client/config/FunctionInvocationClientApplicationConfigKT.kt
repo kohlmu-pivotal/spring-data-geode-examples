@@ -16,18 +16,19 @@
 
 package examples.springdata.geode.client.function.kt.client.config
 
-import examples.springdata.geode.client.common.kt.client.config.ClientApplicationConfigKT
 import examples.springdata.geode.client.function.kt.client.functions.CustomerFunctionExecutionsKT
 import examples.springdata.geode.client.function.kt.client.repo.CustomerRepositoryKT
 import examples.springdata.geode.client.function.kt.client.services.CustomerServiceKT
-import examples.springdata.geode.client.function.kt.client.services.OrderServiceKT
-import examples.springdata.geode.client.function.kt.client.services.ProductServiceKT
+import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.Order
 import examples.springdata.geode.domain.Product
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
-import org.springframework.context.annotation.*
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
+import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExecutions
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
@@ -35,15 +36,24 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Configuration
-@Import(ClientApplicationConfigKT::class, CustomerServiceKT::class, OrderServiceKT::class, ProductServiceKT::class)
+@ComponentScan(basePackageClasses = [CustomerServiceKT::class])
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 @EnableGemfireFunctionExecutions(basePackageClasses = [CustomerFunctionExecutionsKT::class])
+@ClientCacheApplication(name = "FunctionInvocationClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 class FunctionInvocationClientApplicationConfigKT {
 
+    @Bean("Customers")
+    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
+            .apply {
+                cache = gemFireCache
+                setName("Customers")
+                setShortcut(ClientRegionShortcut.PROXY)
+            }
+
     @Bean("Products")
-    @Profile("proxy", "default")
     protected fun configureProxyClientProductRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Product>()
             .apply {
                 cache = gemFireCache
@@ -51,31 +61,11 @@ class FunctionInvocationClientApplicationConfigKT {
                 setShortcut(ClientRegionShortcut.PROXY)
             }
 
-    @Bean("Products")
-    @Profile("localCache")
-    protected fun configureLocalCachingClientProductRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Product>()
-            .apply {
-                cache = gemFireCache
-                setName("Products")
-                setShortcut(ClientRegionShortcut.CACHING_PROXY)
-            }
-
     @Bean("Orders")
-    @Profile("proxy", "default")
     protected fun configureProxyClientOrderRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Order>()
             .apply {
                 cache = gemFireCache
                 setName("Orders")
                 setShortcut(ClientRegionShortcut.PROXY)
-            }
-
-    @Bean("Orders")
-    @Profile("localCache")
-    protected fun configureLocalCachingClientOrderRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Order>()
-            .apply {
-                cache = gemFireCache
-                setName("Orders")
-                setShortcut(ClientRegionShortcut.CACHING_PROXY)
-
             }
 }
