@@ -1,4 +1,4 @@
-package examples.springdata.geode.client.serrialization.client
+package examples.springdata.geode.client.serrialization.client.kt
 
 import examples.springdata.geode.client.serialization.kt.client.config.PdxSerializationClientConfigKT
 import examples.springdata.geode.client.serialization.kt.client.services.CustomerServiceKT
