@@ -9,17 +9,21 @@ import org.springframework.context.annotation.Bean
 
 @SpringBootApplication(scanBasePackageClasses = [ServerApplicationConfigKT::class])
 class SerializationServerKT {
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplicationBuilder(SerializationServerKT::class.java)
+                    .web(WebApplicationType.NONE)
+                    .profiles("readSerialized")
+                    .build()
+                    .run(*args)
+        }
+    }
+
     @Bean
     fun runner() = ApplicationRunner {
         println("Press <ENTER> to exit")
         readLine()
     }
-}
-
-fun main(args: Array<String>) {
-    SpringApplicationBuilder(SerializationServerKT::class.java)
-        .web(WebApplicationType.NONE)
-        .profiles("readSerialized")
-        .build()
-        .run(*args)
 }

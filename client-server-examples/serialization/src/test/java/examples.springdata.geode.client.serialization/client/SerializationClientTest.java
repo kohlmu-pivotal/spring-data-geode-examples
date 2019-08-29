@@ -1,5 +1,6 @@
 package examples.springdata.geode.client.serialization.client;
 
+import examples.springdata.geode.client.serialization.client.config.PdxSerializationClientConfig;
 import examples.springdata.geode.client.serialization.client.services.CustomerService;
 import examples.springdata.geode.client.serialization.server.SerializationServer;
 import examples.springdata.geode.domain.Customer;
@@ -10,22 +11,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.data.gemfire.util.RegionUtils;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
-@ActiveProfiles({"test", "default"})
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class SerializationClientTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = PdxSerializationClientConfig.class)
+public class SerializationClientTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Autowired
     private CustomerService customerService;
@@ -56,18 +54,41 @@ public class SerializationClientTest {
     @Test
     public void repositoryWasAutoConfiguredCorrectly() {
 
-        Customer jonDoe = new Customer(15L, new EmailAddress("example@example.org"), "Jon", "Doe");
+        System.out.println("Inserting 3 entries for keys: 1, 2, 3");
+        Customer john = new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith");
+        Customer frank = new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport");
+        Customer jude = new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons");
+        customerService.save(john);
+        customerService.save(frank);
+        customerService.save(jude);
 
-        this.customerService.save(jonDoe);
+        int localEntries = customerService.numberEntriesStoredLocally();
+        assertThat(localEntries).isEqualTo(0);
+        System.out.println("Entries on Client: " + localEntries);
+        int serverEntries = customerService.numberEntriesStoredOnServer();
+        assertThat(serverEntries).isEqualTo(3);
+        System.out.println("Entries on Server: " + serverEntries);
+        List<Customer> all = customerService.findAll();
+        assertThat(all.size()).isEqualTo(3);
+        all.forEach(customer -> System.out.println("\t Entry: \n \t\t " + customer));
 
-        assertThat(this.customerService.numberEntriesStoredOnServer()).isEqualTo(3);
+        System.out.println("Updating entry for key: 2");
+        Customer customer = customerService.findById(2L).get();
+        assertThat(customer).isEqualTo(frank);
+        System.out.println("Entry Before: " + customer);
+        Customer sam = new Customer(2L, new EmailAddress("4@4.com"), "Sam", "Spacey");
+        customerService.save(sam);
+        customer = customerService.findById(2L).get();
+        assertThat(customer).isEqualTo(sam);
+        System.out.println("Entry After: " + customer);
 
-        Optional<Customer> jonOptional = this.customerService.findById(15);
+        System.out.println("Removing entry for key: 3");
+        customerService.deleteById(3L);
+        assertThat(customerService.findById(3L)).isEmpty();
 
-        Customer jon2 = null;
-        if (jonOptional.isPresent()) {
-            jon2 = jonOptional.get();
-        }
-        assertThat(jon2).isEqualTo(jonDoe);
+        System.out.println("Entries:");
+        all = customerService.findAll();
+        assertThat(all.size()).isEqualTo(2);
+        all.forEach(c -> System.out.println("\t Entry: \n \t\t " + c));
     }
 }
