@@ -1,8 +1,8 @@
 package examples.springdata.geode.server.asyncqueues.kt.config
 
+import examples.springdata.geode.domain.*
 import examples.springdata.geode.server.asyncqueues.kt.listener.OrderAsyncQueueListenerKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.CustomerRepositoryKT
-import examples.springdata.geode.domain.*
 import org.apache.geode.cache.*
 import org.apache.geode.cache.asyncqueue.AsyncEventListener
 import org.apache.geode.cache.asyncqueue.AsyncEventQueue
@@ -55,7 +55,7 @@ class AsyncQueueServerConfigKT {
                 setAttributes(regionAttributes as RegionAttributes<Long, Order>)
             }
 
-    @Bean
+    @Bean("Orders")
     internal fun createOrderRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<*, *>, orderAsyncEventQueue: AsyncEventQueue) =
             PartitionedRegionFactoryBean<Long, Order>().apply {
                 cache = gemFireCache
@@ -65,7 +65,7 @@ class AsyncQueueServerConfigKT {
                 setAsyncEventQueues(arrayOf(orderAsyncEventQueue))
             }
 
-    @Bean
+    @Bean("Products")
     internal fun createProductRegion(gemFireCache: GemFireCache) =
             ReplicatedRegionFactoryBean<Long, Product>().apply {
                 cache = gemFireCache
@@ -73,12 +73,11 @@ class AsyncQueueServerConfigKT {
                 dataPolicy = DataPolicy.REPLICATE
             }
 
-    @Bean
+    @Bean("Customers")
     internal fun createCustomerRegion(gemFireCache: GemFireCache) =
             ReplicatedRegionFactoryBean<Long, Customer>().apply {
                 cache = gemFireCache
                 setRegionName("Customers")
                 dataPolicy = DataPolicy.REPLICATE
             }
-
 }

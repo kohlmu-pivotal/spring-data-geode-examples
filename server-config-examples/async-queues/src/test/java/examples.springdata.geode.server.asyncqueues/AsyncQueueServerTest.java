@@ -144,9 +144,11 @@ public class AsyncQueueServerTest {
         OrderProductSummary orderProductSummary = new OrderProductSummary(key, new BigDecimal(10));
 
         this.orderProductSummaryRepository.save(orderProductSummary);
+        assertThat(this.orderProductSummaryRepository.count()).isEqualTo(7);
 
         assertThat(this.orderProductSummaryRepository.findById(key).get()).isEqualTo(orderProductSummary);
 
         this.orderProductSummaryRepository.delete(orderProductSummary);
+        assertThat(this.orderProductSummaryRepository.count()).isEqualTo(6);
     }
 }
