@@ -3,14 +3,17 @@ package examples.springdata.geode.client.security.server.config;
 import examples.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager;
 import examples.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository;
 import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository;
-import examples.springdata.geode.client.common.server.config.ServerApplicationConfig;
-import org.apache.geode.internal.security.shiro.GeodePermissionResolver;
-import org.apache.shiro.realm.text.PropertiesRealm;
+import examples.springdata.geode.domain.Customer;
+import examples.springdata.geode.util.LoggingCacheListener;
+import org.apache.geode.cache.CacheListener;
+import org.apache.geode.cache.DataPolicy;
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.Scope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.gemfire.config.annotation.EnableSecurity;
+import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
+import org.springframework.data.gemfire.config.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -18,31 +21,32 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @Configuration
-@Import(ServerApplicationConfig.class)
+@EnableLocator
+@EnableIndexing
+@EnableManager
+@CacheServerApplication(port = 0)
 public class SecurityEnabledServerConfiguration {
+    @Bean
+    LoggingCacheListener loggingCacheListener() {
+        return new LoggingCacheListener();
+    }
 
+    @Bean
+    ReplicatedRegionFactoryBean<Long, Customer> createCustomerRegion(GemFireCache gemfireCache) {
+        ReplicatedRegionFactoryBean replicatedRegionFactoryBean = new ReplicatedRegionFactoryBean();
+        replicatedRegionFactoryBean.setCache(gemfireCache);
+        replicatedRegionFactoryBean.setRegionName("Customers");
+        replicatedRegionFactoryBean.setDataPolicy(DataPolicy.REPLICATE);
+        replicatedRegionFactoryBean.setScope(Scope.DISTRIBUTED_ACK);
+        replicatedRegionFactoryBean.setCacheListeners(new CacheListener[]{loggingCacheListener()});
+        return replicatedRegionFactoryBean;
+    }
 }
 
 @Configuration
 @EnableSecurity(shiroIniResourcePath = "shiro.ini")
 @Profile("shiro-ini-configuration")
 class ApacheShiroIniConfiguration {
-}
-
-@Configuration
-@EnableSecurity
-@Profile({"shiro-properties-configuration"})
-class ApacheShiroRealmConfiguration {
-    @Bean
-    public PropertiesRealm shiroRealm() {
-
-        PropertiesRealm propertiesRealm = new PropertiesRealm();
-
-        propertiesRealm.setResourcePath("classpath:server/shiro.properties");
-        propertiesRealm.setPermissionResolver(new GeodePermissionResolver());
-
-        return propertiesRealm;
-    }
 }
 
 @Configuration

@@ -3,17 +3,17 @@ package examples.springdata.geode.client.security.kt.server.config
 import examples.springdata.geode.client.security.kt.server.managers.SimpleSecurityManager
 import examples.springdata.geode.client.security.kt.server.repo.JdbcSecurityRepository
 import examples.springdata.geode.client.security.kt.server.repo.SecurityRepository
-import examples.springdata.geode.client.security.kt.server.repo.XmlSecurityRepository
-import examples.springdata.geode.client.security.kt.shiro.realm.SecurityRepositoryAuthorizingRealm
-import examples.springdata.geode.client.common.kt.server.config.ServerApplicationConfigKT
-import org.apache.geode.internal.security.shiro.GeodePermissionResolver
-import org.apache.shiro.realm.Realm
-import org.apache.shiro.realm.text.PropertiesRealm
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.util.LoggingCacheListener
+import org.apache.geode.cache.CacheListener
+import org.apache.geode.cache.DataPolicy
+import org.apache.geode.cache.GemFireCache
+import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
-import org.springframework.data.gemfire.config.annotation.EnableSecurity
+import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
+import org.springframework.data.gemfire.config.annotation.*
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
@@ -21,35 +21,29 @@ import javax.sql.DataSource
 
 
 @Configuration
-@Import(ServerApplicationConfigKT::class)
-class SecurityEnabledServerConfigurationKT
+@EnableLocator
+@EnableIndexing
+@EnableManager
+@CacheServerApplication(port = 0, logLevel = "info")
+class SecurityEnabledServerConfigurationKT {
+    @Bean
+    internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
+
+    @Bean
+    protected fun customerRegion(gemfireCache: GemFireCache) =
+            ReplicatedRegionFactoryBean<Long, Customer>().apply {
+                cache = gemfireCache
+                setRegionName("Customers")
+                scope = Scope.DISTRIBUTED_ACK
+                dataPolicy = DataPolicy.REPLICATE
+                setCacheListeners(arrayOf(loggingCacheListener() as CacheListener<Long, Customer>))
+            }
+}
 
 @Configuration
 @EnableSecurity(shiroIniResourcePath = "shiro.ini")
 @Profile("shiro-ini-configuration")
 class ApacheShiroIniConfigurationKT
-
-@Configuration
-@EnableSecurity
-@Profile("default", "shiro-ini-configuration")
-class ApacheShiroRealmConfigurationKT {
-    @Bean
-    fun shiroRealm(): PropertiesRealm = PropertiesRealm().apply {
-        setResourcePath("classpath:server/shiro.properties")
-        permissionResolver = GeodePermissionResolver()
-    }
-}
-
-@Configuration
-@EnableSecurity
-@Profile("shiro-custom-realm-configuration")
-internal class ApacheShiroCustomRealmConfigurationKT {
-    @Bean
-    fun securityRepository(): SecurityRepository = XmlSecurityRepository()
-
-    @Bean
-    fun geodeRealm(securityRepository: SecurityRepository): Realm = SecurityRepositoryAuthorizingRealm(securityRepository)
-}
 
 @Configuration
 @EnableSecurity(securityManagerClassName = "examples.springdata.geode.client.security.server.managers.SecurityManagerProxy")

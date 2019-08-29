@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = SecurityEnabledClientConfiguration.class)
-public class SecurityEnabledClientTest extends ForkingClientServerIntegrationTestsSupport {
+public class SecurityEnabledClientShiroTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Autowired
     private CustomerService customerService;
@@ -33,7 +33,7 @@ public class SecurityEnabledClientTest extends ForkingClientServerIntegrationTes
 
     @BeforeClass
     public static void setup() throws IOException {
-        startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=geode-security-manager-proxy-configuration");
+        startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=shiro-ini-configuration");
     }
 
     @Test

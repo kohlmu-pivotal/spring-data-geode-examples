@@ -9,16 +9,20 @@ import org.springframework.context.annotation.Bean
 
 @SpringBootApplication(scanBasePackageClasses = [SecurityEnabledServerConfigurationKT::class])
 class SecurityEnabledServerKT {
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplicationBuilder(SecurityEnabledServerKT::class.java)
+                    .web(WebApplicationType.NONE)
+                    .build()
+                    .run(*args)
+        }
+    }
+
     @Bean
     fun runner() = ApplicationRunner {
         System.err.println("Press <ENTER> to exit")
         readLine()
     }
-}
-
-fun main(args: Array<String>) {
-    SpringApplicationBuilder(SecurityEnabledServerKT::class.java)
-        .web(WebApplicationType.NONE)
-        .build()
-        .run(*args)
 }
