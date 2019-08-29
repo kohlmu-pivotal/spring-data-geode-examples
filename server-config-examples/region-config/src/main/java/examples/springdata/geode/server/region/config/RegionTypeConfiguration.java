@@ -11,12 +11,10 @@ import org.apache.geode.cache.RegionAttributes;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
 import org.springframework.data.gemfire.RegionAttributesFactoryBean;
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
-import org.springframework.data.gemfire.config.annotation.EnableLocator;
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
@@ -72,32 +70,6 @@ public class RegionTypeConfiguration {
         return partitionedRegionFactoryBean;
     }
 
-    @Profile("embeddedLocator")
-    @Configuration
-    @EnableLocator
-    @PeerCacheApplication(name = "embeddedLocator")
-    class EmbeddedLocator {
-        @Bean
-        public ApplicationRunner runner() {
-            return args -> {
-
-            };
-        }
-    }
-
-    @Profile("peer")
-    @Configuration
-    @PeerCacheApplication(name = "dataPeer")
-    class PeerServer {
-        @Bean
-        public ApplicationRunner runner() {
-            return args -> {
-
-            };
-        }
-    }
-
-    @Profile({"default", "dataPopulationPeer"})
     @Configuration
     @PeerCacheApplication(name = "dataPopulationPeer")
     class DataPopulationPeerServerKT {
