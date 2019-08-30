@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.wan.kt.server
 
 import examples.springdata.geode.domain.Customer
-import examples.springdata.geode.server.wan.kt.client.WanClientKT
+import examples.springdata.geode.server.wan.kt.client.config.WanClientConfigKT
 import examples.springdata.geode.server.wan.kt.server.siteA.WanEnabledServerSiteAKT
 import examples.springdata.geode.server.wan.kt.server.siteB.WanEnabledServerSiteBKT
 import org.apache.geode.cache.Region
@@ -20,7 +20,7 @@ import javax.annotation.Resource
 
 @ActiveProfiles("wan-integration-test", "test", "default")
 @RunWith(SpringRunner::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientKT::class])
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientConfigKT::class])
 class WanEnabledServerTestKT {
 
     @Resource(name = "Customers")
