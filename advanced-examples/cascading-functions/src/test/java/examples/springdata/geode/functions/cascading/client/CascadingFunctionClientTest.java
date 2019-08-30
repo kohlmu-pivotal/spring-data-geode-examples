@@ -1,6 +1,7 @@
 package examples.springdata.geode.functions.cascading.client;
 
 import examples.springdata.geode.domain.*;
+import examples.springdata.geode.functions.cascading.client.config.CascadingFunctionClientConfig;
 import examples.springdata.geode.functions.cascading.client.services.CustomerService;
 import examples.springdata.geode.functions.cascading.client.services.OrderService;
 import examples.springdata.geode.functions.cascading.client.services.ProductService;
@@ -12,20 +13,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.gemfire.util.RegionUtils;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
-@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = CascadingFunctionClient.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = CascadingFunctionClientConfig.class)
 public class CascadingFunctionClientTest {
     @Autowired
     private CustomerService customerService;
@@ -52,39 +53,31 @@ public class CascadingFunctionClientTest {
 
     @Test
     public void customerServiceWasConfiguredCorrectly() {
-
         assertThat(this.customerService).isNotNull();
     }
 
     @Test
     public void orderServiceWasConfiguredCorrectly() {
-
         assertThat(this.orderService).isNotNull();
     }
 
     @Test
     public void productServiceWasConfiguredCorrectly() {
-
         assertThat(this.productService).isNotNull();
     }
 
     @Test
     public void customersRegionWasConfiguredCorrectly() {
-
         assertThat(this.customers).isNotNull();
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
-        assertThat(this.customers).isEmpty();
-        assertThat(this.customers.keySetOnServer().size()).isEqualTo(10000);
     }
 
     @Test
     public void ordersRegionWasConfiguredCorrectly() {
-
         assertThat(this.orders).isNotNull();
         assertThat(this.orders.getName()).isEqualTo("Orders");
         assertThat(this.orders.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Orders"));
-        assertThat(this.orders).isEmpty();
     }
 
     @Test
@@ -93,31 +86,47 @@ public class CascadingFunctionClientTest {
         assertThat(this.products).isNotNull();
         assertThat(this.products.getName()).isEqualTo("Products");
         assertThat(this.products.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Products"));
-        assertThat(this.products).isEmpty();
     }
 
     @Test
-    public void customerRepositoryWasAutoConfiguredCorrectly() {
+    public void testMethod() {
+        IntStream.rangeClosed(1, 10000).parallel().forEach(customerId ->
+                customerService.save(new Customer(Integer.toUnsignedLong(customerId), new EmailAddress("2@2.com"), "John"+customerId, "Smith" + customerId)));
 
-        Customer jonDoe = new Customer(15L, new EmailAddress("example@example.org"), "Jon", "Doe");
+        assertThat(customers.keySetOnServer().size()).isEqualTo(10000);
 
-        this.customerService.save(jonDoe);
-    }
+        productService.save(new Product(1L, "Apple iPod", new BigDecimal("99.99"), "An Apple portable music player"));
+        productService.save(new Product(2L, "Apple iPad", new BigDecimal("499.99"), "An Apple tablet device"));
 
-    @Test
-    public void orderRepositoryWasAutoConfiguredCorrectly() {
-        Address address = new Address("Sesame ", "London", "Japan");
-        Order order = new Order(1L, 1L, address, address);
+        Product product = new Product(3L, "Apple macBook", new BigDecimal("899.99"), "An Apple notebook computer");
+        product.addAttribute("warranty", "included");
 
-        this.orderService.save(order);
-    }
+        productService.save(product);
 
-    @Test
-    public void productRepositoryWasAutoConfiguredCorrectly() {
-        Product product = new Product(1L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need");
+        assertThat(products.keySetOnServer().size()).isEqualTo(3);
 
-        this.productService.save(product);
+        Random random = new Random(System.nanoTime());
+        Address address = new Address("it", "doesn't", "matter");
 
-        assertThat(this.productService.findById(1L)).isEqualTo(product);
+        IntStream.rangeClosed(1, 10).forEach(orderId ->
+                IntStream.rangeClosed(1, 10).forEach(customerId -> {
+                    Order order = new Order(Integer.toUnsignedLong(orderId), customerId, address);
+                    IntStream.rangeClosed(1, random.nextInt(3) + 1).forEach(i -> {
+                        int quantity = random.nextInt(3) + 1;
+                        Long productId = (long) (random.nextInt(3) + 1);
+                        order.add(new LineItem(productService.findById(productId), quantity));
+                    });
+                    orderService.save(order);
+                }));
+
+        assertThat(orders.keySetOnServer().size()).isEqualTo(10);
+
+        List<Long> listAllCustomers = customerService.listAllCustomers();
+        assertThat(listAllCustomers.size()).isEqualTo(10000);
+        System.out.println("Number of customers retrieved from servers: " + listAllCustomers.size());
+
+        List<Order> findOrdersForCustomer = orderService.findOrdersForCustomers(listAllCustomers);
+        assertThat(findOrdersForCustomer.size()).isEqualTo(10);
+        System.out.println(findOrdersForCustomer);
     }
 }

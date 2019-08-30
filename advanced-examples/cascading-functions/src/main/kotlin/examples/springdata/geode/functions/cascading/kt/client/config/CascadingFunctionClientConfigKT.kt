@@ -8,16 +8,12 @@ import examples.springdata.geode.functions.cascading.kt.client.repo.CustomerRepo
 import examples.springdata.geode.functions.cascading.kt.client.services.CustomerServiceKT
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.client.ClientRegionShortcut
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
-import org.springframework.data.gemfire.config.annotation.ClientCacheConfigurer
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExecutions
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
-import org.springframework.data.gemfire.support.ConnectionEndpoint
 import org.springframework.data.gemfire.transaction.config.EnableGemfireCacheTransactions
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
@@ -51,14 +47,5 @@ class CascadingFunctionClientConfigKT {
             cache = gemFireCache
             setName("Orders")
             setShortcut(ClientRegionShortcut.PROXY)
-        }
-
-    @Bean
-    @Profile("!test")
-    internal fun clientCacheServerConfigurer(
-        @Value("\${spring.data.geode.locator.host:localhost}") hostname: String,
-        @Value("\${spring.data.geode.locator.port:10334}") port: Int) =
-        ClientCacheConfigurer { _, clientCacheFactoryBean ->
-            clientCacheFactoryBean.setLocators(listOf(ConnectionEndpoint(hostname, port)))
         }
 }
