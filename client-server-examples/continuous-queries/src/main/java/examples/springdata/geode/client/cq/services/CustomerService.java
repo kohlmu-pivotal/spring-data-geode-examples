@@ -1,6 +1,6 @@
-package examples.springdata.geode.client.cq.producer.services;
+package examples.springdata.geode.client.cq.services;
 
-import examples.springdata.geode.client.cq.producer.repo.CustomerRepository;
+import examples.springdata.geode.client.cq.repo.CustomerRepository;
 import examples.springdata.geode.domain.Customer;
 import org.springframework.stereotype.Service;
 
