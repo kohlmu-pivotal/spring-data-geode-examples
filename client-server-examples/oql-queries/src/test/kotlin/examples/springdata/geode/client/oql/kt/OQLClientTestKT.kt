@@ -1,4 +1,4 @@
-package examples.sprngdata.geode.client.oql
+package examples.springdata.geode.client.oql.kt
 
 import examples.springdata.geode.client.common.kt.server.ServerKT
 import examples.springdata.geode.client.oql.kt.config.OQLClientApplicationConfigKT
