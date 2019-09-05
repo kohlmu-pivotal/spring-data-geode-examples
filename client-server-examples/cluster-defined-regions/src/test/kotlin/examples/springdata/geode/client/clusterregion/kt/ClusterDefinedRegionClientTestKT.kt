@@ -146,7 +146,7 @@ class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupp
 
         assertThat(this.orderService.findAll().size).isEqualTo(1)
 
-        assertThat(this.orderService.findById(1L)).isEqualTo(order)
+        assertThat(this.orderService.findById(1L).get()).isEqualTo(order)
     }
 
     @Test
@@ -157,6 +157,6 @@ class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupp
 
         assertThat(this.productService.findAll().size).isEqualTo(1)
 
-        assertThat(this.productService.findById(1L)).isEqualTo(product)
+        assertThat(this.productService.findById(1L).get()).isEqualTo(product)
     }
 }
