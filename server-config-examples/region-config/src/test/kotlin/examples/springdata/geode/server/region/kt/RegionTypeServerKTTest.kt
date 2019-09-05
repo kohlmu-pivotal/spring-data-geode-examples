@@ -45,6 +45,8 @@ class RegionTypeServerKTTest {
         assertThat(this.customers!!.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isNotEmpty
+        assertThat(this.customers.attributes.partitionAttributes.totalNumBuckets).isEqualTo(13)
+        assertThat(this.customers.attributes.partitionAttributes.redundantCopies).isEqualTo(1)
     }
 
     @Test

@@ -46,6 +46,8 @@ public class RegionTypeServerTest {
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
         assertThat(this.customers).isNotEmpty();
+        assertThat(this.customers.getAttributes().getPartitionAttributes().getTotalNumBuckets()).isEqualTo(13);
+        assertThat(this.customers.getAttributes().getPartitionAttributes().getRedundantCopies()).isEqualTo(1);
     }
 
     @Test
