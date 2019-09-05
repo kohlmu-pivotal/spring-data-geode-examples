@@ -34,7 +34,7 @@ import java.util.Collections;
  *
  * @author Udo Kohlmeyer
  */
-@ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+@ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class ClientApplicationConfig {
 
     @Bean("Customers")

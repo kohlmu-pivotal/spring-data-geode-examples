@@ -44,7 +44,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @EnableGemfireFunctionExecutions(basePackageClasses = CustomerFunctionExecutions.class)
-@ClientCacheApplication(name = "FunctionInvocationClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+@ClientCacheApplication(name = "FunctionInvocationClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class FunctionInvocationClientApplicationConfig {
 
     @Bean("customerTemplate")

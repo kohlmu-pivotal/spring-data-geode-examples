@@ -20,7 +20,7 @@ import examples.springdata.geode.util.LoggingCacheListener;
 @EnableLocator
 @EnableManager(start = true)
 @EnableHttpService
-@CacheServerApplication(port = 0, logLevel = "info", useClusterConfiguration = true)
+@CacheServerApplication(port = 0, logLevel = "error", useClusterConfiguration = true)
 @EnableClusterConfiguration(useHttp = true)
 public class ClusterDefinedRegionServerConfig {
 

@@ -8,6 +8,6 @@ import org.springframework.data.gemfire.config.annotation.EnableManager;
 @EnableLocator
 @EnableManager(start = true)
 @EnableHttpService(startDeveloperRestApi = true)
-@CacheServerApplication(port = 0, logLevel = "info", useClusterConfiguration = true)
+@CacheServerApplication(port = 0, logLevel = "error", useClusterConfiguration = true)
 public class EntityDefinedRegionServerConfig {
 }

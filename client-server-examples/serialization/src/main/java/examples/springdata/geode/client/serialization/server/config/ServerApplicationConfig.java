@@ -29,7 +29,7 @@ import examples.springdata.geode.util.LoggingCacheListener;
 @Profile("default")
 @EnableLocator
 @EnablePdx
-@CacheServerApplication(port = 0, logLevel = "info")
+@CacheServerApplication(port = 0, logLevel = "error")
 public class ServerApplicationConfig {
 
 	@Bean("loggingCacheListener")

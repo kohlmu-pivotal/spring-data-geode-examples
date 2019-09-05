@@ -23,7 +23,7 @@ import org.springframework.data.gemfire.config.annotation.EnablePdx
 @Profile("default")
 @EnableLocator
 @EnablePdx
-@CacheServerApplication(port = 0, logLevel = "info")
+@CacheServerApplication(port = 0, logLevel = "error")
 class ServerApplicationConfigKT {
 
     @Bean("loggingCacheListener")
@@ -45,7 +45,7 @@ class ServerApplicationConfigKT {
 @Profile("readSerialized")
 @EnableLocator
 @EnablePdx(readSerialized = true)
-@CacheServerApplication(port = 0, logLevel = "info")
+@CacheServerApplication(port = 0, logLevel = "error")
 class ReadSerializedServerApplicationConfigKT {
 
     @Bean("loggingCacheListener")

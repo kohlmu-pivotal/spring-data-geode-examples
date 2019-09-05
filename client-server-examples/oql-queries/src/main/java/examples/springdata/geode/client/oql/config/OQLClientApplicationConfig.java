@@ -39,7 +39,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @Configuration
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@ClientCacheApplication(name = "OQLClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+@ClientCacheApplication(name = "OQLClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class OQLClientApplicationConfig {
 
     @Bean("customerTemplate")

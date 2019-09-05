@@ -15,7 +15,7 @@ import org.springframework.data.gemfire.config.annotation.*
 @EnableLocator(host = "localhost", port = 10334)
 @EnableManager(start = true)
 @EnableHttpService
-@CacheServerApplication(port = 0, logLevel = "info", useClusterConfiguration = true)
+@CacheServerApplication(port = 0, logLevel = "error", useClusterConfiguration = true)
 @EnableClusterConfiguration(useHttp = true)
 class ClusterDefinedRegionServerConfigKT {
 

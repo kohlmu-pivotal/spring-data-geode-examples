@@ -21,7 +21,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @Configuration
 @ComponentScan(basePackageClasses = CustomerService.class)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@ClientCacheApplication(name = "BasicClient", logLevel = "warn", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
+@ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class BasicClientApplicationConfig {
     @Bean("Customers")
     protected ClientRegionFactoryBean<Long, Customer> configureProxyClientCustomerRegion(GemFireCache gemFireCache) {

@@ -7,7 +7,6 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.apache.geode.cache.Scope
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableIndexing
@@ -23,7 +22,7 @@ import org.springframework.data.gemfire.config.annotation.EnableManager
 @EnableLocator
 @EnableIndexing
 @EnableManager
-@CacheServerApplication(port = 0, logLevel = "info")
+@CacheServerApplication(port = 0, logLevel = "error")
 class ServerApplicationConfigKT {
 
     @Bean
