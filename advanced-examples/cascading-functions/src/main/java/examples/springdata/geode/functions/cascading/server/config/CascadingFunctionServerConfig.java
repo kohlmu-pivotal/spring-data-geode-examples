@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableLocator;
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctions;
 
-@CacheServerApplication(autoStartup = true, copyOnRead = true, port = 0, locators = "localhost[10334]")
+@CacheServerApplication(autoStartup = true, copyOnRead = true, port = 0, locators = "localhost[10334]", logLevel = "error")
 @EnableGemfireFunctions
 @EnableLocator(host = "localhost", port = 10334)
 @Import(CascadingFunctions.class)
