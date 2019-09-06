@@ -71,7 +71,6 @@ public class AsyncQueueServer {
     }
 
     private void createCustomerData(CustomerRepository customerRepository) {
-        System.out.println("Inserting 3 entries for keys: 1, 2, 3");
         LongStream.rangeClosed(0, 300)
             .parallel()
             .forEach(customerId ->

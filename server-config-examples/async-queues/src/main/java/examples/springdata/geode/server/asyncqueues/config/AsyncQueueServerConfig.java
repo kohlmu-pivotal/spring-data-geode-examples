@@ -18,7 +18,7 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.data.gemfire.wan.AsyncEventQueueFactoryBean;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class AsyncQueueServerConfig {
 

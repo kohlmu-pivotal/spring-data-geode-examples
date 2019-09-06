@@ -1,11 +1,11 @@
 package examples.springdata.geode.server.asyncqueues.kt
 
+import examples.springdata.geode.domain.*
 import examples.springdata.geode.server.asyncqueues.kt.config.AsyncQueueServerConfigKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.OrderProductSummaryRepositoryKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.OrderRepositoryKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.ProductRepositoryKT
-import examples.springdata.geode.domain.*
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -63,7 +63,6 @@ class AsyncQueueServerKT {
     }
 
     private fun createCustomerData(customerRepository: CustomerRepositoryKT) {
-        println("Inserting 3 entries for keys: 1, 2, 3")
         LongStream.rangeClosed(0, 300)
             .parallel()
             .forEach { customerId -> customerRepository.save(Customer(customerId, EmailAddress(customerId.toString() + "@2.com"), "John$customerId", "Smith$customerId")) }
