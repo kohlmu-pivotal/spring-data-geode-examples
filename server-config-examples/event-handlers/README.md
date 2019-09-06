@@ -21,16 +21,7 @@ Your test output should contain output similar to the following:
     In region [Products] created key [1] value [Apple iPod @ 99.99]
     In region [Products] created key [2] value [Apple iPad @ 499.99]
     In region [Products] created key [3] value [Apple macBook @ 899.99]
-    In region [Products] created key [5] value [Rustic Leather Plate @ 94.79]
-    product = Rustic Leather Plate @ 94.79
+    In region [Products] created key [5] value [Aerodynamic Wool Gloves @ 76.44]
+    product = Aerodynamic Wool Gloves @ 76.44
     
-    In region [Customers] created key [15] value [Customer(id=15, emailAddress=EmailAddress(value=example@example.org), firstName=Jon, lastName=Doe)]
-    In region [Customers] destroyed key [15] 
-    
-    
-    
-    
-    
-    
-    In region [Products] created key [15] value [Thneed @ 9.98]
-    In region [Products] destroyed key [15] 
+The product may differ from the example run above since it is randomly selected.

@@ -1,6 +1,9 @@
 package examples.springdata.geode.server.asyncqueues.kt
 
-import examples.springdata.geode.domain.*
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.domain.Order
+import examples.springdata.geode.domain.OrderProductSummary
+import examples.springdata.geode.domain.Product
 import examples.springdata.geode.server.asyncqueues.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.OrderProductSummaryRepositoryKT
 import examples.springdata.geode.server.asyncqueues.kt.repo.OrderRepositoryKT
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.util.RegionUtils
 import org.springframework.test.context.junit4.SpringRunner
-import java.math.BigDecimal
 import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
@@ -59,6 +61,8 @@ class AsyncQueueServerKTTest {
         assertThat(this.orders!!.name).isEqualTo("Orders")
         assertThat(this.orders.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
         assertThat(this.orders).isNotEmpty
+
+        assertThat(this.orders.attributes.asyncEventQueueIds.size).isEqualTo(1)
     }
 
     @Test
@@ -82,69 +86,24 @@ class AsyncQueueServerKTTest {
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
 
-        val jonDoe = Customer(15L, EmailAddress("example@example.org"), "Jon", "Doe")
-
-        this.customerRepository!!.save(jonDoe)
-
-        assertThat(this.customerRepository.count()).isEqualTo(301)
-
-        val jonOptional = this.customerRepository.findById(15L)
-
-        var jon2: Customer? = null
-        if (jonOptional.isPresent) {
-            jon2 = jonOptional.get()
-        }
-        assertThat(jon2).isEqualTo(jonDoe)
-
-        customerRepository.delete(jonDoe)
-
-        assertThat(this.customerRepository.count()).isEqualTo(300)
+        assertThat(this.customerRepository!!.count()).isEqualTo(301)
     }
 
     @Test
     fun productRepositoryWasAutoConfiguredCorrectly() {
-        val product = Product(15L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need")
 
-        this.productRepository!!.save(product)
-
-        assertThat(this.productRepository.count()).isEqualTo(4)
-
-        assertThat(this.productRepository.findById(15L).get()).isEqualTo(product)
-
-        this.productRepository.delete(product)
-
-        assertThat(this.productRepository.count()).isEqualTo(3)
+        assertThat(this.productRepository!!.count()).isEqualTo(3)
     }
 
     @Test
     fun orderRepositoryWasAutoConfiguredCorrectly() {
 
-        val order = Order(15L, 1L,
-                Address("A", "Seattle", "Canada"),
-                Address("B", "San Diego", "Mexico"))
-
-        this.orderRepository!!.save(order)
-
-        assertThat(this.orderRepository.count()).isEqualTo(11)
-
-        assertThat(this.orderRepository.findById(15L).get()).isEqualTo(order)
-
-        orderRepository.delete(order)
-
-        assertThat(this.orderRepository.count()).isEqualTo(10)
+        assertThat(this.orderRepository!!.count()).isEqualTo(10)
     }
 
     @Test
     fun orderProductSummaryRepositoryWasAutoConfiguredCorrectly() {
-        val key = OrderProductSummaryKey(1L, 10L)
-        val orderProductSummary = OrderProductSummary(key, BigDecimal(10))
 
-        this.orderProductSummaryRepository!!.save(orderProductSummary)
-        assertThat(this.orderProductSummaryRepository.count()).isEqualTo(7)
-
-        assertThat(this.orderProductSummaryRepository.findById(key).get()).isEqualTo(orderProductSummary)
-
-        this.orderProductSummaryRepository.delete(orderProductSummary)
-        assertThat(this.orderProductSummaryRepository.count()).isEqualTo(6)
+        assertThat(this.orderProductSummaryRepository!!.count()).isBetween(3L, 6L)
     }
 }

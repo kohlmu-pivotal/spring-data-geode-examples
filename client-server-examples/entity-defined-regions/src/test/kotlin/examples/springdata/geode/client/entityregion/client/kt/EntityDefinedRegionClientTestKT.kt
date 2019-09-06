@@ -2,10 +2,9 @@ package examples.springdata.geode.client.entityregion.client.kt
 
 import examples.springdata.geode.client.entityregion.kt.client.config.EntityDefinedRegionClientConfigKT
 import examples.springdata.geode.client.entityregion.kt.client.service.CustomerServiceKT
-import examples.springdata.geode.client.entityregion.kt.client.service.OrderServiceKT
-import examples.springdata.geode.client.entityregion.kt.client.service.ProductServiceKT
 import examples.springdata.geode.client.entityregion.kt.server.EntityDefinedRegionServerKT
-import examples.springdata.geode.domain.*
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.domain.EmailAddress
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.BeforeClass
 import org.junit.Test
@@ -15,19 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.IOException
-import java.math.BigDecimal
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [EntityDefinedRegionClientConfigKT::class])
 class EntityDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
     private val customerService: CustomerServiceKT? = null
-
-    @Autowired
-    private val orderService: OrderServiceKT? = null
-
-    @Autowired
-    private val productService: ProductServiceKT? = null
 
     companion object {
         @BeforeClass
@@ -42,18 +34,6 @@ class EntityDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSuppo
     fun customerServiceWasConfiguredCorrectly() {
 
         assertThat(this.customerService).isNotNull
-    }
-
-    @Test
-    fun orderServiceWasConfiguredCorrectly() {
-
-        assertThat(this.orderService).isNotNull
-    }
-
-    @Test
-    fun productServiceWasConfiguredCorrectly() {
-
-        assertThat(this.productService).isNotNull
     }
 
     @Test
@@ -95,28 +75,5 @@ class EntityDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSuppo
         all = customerService.findAll()
         assertThat(all.size).isEqualTo(2)
         all.forEach { c -> println("\t Entry: \n \t\t $c") }
-    }
-
-    @Test
-    fun orderRepositoryWasAutoConfiguredCorrectly() {
-        val address = Address("Sesame ", "London", "Japan")
-        val order = Order(1L, 1L, address, address)
-
-        this.orderService!!.save(order)
-
-        assertThat(this.orderService.findAll().size).isEqualTo(1)
-
-        assertThat(this.orderService.findById(1L).get()).isEqualTo(order)
-    }
-
-    @Test
-    fun productRepositoryWasAutoConfiguredCorrectly() {
-        val product = Product(1L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need")
-
-        this.productService!!.save(product)
-
-        assertThat(this.productService.findAll().size).isEqualTo(1)
-
-        assertThat(this.productService.findById(1L).get()).isEqualTo(product)
     }
 }

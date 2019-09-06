@@ -1,6 +1,8 @@
 package examples.springdata.geode.server.region;
 
-import examples.springdata.geode.domain.*;
+import examples.springdata.geode.domain.Customer;
+import examples.springdata.geode.domain.Order;
+import examples.springdata.geode.domain.Product;
 import examples.springdata.geode.server.region.repo.CustomerRepository;
 import examples.springdata.geode.server.region.repo.OrderRepository;
 import examples.springdata.geode.server.region.repo.ProductRepository;
@@ -13,8 +15,6 @@ import org.springframework.data.gemfire.util.RegionUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -71,54 +71,17 @@ public class RegionTypeServerTest {
     @Test
     public void customerRepositoryWasAutoConfiguredCorrectly() {
 
-        Customer jonDoe = new Customer(4000L, new EmailAddress("example@example.org"), "Jon", "Doe");
-
-        this.customerRepository.save(jonDoe);
-
-        assertThat(this.customerRepository.count()).isEqualTo(3002);
-
-        Optional<Customer> jonOptional = this.customerRepository.findById(4000L);
-
-        Customer jon2 = null;
-        if (jonOptional.isPresent()) {
-            jon2 = jonOptional.get();
-        }
-        assertThat(jon2).isEqualTo(jonDoe);
-
-        customerRepository.delete(jonDoe);
-
         assertThat(this.customerRepository.count()).isEqualTo(3001);
     }
 
     @Test
     public void productRepositoryWasAutoConfiguredCorrectly() {
-        Product product = new Product(15L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need");
-
-        this.productRepository.save(product);
-
-        assertThat(this.productRepository.count()).isEqualTo(4);
-
-        assertThat(this.productRepository.findById(15L).get()).isEqualTo(product);
-
-        this.productRepository.delete(product);
 
         assertThat(this.productRepository.count()).isEqualTo(3);
     }
 
     @Test
     public void orderRepositoryWasAutoConfiguredCorrectly() {
-
-        Order order = new Order(200L, 1L,
-                new Address("A", "Seattle", "Canada"),
-                new Address("B", "San Diego", "Mexico"));
-
-        this.orderRepository.save(order);
-
-        assertThat(this.orderRepository.count()).isEqualTo(101);
-
-        assertThat(this.orderRepository.findById(200L).get()).isEqualTo(order);
-
-        orderRepository.delete(order);
 
         assertThat(this.orderRepository.count()).isEqualTo(100);
     }

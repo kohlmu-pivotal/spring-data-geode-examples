@@ -1,6 +1,8 @@
 package examples.springdata.geode.server.region.kt
 
-import examples.springdata.geode.domain.*
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.domain.Order
+import examples.springdata.geode.domain.Product
 import examples.springdata.geode.server.region.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.server.region.kt.repo.OrderRepositoryKT
 import examples.springdata.geode.server.region.kt.repo.ProductRepositoryKT
@@ -13,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.util.RegionUtils
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
-import java.math.BigDecimal
 import javax.annotation.Resource
 
 @ActiveProfiles("dataPopulationPeer")
@@ -70,55 +71,18 @@ class RegionTypeServerKTTest {
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
 
-        val jonDoe = Customer(4000L, EmailAddress("example@example.org"), "Jon", "Doe")
-
-        this.customerRepository!!.save(jonDoe)
-
-        assertThat(this.customerRepository.count()).isEqualTo(3002)
-
-        val jonOptional = this.customerRepository.findById(4000L)
-
-        var jon2: Customer? = null
-        if (jonOptional.isPresent) {
-            jon2 = jonOptional.get()
-        }
-        assertThat(jon2).isEqualTo(jonDoe)
-
-        customerRepository.delete(jonDoe)
-
-        assertThat(this.customerRepository.count()).isEqualTo(3001)
+        assertThat(this.customerRepository!!.count()).isEqualTo(3001)
     }
 
     @Test
     fun productRepositoryWasAutoConfiguredCorrectly() {
-        val product = Product(15L, "Thneed", BigDecimal.valueOf(9.98), "A fine thing that all people need")
 
-        this.productRepository!!.save(product)
-
-        assertThat(this.productRepository.count()).isEqualTo(4)
-
-        assertThat(this.productRepository.findById(15L).get()).isEqualTo(product)
-
-        this.productRepository.delete(product)
-
-        assertThat(this.productRepository.count()).isEqualTo(3)
+        assertThat(this.productRepository!!.count()).isEqualTo(3)
     }
 
     @Test
     fun orderRepositoryWasAutoConfiguredCorrectly() {
 
-        val order = Order(200L, 1L,
-                Address("A", "Seattle", "Canada"),
-                Address("B", "San Diego", "Mexico"))
-
-        this.orderRepository!!.save(order)
-
-        assertThat(this.orderRepository.count()).isEqualTo(101)
-
-        assertThat(this.orderRepository.findById(200L).get()).isEqualTo(order)
-
-        orderRepository.delete(order)
-
-        assertThat(this.orderRepository.count()).isEqualTo(100)
+        assertThat(this.orderRepository!!.count()).isEqualTo(100)
     }
 }
