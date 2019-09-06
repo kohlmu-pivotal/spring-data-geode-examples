@@ -16,7 +16,6 @@
 
 package examples.springdata.geode.util
 
-import org.apache.commons.logging.LogFactory
 import org.apache.geode.cache.EntryEvent
 import org.apache.geode.cache.util.CacheListenerAdapter
 import org.springframework.stereotype.Component
@@ -26,18 +25,17 @@ import org.springframework.stereotype.Component
  *
  * @author David Turanski
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Component
 class LoggingCacheListener<K, V> : CacheListenerAdapter<K, V>() {
 
-    private val log = LogFactory.getLog(LoggingCacheListener::class.java)
-
     override fun afterCreate(event: EntryEvent<K, V>) =
-            log.info("In region [${event.region.name}] created key [${event.key}] value [${event.newValue}]")
+            println("In region [${event.region.name}] created key [${event.key}] value [${event.newValue}]")
 
     override fun afterDestroy(event: EntryEvent<K, V>) =
-            log.info("In region [${event.region.name}] destroyed key [${event.key}] ")
+            println("In region [${event.region.name}] destroyed key [${event.key}] ")
 
     override fun afterUpdate(event: EntryEvent<K, V>) =
-            log.info("In region [${event.region.name}] updated key [${event.key}] [oldValue [${event.newValue}]] new value [${event.newValue}]")
+            println("In region [${event.region.name}] updated key [${event.key}] [oldValue [${event.newValue}]] new value [${event.newValue}]")
 }
