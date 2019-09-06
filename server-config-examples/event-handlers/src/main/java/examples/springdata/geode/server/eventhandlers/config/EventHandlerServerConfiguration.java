@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 
 import java.util.Collections;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 public class EventHandlerServerConfiguration {
 

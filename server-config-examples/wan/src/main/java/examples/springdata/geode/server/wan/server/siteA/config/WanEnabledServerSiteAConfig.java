@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@CacheServerApplication(port = 0, locators = "localhost[20334]")
+@CacheServerApplication(port = 0, locators = "localhost[20334]", logLevel = "error")
 @EnableLocator(port = 20334)
 @EnableManager(start = true, port = 1099)
 @EnableGemFireProperties(distributedSystemId = 1, remoteLocators = "localhost[10334]", enableNetworkPartitionDetection = false, conserveSockets = false)

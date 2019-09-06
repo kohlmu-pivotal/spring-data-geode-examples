@@ -16,7 +16,7 @@ import org.springframework.data.gemfire.wan.GatewayReceiverFactoryBean;
 import java.io.File;
 import java.util.Arrays;
 
-@CacheServerApplication(port = 0, locators = "localhost[10334]")
+@CacheServerApplication(port = 0, locators = "localhost[10334]", logLevel = "error")
 @EnableLocator(port = 10334)
 @EnableManager(start = true, port = 2099)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
