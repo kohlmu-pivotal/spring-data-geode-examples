@@ -1,55 +1,35 @@
 # Function Invocation Example
 
-In this example a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client will run OQL queries against a `PROXY` and `LOCAL` cache.
+In this example a [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) / [Apache Geode](http://geode.apache.org/) client will invoke remote functions registered on the server.
 
-TTo the run the examples you require two terminal windows.
- 1. deploy and run the stand-alone server as described in the the [Server Configuration](../README.md#server-configuration-and-deployment) of [Client-Server-Examples](../README.md)   
- 1. deploy and run the client application as described in the the [Client Configuration](../README.md#client-configuration-and-deployment) of [Client-Server-Examples](../README.md) 
+To run the example simply run the tests located under function-invocation/src/test in your IDE.
 
-
-> To run this example make sure you are in the **`$projectRoot/client-server-examples/function-invocation`** directory.
-
-## Client Configuration and Deployment
 The client is configured to connect to the deployed/started server on `localhost` port `40404`.
 
-To start the client you can decided to run one of the following client parameters:
-1. `-DproxyClient` - for a JAVA based `look-aside cache` implementation
-1. `-DlocalCacheClient` - for a JAVA based `near cache` implementation
-1. `-DproxyClientKT` - for a Kotlin based `look-aside cache` implementation
-1. `-DlocalCacheClientKT` - for a Kotlin based `near cache` implementation
-
-```
-mvn exec:exec -DproxyClient
-```
-```
-mvn exec:exec -DlocalCacheClient
-```
-```
-mvn exec:exec -DproxyClientKT
-```
-```
-mvn exec:exec -DlocalCacheClientKT
-```
 ## Running the example
-
-Referencing the [FunctionInvocationClient](src/main/java/examples/springdata/geode/client/function/client/FunctionInvocationClient.java) or [FunctionInvocationClientKT](src/main/kotlin/examples/springdata/geode/client/function/kt/client/FunctionInvocationClientKT.kt)
 
 The example is broken up into multiple steps:
 1. Insert (Put) three Customer entries into the `Customers` region using the repositories `save` method.
-1.  
+2. Insert (Put) three Product entries into the `Products` region using the repositories `save` method.
+3. Insert (Put) 100 Order entries into the `Orders` region using the repositories `save` method.
 
-After running the client you should see one of the following outputs, depending in client cache type that was run.
+Your output from the test `functionsExecuteCorrectly` should look similar to the following:
 
-1. `PROXY` client cache output 
-    ```
-    
-    ```
-1. `LOCAL` client cache output
-    ```
-    
-   ```
+    Inserting 3 entries for keys: 1, 2, 3
+    [FORK] - [info 2019/09/06 09:24:49.274 PDT <ServerConnection on port 49925 Thread 0> tid=0x47] In region [Customers] created key [1] value [Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
+    [FORK] - 
+    [FORK] - [info 2019/09/06 09:24:49.278 PDT <ServerConnection on port 49925 Thread 0> tid=0x47] In region [Customers] created key [2] value [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport)]
+    [FORK] - 
+    [FORK] - [info 2019/09/06 09:24:49.279 PDT <ServerConnection on port 49925 Thread 0> tid=0x47] In region [Customers] created key [3] value [Customer(id=3, emailAddress=EmailAddress(value=5@5.com), firstName=Jude, lastName=Simmons)]
+    [FORK] - 
+    All customers for emailAddresses:3@3.com,2@2.com using function invocation: 
+    	 [Customer(id=2, emailAddress=EmailAddress(value=3@3.com), firstName=Frank, lastName=Lamport), Customer(id=1, emailAddress=EmailAddress(value=2@2.com), firstName=John, lastName=Smith)]
+    Running function to sum up all product prices: 
+    	1499.97
+    Running function to sum up all order lineItems prices for order 1: 
+    	2399.96
+    For order: 
+    	 Order(id=1, customerId=3, billingAddress=Address(street=it, city=doesn't, country=matter), shippingAddress=Address(street=it, city=doesn't, country=matter)) 
+    	LineItems:[Purchased 1 of Product Apple macBook at 899.99 for total of 899.99, Purchased 3 of Product Apple iPad at 499.99 for total of 1499.97]
    
-With a server output of:
-   ```
-   
-   ```
+Number of products purchased and total cost may vary from the above run as they are determined randomly.
