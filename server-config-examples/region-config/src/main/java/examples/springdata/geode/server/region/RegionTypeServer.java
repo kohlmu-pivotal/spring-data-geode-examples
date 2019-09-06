@@ -68,7 +68,6 @@ public class RegionTypeServer {
     }
 
     private void createCustomerData(CustomerRepository customerRepository) {
-        System.out.println("Inserting 3 entries for keys: 1, 2, 3");
         LongStream.rangeClosed(0, 3000)
                 .parallel()
                 .forEach(customerId ->
