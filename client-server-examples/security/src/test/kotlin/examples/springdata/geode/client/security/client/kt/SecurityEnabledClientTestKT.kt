@@ -53,6 +53,7 @@ class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport()
 
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
+        println("Inserting 3 entries for keys: 1, 2, 3")
         val john = Customer(1L, EmailAddress("2@2.com"), "John", "Smith")
         val frank = Customer(2L, EmailAddress("3@3.com"), "Frank", "Lamport")
         val jude = Customer(3L, EmailAddress("5@5.com"), "Jude", "Simmons")

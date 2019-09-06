@@ -53,6 +53,7 @@ public class SecurityEnabledClientShiroTest extends ForkingClientServerIntegrati
 
     @Test
     public void customerRepositoryWasAutoConfiguredCorrectly() {
+        System.out.println("Inserting 3 entries for keys: 1, 2, 3");
         Customer john = new Customer(1L, new EmailAddress("2@2.com"), "John", "Smith");
         Customer frank = new Customer(2L, new EmailAddress("3@3.com"), "Frank", "Lamport");
         Customer jude = new Customer(3L, new EmailAddress("5@5.com"), "Jude", "Simmons");
