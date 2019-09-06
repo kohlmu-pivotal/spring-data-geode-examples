@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 @EnableLocator
 @EnableIndexing
 @EnableManager
-@CacheServerApplication(port = 0)
+@CacheServerApplication(port = 0, logLevel = "error")
 public class SecurityEnabledServerConfiguration {
     @Bean
     LoggingCacheListener loggingCacheListener() {

@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableClusterConfiguration(useHttp = true)
 @EnableManager(start = true)
 @EnableHttpService
-@CacheServerApplication(port = 0, autoStartup = true)
+@CacheServerApplication(port = 0, autoStartup = true, logLevel = "error")
 class TransactionalServerConfigKT {
 
     @Bean

@@ -19,7 +19,7 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
 @Configuration
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 class RegionTypeConfigurationKT {
 

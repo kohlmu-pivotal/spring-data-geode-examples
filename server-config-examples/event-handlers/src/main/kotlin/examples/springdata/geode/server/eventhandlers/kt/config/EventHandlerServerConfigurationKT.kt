@@ -11,7 +11,7 @@ import org.springframework.data.gemfire.ReplicatedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = arrayOf(CustomerRepositoryKT::class))
 class EventHandlerServerConfigurationKT {
 

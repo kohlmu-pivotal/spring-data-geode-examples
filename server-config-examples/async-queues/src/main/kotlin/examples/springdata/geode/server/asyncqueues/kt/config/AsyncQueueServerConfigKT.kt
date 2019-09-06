@@ -16,7 +16,7 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 import org.springframework.data.gemfire.wan.AsyncEventQueueFactoryBean
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 class AsyncQueueServerConfigKT {
 
@@ -31,7 +31,6 @@ class AsyncQueueServerConfigKT {
                 setBatchSize(5)
                 setAsyncEventListener(orderAsyncEventListener)
             }
-
 
     @Bean
     internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>) =

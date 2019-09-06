@@ -28,7 +28,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @EnableLocator
 @EnableIndexing
 @EnableManager
-@CacheServerApplication(port = 0)
+@CacheServerApplication(port = 0, logLevel = "error")
 public class FunctionServerApplicationConfig {
 
     @Bean

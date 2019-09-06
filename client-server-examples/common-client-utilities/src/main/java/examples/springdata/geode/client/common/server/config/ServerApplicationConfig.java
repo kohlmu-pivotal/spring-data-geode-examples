@@ -16,7 +16,7 @@ import org.springframework.data.gemfire.config.annotation.EnableManager;
 @EnableLocator
 @EnableIndexing
 @EnableManager
-@CacheServerApplication(port = 0)
+@CacheServerApplication(port = 0, logLevel = "error")
 public class ServerApplicationConfig {
 
     @Bean

@@ -8,13 +8,12 @@ import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
-import org.springframework.context.annotation.Profile
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctions
 
-@CacheServerApplication(autoStartup = true, copyOnRead = true, port = 0, locators = "localhost[10334]")
+@CacheServerApplication(autoStartup = true, copyOnRead = true, port = 0, locators = "localhost[10334]", logLevel = "error")
 @EnableGemfireFunctions
 @EnableLocator(host = "localhost", port = 10334)
 @Import(CascadingFunctionsKT::class)
