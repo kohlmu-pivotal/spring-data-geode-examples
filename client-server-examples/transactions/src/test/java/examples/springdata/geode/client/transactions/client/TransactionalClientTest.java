@@ -57,7 +57,7 @@ public class TransactionalClientTest extends ForkingClientServerIntegrationTests
         customerService.createFiveCustomers();
         assertThat(customerService.numberEntriesStoredOnServer()).isEqualTo(5);
         System.out.println("Number of Entries stored after = " + customerService.numberEntriesStoredOnServer());
-        System.out.println("Customer for ID before (transaction commit success) = " + customerService.findById(2L));
+        System.out.println("Customer for ID before (transaction commit success) = " + customerService.findById(2L).get());
         customerService.updateCustomersSuccess();
         assertThat(customerService.numberEntriesStoredOnServer()).isEqualTo(5);
         Customer customer = customerService.findById(2L).get();
@@ -69,7 +69,7 @@ public class TransactionalClientTest extends ForkingClientServerIntegrationTests
         }
         customer = customerService.findById(2L).get();
         assertThat(customer.getFirstName()).isEqualTo("Humpty");
-        System.out.println("Customer for ID after (transaction commit failure) = " + customerService.findById(2L));
+        System.out.println("Customer for ID after (transaction commit failure) = " + customerService.findById(2L).get());
 
         Customer numpty = new Customer(2L, new EmailAddress("2@2.com"), "Numpty", "Hamilton");
         Customer frumpy = new Customer(2L, new EmailAddress("2@2.com"), "Frumpy", "Hamilton");

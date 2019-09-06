@@ -58,7 +58,7 @@ class TransactionalClientTestKT : ForkingClientServerIntegrationTestsSupport() {
         customerService.createFiveCustomers()
         assertThat(customerService.numberEntriesStoredOnServer()).isEqualTo(5)
         println("Number of Entries stored after = " + customerService.numberEntriesStoredOnServer())
-        println("Customer for ID before (transaction commit success) = " + customerService.findById(2L))
+        println("Customer for ID before (transaction commit success) = " + customerService.findById(2L).get())
         customerService.updateCustomersSuccess()
         assertThat(customerService.numberEntriesStoredOnServer()).isEqualTo(5)
         var customer = customerService.findById(2L).get()
@@ -71,7 +71,7 @@ class TransactionalClientTestKT : ForkingClientServerIntegrationTestsSupport() {
 
         customer = customerService.findById(2L).get()
         assertThat(customer.firstName).isEqualTo("Humpty")
-        println("Customer for ID after (transaction commit failure) = " + customerService.findById(2L))
+        println("Customer for ID after (transaction commit failure) = " + customerService.findById(2L).get())
 
         val numpty = Customer(2L, EmailAddress("2@2.com"), "Numpty", "Hamilton")
         val frumpy = Customer(2L, EmailAddress("2@2.com"), "Frumpy", "Hamilton")
