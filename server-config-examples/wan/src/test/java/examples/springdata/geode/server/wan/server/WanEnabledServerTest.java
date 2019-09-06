@@ -39,5 +39,6 @@ public class WanEnabledServerTest {
     public void testMethod() throws IOException {
         Awaitility.await().atMost(30, TimeUnit.SECONDS).until(()-> customers.keySetOnServer().size() == 301);
         Assertions.assertThat(customers.keySetOnServer().size()).isEqualTo(301);
+        System.out.println(customers.keySetOnServer().size() + " entries replicated to siteB");
     }
 }

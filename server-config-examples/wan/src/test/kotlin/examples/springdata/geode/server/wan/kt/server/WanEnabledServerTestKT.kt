@@ -31,7 +31,7 @@ class WanEnabledServerTestKT {
     fun testMethod() {
         Awaitility.await().atMost(30, TimeUnit.SECONDS).until { customers!!.keySetOnServer().size == 301 }
         Assertions.assertThat(customers!!.keySetOnServer().size).isEqualTo(301)
-    }
+        println(customers.keySetOnServer().size.toString() + " entries replicated to siteB")    }
 
     companion object {
         @BeforeClass

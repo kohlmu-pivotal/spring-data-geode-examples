@@ -3,7 +3,6 @@ package examples.springdata.geode.server.wan.kt.server.siteA
 import com.github.javafaker.Faker
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
-import examples.springdata.geode.server.wan.client.repo.CustomerRepository
 import examples.springdata.geode.server.wan.kt.server.repo.CustomerRepositoryKT
 import examples.springdata.geode.server.wan.kt.server.siteA.config.WanEnabledServerSiteAConfigKT
 import org.springframework.boot.ApplicationRunner
@@ -26,7 +25,7 @@ class WanEnabledServerSiteAKT {
     }
 
     private fun createCustomerData(customerRepository: CustomerRepositoryKT) {
-        println("Inserting 300 entries")
+        println("Inserting 301 entries on siteA")
         val faker = Faker()
         LongStream.rangeClosed(0, 300)
                 .forEach { customerId ->

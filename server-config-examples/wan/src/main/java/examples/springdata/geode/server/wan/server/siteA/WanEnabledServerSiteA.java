@@ -32,7 +32,7 @@ public class WanEnabledServerSiteA {
     }
 
     private void createCustomerData(CustomerRepository customerRepository) {
-        System.out.println("Inserting 300 entries");
+        System.out.println("Inserting 301 entries on siteA");
         Faker faker = new Faker();
         LongStream.rangeClosed(0, 300)
                 .forEach(customerId ->
