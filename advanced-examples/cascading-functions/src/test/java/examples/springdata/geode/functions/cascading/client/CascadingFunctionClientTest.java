@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.data.gemfire.util.RegionUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,11 +24,10 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = CascadingFunctionClientConfig.class)
-public class CascadingFunctionClientTest {
+public class CascadingFunctionClientTest extends ForkingClientServerIntegrationTestsSupport {
     @Autowired
     private CustomerService customerService;
 
