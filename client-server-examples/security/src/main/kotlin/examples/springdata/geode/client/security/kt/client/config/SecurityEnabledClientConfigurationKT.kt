@@ -17,7 +17,7 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
 @ClientCacheApplication(name = "SecurityClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 class SecurityEnabledClientConfigurationKT {
     @Bean("Customers")
-    protected fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
+    fun configureProxyClientCustomerRegion(gemFireCache: GemFireCache) = ClientRegionFactoryBean<Long, Customer>()
             .apply {
                 cache = gemFireCache
                 setName("Customers")

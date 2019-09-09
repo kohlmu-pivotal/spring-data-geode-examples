@@ -30,11 +30,11 @@ public class EntityDefinedRegionClientTest extends ForkingClientServerIntegratio
         startGemFireServer(EntityDefinedRegionServer.class);
     }
 
-    @Test
-    public void customerServiceWasConfiguredCorrectly() {
-
-        assertThat(this.customerService).isNotNull();
-    }
+//    @Test
+//    public void customerServiceWasConfiguredCorrectly() {
+//
+//        assertThat(this.customerService).isNotNull();
+//    }
 
     @Test
     public void customerRepositoryWasAutoConfiguredCorrectly() {

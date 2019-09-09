@@ -45,8 +45,8 @@ class AsyncQueueServerConfigKT {
                 setRedundantCopies(0)
             }
 
-    @Bean(name = ["OrderProductSummary"])
-    internal fun createOrderProductSummaryRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<*, *>) =
+    @Bean("OrderProductSummary")
+    fun createOrderProductSummaryRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<*, *>) =
             PartitionedRegionFactoryBean<Long, Order>().apply {
                 cache = gemFireCache
                 setRegionName("OrderProductSummary")
