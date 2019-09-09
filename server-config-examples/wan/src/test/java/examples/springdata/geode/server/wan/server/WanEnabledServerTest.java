@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,12 +19,10 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
-
 @ActiveProfiles({"wan-integration-test", "test", "default"})
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = WanClientConfig.class)
-public class WanEnabledServerTest {
+public class WanEnabledServerTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Resource(name = "Customers")
     private Region<Long, Customer> customers;

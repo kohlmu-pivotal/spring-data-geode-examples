@@ -10,17 +10,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = EntityDefinedRegionClientConfig.class)
-public class EntityDefinedRegionClientTest {
+public class EntityDefinedRegionClientTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Autowired
     private CustomerService customerService;

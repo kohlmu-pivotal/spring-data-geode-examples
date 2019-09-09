@@ -11,7 +11,7 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport.startGemFireServer
+import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.IOException
@@ -21,7 +21,7 @@ import javax.annotation.Resource
 @ActiveProfiles("wan-integration-test", "test", "default")
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientConfigKT::class])
-class WanEnabledServerTestKT {
+class WanEnabledServerTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Resource(name = "Customers")
     private val customers: Region<Long, Customer>? = null
