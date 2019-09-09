@@ -25,22 +25,22 @@ import javax.annotation.Resource
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [CascadingFunctionClientConfigKT::class])
 class CascadingFunctionClientKTTest : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
-    private val customerService: CustomerServiceKT? = null
+    lateinit var customerService: CustomerServiceKT
 
     @Autowired
-    private val orderService: OrderServiceKT? = null
+    lateinit var orderService: OrderServiceKT
 
     @Autowired
-    private val productService: ProductServiceKT? = null
+    lateinit var productService: ProductServiceKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     @Resource(name = "Orders")
-    private val orders: Region<Long, Order>? = null
+    lateinit var orders: Region<Long, Order>
 
     @Resource(name = "Products")
-    private val products: Region<Long, Product>? = null
+    lateinit var products: Region<Long, Product>
 
     companion object {
         @BeforeClass
@@ -49,50 +49,32 @@ class CascadingFunctionClientKTTest : ForkingClientServerIntegrationTestsSupport
             startGemFireServer(CascadingFunctionServerKT::class.java)
         }
     }
-
-    @Test
-    fun customerServiceWasConfiguredCorrectly() {
-        assertThat(this.customerService).isNotNull
-    }
-
-    @Test
-    fun orderServiceWasConfiguredCorrectly() {
-        assertThat(this.orderService).isNotNull
-    }
-
-    @Test
-    fun productServiceWasConfiguredCorrectly() {
-        assertThat(this.productService).isNotNull
-    }
-
+    
     @Test
     fun customersRegionWasConfiguredCorrectly() {
-        assertThat(this.customers).isNotNull
-        assertThat(this.customers?.name).isEqualTo("Customers")
-        assertThat(this.customers?.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
+        assertThat(this.customers.name).isEqualTo("Customers")
+        assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
     }
 
     @Test
     fun ordersRegionWasConfiguredCorrectly() {
-        assertThat(this.orders).isNotNull
-        assertThat(this.orders?.name).isEqualTo("Orders")
-        assertThat(this.orders?.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
+        assertThat(this.orders.name).isEqualTo("Orders")
+        assertThat(this.orders.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
     }
 
     @Test
     fun productsRegionWasConfiguredCorrectly() {
-        assertThat(this.products).isNotNull
-        assertThat(this.products?.name).isEqualTo("Products")
-        assertThat(this.products?.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
+        assertThat(this.products.name).isEqualTo("Products")
+        assertThat(this.products.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
     }
 
     @Test
     fun testMethod() {
-        IntStream.rangeClosed(1, 10000).parallel().forEach { customerId -> customerService!!.save(Customer(Integer.toUnsignedLong(customerId), EmailAddress("2@2.com"), "John$customerId", "Smith$customerId")) }
+        IntStream.rangeClosed(1, 10000).parallel().forEach { customerId -> customerService.save(Customer(Integer.toUnsignedLong(customerId), EmailAddress("2@2.com"), "John$customerId", "Smith$customerId")) }
 
-        assertThat(customers!!.keySetOnServer().size).isEqualTo(10000)
+        assertThat(customers.keySetOnServer().size).isEqualTo(10000)
 
-        productService!!.save(Product(1L, "Apple iPod", BigDecimal("99.99"), "An Apple portable music player"))
+        productService.save(Product(1L, "Apple iPod", BigDecimal("99.99"), "An Apple portable music player"))
         productService.save(Product(2L, "Apple iPad", BigDecimal("499.99"), "An Apple tablet device"))
 
         val product = Product(3L, "Apple macBook", BigDecimal("899.99"), "An Apple notebook computer")
@@ -100,7 +82,7 @@ class CascadingFunctionClientKTTest : ForkingClientServerIntegrationTestsSupport
 
         productService.save(product)
 
-        assertThat(products!!.keySetOnServer().size).isEqualTo(3)
+        assertThat(products.keySetOnServer().size).isEqualTo(3)
 
         val random = Random(System.nanoTime())
         val address = Address("it", "doesn't", "matter")
@@ -113,17 +95,17 @@ class CascadingFunctionClientKTTest : ForkingClientServerIntegrationTestsSupport
                     val productId = (random.nextInt(3) + 1).toLong()
                     order.add(LineItem(productService.findById(productId), quantity))
                 }
-                orderService!!.save(order)
+                orderService.save(order)
             }
         }
 
-        assertThat(orders!!.keySetOnServer().size).isEqualTo(10)
+        assertThat(orders.keySetOnServer().size).isEqualTo(10)
 
-        val listAllCustomers = customerService!!.listAllCustomers()
+        val listAllCustomers = customerService.listAllCustomers()
         assertThat(listAllCustomers.size).isEqualTo(10000)
         println("Number of customers retrieved from servers: " + listAllCustomers.size)
 
-        val findOrdersForCustomer = orderService!!.findOrdersForCustomers(listAllCustomers)
+        val findOrdersForCustomer = orderService.findOrdersForCustomers(listAllCustomers)
         assertThat(findOrdersForCustomer.size).isEqualTo(10)
         println(findOrdersForCustomer)
     }

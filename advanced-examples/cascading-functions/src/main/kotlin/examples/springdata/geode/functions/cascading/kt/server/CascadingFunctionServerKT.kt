@@ -6,34 +6,31 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Import
-import org.springframework.data.gemfire.config.annotation.EnableManager
-import java.util.*
 
-@SpringBootApplication
-@EnableManager(start = true)
-@ComponentScan(basePackages = ["examples.springdata.geode.functions.cascading.kt.server.functions"])
-@Import(CascadingFunctionServerConfigKT::class)
+@SpringBootApplication(scanBasePackageClasses = [CascadingFunctionServerConfigKT::class])
 class CascadingFunctionServerKT {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            val springApplication = SpringApplicationBuilder(CascadingFunctionServerKT::class.java)
+            SpringApplicationBuilder(CascadingFunctionServerKT::class.java)
                     .web(WebApplicationType.NONE)
-                    .build()
-            val profile = if (args.isNotEmpty()) {
-                args[0]
-            } else {
-                "default"
-            }
-            springApplication.setAdditionalProfiles(profile)
-            springApplication.run(*args)
+                    .build().apply {
+                        setAdditionalProfiles(getProfile(args))
+                    }
+                    .run(*args)
+                    .apply { registerShutdownHook() }
         }
+
+        private fun getProfile(args: Array<String>): String =
+                if (args.isNotEmpty()) {
+                    args[0]
+                } else {
+                    "default"
+                }
     }
 
     @Bean
     fun runner() = ApplicationRunner {
-        Scanner(System.`in`).nextLine()
+        readLine()
     }
 }

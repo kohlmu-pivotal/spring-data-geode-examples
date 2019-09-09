@@ -7,16 +7,20 @@ import examples.springdata.geode.functions.cascading.kt.server.functions.Cascadi
 import org.apache.geode.cache.DataPolicy
 import org.apache.geode.cache.GemFireCache
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean
 import org.springframework.data.gemfire.config.annotation.CacheServerApplication
 import org.springframework.data.gemfire.config.annotation.EnableLocator
+import org.springframework.data.gemfire.config.annotation.EnableManager
 import org.springframework.data.gemfire.function.config.EnableGemfireFunctions
 
 @CacheServerApplication(autoStartup = true, copyOnRead = true, port = 0, locators = "localhost[10334]", logLevel = "error")
 @EnableGemfireFunctions
 @EnableLocator(host = "localhost", port = 10334)
 @Import(CascadingFunctionsKT::class)
+@EnableManager(start = true)
+@ComponentScan(basePackages = ["examples.springdata.geode.functions.cascading.kt.server.functions"])
 class CascadingFunctionServerConfigKT {
 
     @Bean("Customers")
