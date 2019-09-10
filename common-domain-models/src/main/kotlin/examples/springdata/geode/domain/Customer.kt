@@ -17,11 +17,9 @@
 package examples.springdata.geode.domain
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.gemfire.mapping.annotation.LuceneIndexed
 import org.springframework.data.gemfire.mapping.annotation.Region
 import org.springframework.util.Assert
 import java.io.Serializable
-import javax.persistence.Entity
 
 /**
  * A customer used for Lucene examples.
@@ -31,7 +29,7 @@ import javax.persistence.Entity
 
 @Region(name = "Customers")
 data class Customer(@Id @javax.persistence.Id val id: Long?, val emailAddress: EmailAddress,
-                    val firstName: String, @LuceneIndexed val lastName: String) : Serializable {
+                    val firstName: String, val lastName: String) : Serializable {
 
     constructor(id: Long?, emailAddress: EmailAddress,
                 firstName: String, lastName: String,

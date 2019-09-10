@@ -19,6 +19,7 @@ import org.springframework.data.gemfire.listener.ContinuousQueryListenerContaine
 import org.springframework.data.gemfire.listener.annotation.ContinuousQuery
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.data.gemfire.util.RegionUtils
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -26,6 +27,7 @@ import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [CQClientApplicationConfigKT::class])
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class CQTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     private var counter = 0

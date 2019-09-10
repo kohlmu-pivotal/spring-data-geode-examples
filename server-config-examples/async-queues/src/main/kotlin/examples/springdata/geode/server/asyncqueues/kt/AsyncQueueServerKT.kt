@@ -13,8 +13,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
 import java.math.BigDecimal
 import java.util.*
-import java.util.stream.IntStream
-import java.util.stream.LongStream
 
 @SpringBootApplication(scanBasePackageClasses = [AsyncQueueServerConfigKT::class])
 class AsyncQueueServerKT {
@@ -38,10 +36,10 @@ class AsyncQueueServerKT {
     private fun createOrders(productRepository: ProductRepositoryKT, orderRepository: OrderRepositoryKT) {
         val random = Random(System.nanoTime())
         val address = Address("it", "doesn't", "matter")
-        LongStream.rangeClosed(1, 10).forEach { orderId ->
-            LongStream.rangeClosed(1, 300).forEach { customerId ->
+        (1..10L).forEach { orderId ->
+            (1..300L).forEach { customerId ->
                 val order = Order(orderId, customerId, address)
-                IntStream.rangeClosed(0, random.nextInt(3) + 1).forEach { _ ->
+                (0.. random.nextInt(3) + 2).forEach { _ ->
                     val quantity = random.nextInt(3) + 1
                     val productId = (random.nextInt(3) + 1).toLong()
                     order.add(LineItem(productRepository.findById(productId).get(), quantity))
@@ -63,9 +61,13 @@ class AsyncQueueServerKT {
     }
 
     private fun createCustomerData(customerRepository: CustomerRepositoryKT) {
-        LongStream.rangeClosed(0, 300)
-            .parallel()
-            .forEach { customerId -> customerRepository.save(Customer(customerId, EmailAddress(customerId.toString() + "@2.com"), "John$customerId", "Smith$customerId")) }
+        (0..300L).forEach { customerId ->
+            customerRepository.save(
+                    Customer(customerId,
+                            EmailAddress(
+                                    "${customerId.toString()}@2.com"),
+                            "John$customerId",
+                            "Smith$customerId")) }
     }
 }
 

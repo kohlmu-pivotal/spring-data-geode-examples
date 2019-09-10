@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.gemfire.util.RegionUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = AsyncQueueServer.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AsyncQueueServerTest {
     @Resource(name = "Customers")
     private Region<Long, Customer> customers;
@@ -49,7 +51,6 @@ public class AsyncQueueServerTest {
 
     @Test
     public void customersRegionWasConfiguredCorrectly() {
-
         assertThat(this.customers).isNotNull();
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
@@ -58,7 +59,6 @@ public class AsyncQueueServerTest {
 
     @Test
     public void ordersRegionWasConfiguredCorrectly() {
-
         assertThat(this.orders).isNotNull();
         assertThat(this.orders.getName()).isEqualTo("Orders");
         assertThat(this.orders.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Orders"));
@@ -69,7 +69,6 @@ public class AsyncQueueServerTest {
 
     @Test
     public void productsRegionWasConfiguredCorrectly() {
-
         assertThat(this.products).isNotNull();
         assertThat(this.products.getName()).isEqualTo("Products");
         assertThat(this.products.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Products"));
@@ -78,7 +77,6 @@ public class AsyncQueueServerTest {
 
     @Test
     public void orderProductSummaryRegionWasConfiguredCorrectly() {
-
         assertThat(this.orderProductSummary).isNotNull();
         assertThat(this.orderProductSummary.getName()).isEqualTo("OrderProductSummary");
         assertThat(this.orderProductSummary.getFullPath()).isEqualTo(RegionUtils.toRegionPath("OrderProductSummary"));
@@ -87,25 +85,22 @@ public class AsyncQueueServerTest {
 
     @Test
     public void customerRepositoryWasAutoConfiguredCorrectly() {
-
         assertThat(this.customerRepository.count()).isEqualTo(301);
     }
 
     @Test
     public void productRepositoryWasAutoConfiguredCorrectly() {
-
         assertThat(this.productRepository.count()).isEqualTo(3);
     }
 
     @Test
     public void orderRepositoryWasAutoConfiguredCorrectly() {
-
         assertThat(this.orderRepository.count()).isEqualTo(10);
     }
 
     @Test
     public void orderProductSummaryRepositoryWasAutoConfiguredCorrectly() {
-
+        assertThat(this.orderProductSummaryRepository).isNotNull();
         assertThat(this.orderProductSummaryRepository.count()).isBetween(3L, 6L);
     }
 }

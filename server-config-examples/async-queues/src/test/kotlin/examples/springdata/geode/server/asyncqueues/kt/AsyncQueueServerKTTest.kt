@@ -15,11 +15,13 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.util.RegionUtils
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [AsyncQueueServerKT::class])
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class AsyncQueueServerKTTest {
     @Resource(name = "Customers")
     lateinit var customers: Region<Long, Customer>
@@ -47,7 +49,6 @@ class AsyncQueueServerKTTest {
 
     @Test
     fun customersRegionWasConfiguredCorrectly() {
-
         assertThat(this.customers).isNotNull
         assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
@@ -56,7 +57,6 @@ class AsyncQueueServerKTTest {
 
     @Test
     fun ordersRegionWasConfiguredCorrectly() {
-
         assertThat(this.orders).isNotNull
         assertThat(this.orders.name).isEqualTo("Orders")
         assertThat(this.orders.fullPath).isEqualTo(RegionUtils.toRegionPath("Orders"))
@@ -67,7 +67,6 @@ class AsyncQueueServerKTTest {
 
     @Test
     fun productsRegionWasConfiguredCorrectly() {
-
         assertThat(this.products).isNotNull
         assertThat(this.products.name).isEqualTo("Products")
         assertThat(this.products.fullPath).isEqualTo(RegionUtils.toRegionPath("Products"))
@@ -76,7 +75,6 @@ class AsyncQueueServerKTTest {
 
     @Test
     fun orderProductSummaryRegionWasConfiguredCorrectly() {
-
         assertThat(this.orderProductSummary).isNotNull
         assertThat(this.orderProductSummary.name).isEqualTo("OrderProductSummary")
         assertThat(this.orderProductSummary.fullPath).isEqualTo(RegionUtils.toRegionPath("OrderProductSummary"))
@@ -85,6 +83,7 @@ class AsyncQueueServerKTTest {
 
     @Test
     fun customerRepositoryWasAutoConfiguredCorrectly() {
+        assertThat(this.customerRepository).isNotNull
         assertThat(this.customerRepository.count()).isEqualTo(301)
     }
 

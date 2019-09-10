@@ -14,12 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.data.gemfire.util.RegionUtils
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
-import java.io.IOException
 import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [SecurityEnabledClientConfigurationKT::class])
+@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
 class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
     lateinit var customerRepo: CustomerRepositoryKT
@@ -30,9 +31,8 @@ class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport()
     companion object {
         @BeforeClass
         @JvmStatic
-        @Throws(IOException::class)
         fun setup() {
-            startGemFireServer(SecurityEnabledServerKT::class.java, "-Dspring.profiles.active=geode-security-manager-proxy-configuration")
+            startGemFireServer(SecurityEnabledServerKT::class.java)
         }
     }
 

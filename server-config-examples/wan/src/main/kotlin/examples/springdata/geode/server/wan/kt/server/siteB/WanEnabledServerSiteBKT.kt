@@ -12,8 +12,8 @@ import java.util.*
 class WanEnabledServerSiteBKT {
 
     @Bean
-    fun siteBRunner(): ApplicationRunner {
-        return ApplicationRunner {Scanner(System.`in`).nextLine()}
+    fun siteBRunner() = ApplicationRunner {
+        Scanner(System.`in`).nextLine()
     }
 
     companion object {

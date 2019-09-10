@@ -27,10 +27,10 @@ import javax.sql.DataSource
 @CacheServerApplication(port = 0, logLevel = "error")
 class SecurityEnabledServerConfigurationKT {
     @Bean
-    internal fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
+    fun loggingCacheListener() = LoggingCacheListener<Any, Any>()
 
-    @Bean
-    protected fun customerRegion(gemfireCache: GemFireCache) =
+    @Bean("Customers")
+    fun customerRegion(gemfireCache: GemFireCache) =
             ReplicatedRegionFactoryBean<Long, Customer>().apply {
                 cache = gemfireCache
                 setRegionName("Customers")
@@ -48,7 +48,7 @@ class ApacheShiroIniConfigurationKT
 @Configuration
 @EnableSecurity(securityManagerClassName = "examples.springdata.geode.client.security.server.managers.SecurityManagerProxy")
 @Profile("default", "geode-security-manager-proxy-configuration")
-internal class GeodeIntegratedSecurityProxyConfigurationKT {
+class GeodeIntegratedSecurityProxyConfigurationKT {
     @Bean
     fun hsqlDataSource(): DataSource {
         return with(EmbeddedDatabaseBuilder()) {

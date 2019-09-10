@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.config.annotation.EnableClusterConfiguration;
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions;
-import org.springframework.data.gemfire.config.annotation.EnableIndexing;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 @ClientCacheApplication
@@ -18,7 +17,6 @@ import org.springframework.data.gemfire.repository.config.EnableGemfireRepositor
         serverRegionShortcut = RegionShortcut.PARTITION)
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @ComponentScan(basePackageClasses = CustomerService.class)
-@EnableIndexing
 @EnableClusterConfiguration
 public class EntityDefinedRegionClientConfig {
 }

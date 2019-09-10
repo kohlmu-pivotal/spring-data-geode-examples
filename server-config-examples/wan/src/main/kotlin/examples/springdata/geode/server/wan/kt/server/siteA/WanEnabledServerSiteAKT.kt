@@ -11,28 +11,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
 import java.util.*
-import java.util.stream.LongStream
 
 @SpringBootApplication(scanBasePackageClasses = [WanEnabledServerSiteAConfigKT::class])
 class WanEnabledServerSiteAKT {
-
     @Bean
-    fun siteARunner(customerRepository: CustomerRepositoryKT): ApplicationRunner {
-        return ApplicationRunner {
-            createCustomerData(customerRepository)
-            Scanner(System.`in`).nextLine()
-        }
+    fun siteARunner(customerRepository: CustomerRepositoryKT, faker: Faker) = ApplicationRunner {
+        createCustomerData(customerRepository,faker)
+        Scanner(System.`in`).nextLine()
     }
 
-    private fun createCustomerData(customerRepository: CustomerRepositoryKT) {
+    private fun createCustomerData(customerRepository: CustomerRepositoryKT, faker: Faker) {
         println("Inserting 301 entries on siteA")
-        val faker = Faker()
-        LongStream.rangeClosed(0, 300)
-                .forEach { customerId ->
-                    customerRepository.save(
-                            Customer(customerId,
-                                    EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName()))
-                }
+        (0..300L).forEach { customerId ->
+            customerRepository.save(
+                    Customer(customerId,
+                            EmailAddress(faker.internet().emailAddress()), faker.name().firstName(), faker.name().lastName()))
+        }
     }
 
     companion object {

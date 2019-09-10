@@ -3,7 +3,8 @@ package examples.springdata.geode.client.clusterregion.kt
 import examples.springdata.geode.client.clusterregion.kt.client.config.ClusterDefinedRegionClientConfigKT
 import examples.springdata.geode.client.clusterregion.kt.client.service.CustomerServiceKT
 import examples.springdata.geode.client.clusterregion.kt.server.ClusterDefinedRegionServerKT
-import examples.springdata.geode.domain.*
+import examples.springdata.geode.domain.Customer
+import examples.springdata.geode.domain.EmailAddress
 import org.apache.geode.cache.Region
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.BeforeClass
@@ -13,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.data.gemfire.util.RegionUtils
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.IOException
 import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [ClusterDefinedRegionClientConfigKT::class])
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Autowired

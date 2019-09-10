@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport;
 import org.springframework.data.gemfire.util.RegionUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = SecurityEnabledClientConfiguration.class)
+@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
 public class SecurityEnabledClientTest extends ForkingClientServerIntegrationTestsSupport {
 
     @Autowired
@@ -33,12 +35,11 @@ public class SecurityEnabledClientTest extends ForkingClientServerIntegrationTes
 
     @BeforeClass
     public static void setup() throws IOException {
-        startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=geode-security-manager-proxy-configuration");
+        startGemFireServer(SecurityEnabledServer.class);
     }
 
     @Test
     public void customersRegionWasConfiguredCorrectly() {
-
         assertThat(this.customers).isNotNull();
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
@@ -47,7 +48,6 @@ public class SecurityEnabledClientTest extends ForkingClientServerIntegrationTes
 
     @Test
     public void customerServiceWasConfiguredCorrectly() {
-
         assertThat(this.customerService).isNotNull();
     }
 

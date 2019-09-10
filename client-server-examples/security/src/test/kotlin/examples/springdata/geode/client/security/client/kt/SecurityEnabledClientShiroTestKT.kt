@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
 import org.springframework.data.gemfire.util.RegionUtils
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.IOException
 import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [SecurityEnabledClientConfigurationKT::class])
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class SecurityEnabledClientShiroTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
     private val customerRepo: CustomerRepositoryKT? = null

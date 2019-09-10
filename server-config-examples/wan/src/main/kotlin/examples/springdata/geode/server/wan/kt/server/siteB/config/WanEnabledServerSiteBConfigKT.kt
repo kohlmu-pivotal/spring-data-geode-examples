@@ -22,10 +22,11 @@ import java.util.*
 @EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[20334]", enableNetworkPartitionDetection = false, conserveSockets = false)
 @EnableLogging
 class WanEnabledServerSiteBConfigKT {
-    private val faker = Faker()
+    @Bean
+    fun getFaker() = Faker()
 
     @Bean(name = ["DiskStore"])
-    internal fun diskStore(gemFireCache: GemFireCache): DiskStoreFactoryBean {
+    fun diskStore(gemFireCache: GemFireCache, faker: Faker): DiskStoreFactoryBean {
         val diskStoreFactoryBean = DiskStoreFactoryBean()
         File("/tmp/" + faker.name().firstName()).mkdirs()
         val diskDirs = arrayOf(DiskStoreFactoryBean.DiskDir("/tmp/" + faker.name().firstName()))
@@ -35,14 +36,14 @@ class WanEnabledServerSiteBConfigKT {
     }
 
     @Bean
-    internal fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>): RegionAttributesFactoryBean<Long, Customer> {
+    fun regionAttributes(partitionAttributes: PartitionAttributes<*, *>): RegionAttributesFactoryBean<Long, Customer> {
         val regionAttributesFactoryBean = RegionAttributesFactoryBean<Long, Customer>()
         regionAttributesFactoryBean.setPartitionAttributes(partitionAttributes)
         return regionAttributesFactoryBean
     }
 
     @Bean
-    internal fun partitionAttributes(): PartitionAttributesFactoryBean<*, *> {
+    fun partitionAttributes(): PartitionAttributesFactoryBean<*, *> {
         val partitionAttributesFactoryBean = PartitionAttributesFactoryBean<Long, Customer>()
         partitionAttributesFactoryBean.setTotalNumBuckets(13)
         partitionAttributesFactoryBean.setRedundantCopies(0)
@@ -50,7 +51,7 @@ class WanEnabledServerSiteBConfigKT {
     }
 
     @Bean("Customers")
-    internal fun createCustomerRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>): PartitionedRegionFactoryBean<*, *> {
+    fun createCustomerRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>): PartitionedRegionFactoryBean<*, *> {
         val partitionedRegionFactoryBean = PartitionedRegionFactoryBean<Long, Customer>()
         partitionedRegionFactoryBean.cache = gemFireCache
         partitionedRegionFactoryBean.setRegionName("Customers")
@@ -60,7 +61,7 @@ class WanEnabledServerSiteBConfigKT {
     }
 
     @Bean
-    internal fun createGatewayReceiver(gemFireCache: GemFireCache): GatewayReceiverFactoryBean {
+    fun createGatewayReceiver(gemFireCache: GemFireCache): GatewayReceiverFactoryBean {
         val gatewayReceiverFactoryBean = GatewayReceiverFactoryBean(gemFireCache as Cache)
         gatewayReceiverFactoryBean.setStartPort(25000)
         gatewayReceiverFactoryBean.setEndPort(25010)

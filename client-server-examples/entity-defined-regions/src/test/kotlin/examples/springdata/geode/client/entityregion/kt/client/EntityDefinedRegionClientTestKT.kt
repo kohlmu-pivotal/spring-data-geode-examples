@@ -6,17 +6,18 @@ import examples.springdata.geode.client.kt.entityregion.server.EntityDefinedRegi
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [EntityDefinedRegionClientConfigKT::class])
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class EntityDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
     lateinit var customerService: CustomerServiceKT

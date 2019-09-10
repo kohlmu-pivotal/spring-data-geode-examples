@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.wan.client.services;
 
 import examples.springdata.geode.domain.Customer;
-import examples.springdata.geode.server.wan.server.repo.CustomerRepository;
+import examples.springdata.geode.server.wan.client.repo.CustomerRepository;
 import org.apache.geode.cache.Region;
 import org.springframework.stereotype.Service;
 

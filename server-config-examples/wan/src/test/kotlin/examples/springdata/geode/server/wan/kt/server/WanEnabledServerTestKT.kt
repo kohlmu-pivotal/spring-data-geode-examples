@@ -12,31 +12,30 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.gemfire.tests.integration.ForkingClientServerIntegrationTestsSupport
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.annotation.Resource
 
 @ActiveProfiles("wan-integration-test", "test", "default")
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientConfigKT::class])
+@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
 class WanEnabledServerTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+   lateinit var customers: Region<Long, Customer>
 
     @Test
-    @Throws(IOException::class)
     fun testMethod() {
-        Awaitility.await().atMost(30, TimeUnit.SECONDS).until { customers!!.keySetOnServer().size == 301 }
-        Assertions.assertThat(customers!!.keySetOnServer().size).isEqualTo(301)
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until { customers.keySetOnServer().size == 301 }
+        Assertions.assertThat(customers.keySetOnServer().size).isEqualTo(301)
         println(customers.keySetOnServer().size.toString() + " entries replicated to siteB")    }
 
     companion object {
         @BeforeClass
         @JvmStatic
-        @Throws(IOException::class)
         fun setup() {
             startGemFireServer(WanEnabledServerSiteBKT::class.java)
             startGemFireServer(WanEnabledServerSiteAKT::class.java)
