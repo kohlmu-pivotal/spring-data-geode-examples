@@ -24,6 +24,7 @@ import java.io.Serializable
  *
  * @author Oliver Gierke
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 data class Address(private val street: String, private val city: String, private val country: String) : Serializable {
     init {

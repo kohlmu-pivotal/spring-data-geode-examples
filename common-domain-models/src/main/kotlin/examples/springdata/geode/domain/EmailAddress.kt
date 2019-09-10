@@ -26,8 +26,8 @@ import java.util.regex.Pattern
 /**
  * Value object to represent email addresses.
  *
- * @author Oliver Gierke
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 data class EmailAddress (val value: String) : Serializable {
     init {

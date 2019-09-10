@@ -29,6 +29,7 @@ import javax.persistence.Entity
  * A customer used for Luncene Indexed examples.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Entity
 @Region(name = "Customers")

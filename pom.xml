@@ -55,7 +55,13 @@
 
 	<dependencyManagement>
 		<dependencies>
-
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-geode-test</artifactId>
+<!--				<version>0.0.7.RELEASE</version>-->
+				<version>0.0.8.SNAPSHOT</version>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-releasetrain</artifactId>

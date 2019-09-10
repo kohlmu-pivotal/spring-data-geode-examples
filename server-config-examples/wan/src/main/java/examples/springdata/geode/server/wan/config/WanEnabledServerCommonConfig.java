@@ -1,14 +1,15 @@
 package examples.springdata.geode.server.wan.config;
 
 import com.github.javafaker.Faker;
-import examples.springdata.geode.server.wan.repo.CustomerRepository;
 import examples.springdata.geode.domain.Customer;
-import examples.springdata.geode.util.LoggingCacheListener;
-import org.apache.geode.cache.*;
+import examples.springdata.geode.server.wan.repo.CustomerRepository;
+import org.apache.geode.cache.DataPolicy;
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.PartitionAttributes;
+import org.apache.geode.cache.RegionAttributes;
 import org.apache.geode.cache.wan.GatewaySender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.gemfire.DiskStoreFactoryBean;
 import org.springframework.data.gemfire.PartitionAttributesFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
@@ -20,7 +21,6 @@ import java.util.Arrays;
 
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
-@Import(LoggingCacheListener.class)
 public class WanEnabledServerCommonConfig {
     @Bean
     Faker faker() {
@@ -53,14 +53,13 @@ public class WanEnabledServerCommonConfig {
     }
 
     @Bean
-    PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes, GatewaySender gatewaySender, CacheListener loggingCacheListener) {
+    PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes, GatewaySender gatewaySender) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<>();
         partitionedRegionFactoryBean.setCache(gemFireCache);
         partitionedRegionFactoryBean.setRegionName("Customers");
         partitionedRegionFactoryBean.setDataPolicy(DataPolicy.PARTITION);
         partitionedRegionFactoryBean.setAttributes(regionAttributes);
         partitionedRegionFactoryBean.setGatewaySenders(new GatewaySender[]{gatewaySender});
-        partitionedRegionFactoryBean.setCacheListeners(new CacheListener[]{loggingCacheListener});
         return partitionedRegionFactoryBean;
     }
 }

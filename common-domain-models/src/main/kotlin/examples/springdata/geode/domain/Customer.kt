@@ -25,6 +25,7 @@ import java.io.Serializable
  * A customer used for Lucene examples.
 
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 
 @Region(name = "Customers")

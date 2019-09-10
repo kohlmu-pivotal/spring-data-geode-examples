@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.wan.filters.event.kt
 
 import examples.springdata.geode.server.wan.filters.event.kt.config.WanEventFiltersConfigKT
-import examples.springdata.geode.server.wan.kt.server.repo.CustomerRepositoryKT
+import examples.springdata.geode.server.wan.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.util.createCustomers
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
@@ -25,7 +25,7 @@ class WanEventFilteringServerKT {
     fun siteBRunner(customerRepository: CustomerRepositoryKT) =
             ApplicationRunner {
                 println("Inserting 300 customers")
-                createCustomers(3, customerRepository)
+                createCustomers(300, customerRepository)
             }
 
 }

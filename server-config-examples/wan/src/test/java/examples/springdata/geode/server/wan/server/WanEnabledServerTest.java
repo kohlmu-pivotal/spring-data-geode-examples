@@ -31,8 +31,8 @@ public class WanEnabledServerTest extends ForkingClientServerIntegrationTestsSup
 
     @BeforeClass
     public static void setup() throws IOException {
-        startGemFireServer(WanEnabledServerSiteB.class);
-        startGemFireServer(WanEnabledServerSiteA.class);
+        startGemFireServer(WanEnabledServerSiteB.class,"-Dspring.main.allow-bean-definition-overriding=true");
+        startGemFireServer(WanEnabledServerSiteA.class,"-Dspring.main.allow-bean-definition-overriding=true");
         System.getProperties().remove("spring.data.gemfire.pool.servers");
     }
 

@@ -1,14 +1,15 @@
 package examples.springdata.geode.server.wan.kt.config
 
 import com.github.javafaker.Faker
-import examples.springdata.geode.server.wan.kt.repo.CustomerRepositoryKT
 import examples.springdata.geode.domain.Customer
-import examples.springdata.geode.util.LoggingCacheListener
-import org.apache.geode.cache.*
+import examples.springdata.geode.server.wan.kt.repo.CustomerRepositoryKT
+import org.apache.geode.cache.DataPolicy
+import org.apache.geode.cache.GemFireCache
+import org.apache.geode.cache.PartitionAttributes
+import org.apache.geode.cache.RegionAttributes
 import org.apache.geode.cache.wan.GatewaySender
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Import
 import org.springframework.data.gemfire.DiskStoreFactoryBean
 import org.springframework.data.gemfire.PartitionAttributesFactoryBean
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean
@@ -18,7 +19,6 @@ import java.io.File
 
 @Configuration
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
-@Import(LoggingCacheListener::class)
 class WanEnabledServerCommonConfigKT {
     @Bean
     fun faker() = Faker()
@@ -48,13 +48,12 @@ class WanEnabledServerCommonConfigKT {
 
     @Bean
     fun createCustomerRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>,
-                             gatewaySender: GatewaySender, loggingCacheListener: CacheListener<Long, Customer>) =
+                             gatewaySender: GatewaySender) =
             PartitionedRegionFactoryBean<Long, Customer>().apply {
                 cache = gemFireCache
                 setRegionName("Customers")
                 dataPolicy = DataPolicy.PARTITION
                 attributes = regionAttributes
                 setGatewaySenders(arrayOf(gatewaySender))
-                setCacheListeners(arrayOf(loggingCacheListener))
             }
 }

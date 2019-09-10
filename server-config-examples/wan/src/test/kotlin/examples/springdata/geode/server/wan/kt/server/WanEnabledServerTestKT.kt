@@ -25,20 +25,21 @@ import javax.annotation.Resource
 class WanEnabledServerTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Resource(name = "Customers")
-   lateinit var customers: Region<Long, Customer>
+    lateinit var customers: Region<Long, Customer>
 
     @Test
     fun testMethod() {
         Awaitility.await().atMost(10, TimeUnit.SECONDS).until { customers.keySetOnServer().size == 301 }
         Assertions.assertThat(customers.keySetOnServer().size).isEqualTo(301)
-        println(customers.keySetOnServer().size.toString() + " entries replicated to siteB")    }
+        println(customers.keySetOnServer().size.toString() + " entries replicated to siteB")
+    }
 
     companion object {
         @BeforeClass
         @JvmStatic
         fun setup() {
-            startGemFireServer(WanEnabledServerSiteBKT::class.java)
-            startGemFireServer(WanEnabledServerSiteAKT::class.java)
+            startGemFireServer(WanEnabledServerSiteBKT::class.java,"-Dspring.main.allow-bean-definition-overriding=true")
+            startGemFireServer(WanEnabledServerSiteAKT::class.java,"-Dspring.main.allow-bean-definition-overriding=true")
             System.getProperties().remove("spring.data.gemfire.pool.servers")
         }
     }

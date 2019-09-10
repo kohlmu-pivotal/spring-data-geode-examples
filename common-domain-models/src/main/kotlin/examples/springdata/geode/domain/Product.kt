@@ -30,6 +30,7 @@ import javax.persistence.Entity
  * @author Oliver Gierke
  * @author David Turanski
  * @author Udo Kohlmeyer
+* @author Patrick Johnson
  */
 @Region("Products")
 @Entity

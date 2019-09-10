@@ -33,6 +33,7 @@ import java.util.Collections;
  * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
  *
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @ClientCacheApplication(name = "BasicClient", logLevel = "error", pingInterval = 5000L, readTimeout = 15000, retryAttempts = 1)
 public class ClientApplicationConfig {
@@ -59,7 +60,6 @@ public class ClientApplicationConfig {
     }
 
     @Bean
-    @Profile("!test")
     ClientCacheConfigurer clientCacheServerConfigurer(
             @Value("${spring.data.geode.locator.host:localhost}") String hostname,
             @Value("${spring.data.geode.locator.port:10334}") int port) {

@@ -35,12 +35,12 @@ public class SecurityEnabledClientShiroTest extends ForkingClientServerIntegrati
 
     @BeforeClass
     public static void setup() throws IOException {
+//        startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=shiro-ini-configuration");
         startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=shiro-ini-configuration");
     }
 
     @Test
     public void customersRegionWasConfiguredCorrectly() {
-
         assertThat(this.customers).isNotNull();
         assertThat(this.customers.getName()).isEqualTo("Customers");
         assertThat(this.customers.getFullPath()).isEqualTo(RegionUtils.toRegionPath("Customers"));
@@ -49,7 +49,6 @@ public class SecurityEnabledClientShiroTest extends ForkingClientServerIntegrati
 
     @Test
     public void customerServiceWasConfiguredCorrectly() {
-
         assertThat(this.customerService).isNotNull();
     }
 

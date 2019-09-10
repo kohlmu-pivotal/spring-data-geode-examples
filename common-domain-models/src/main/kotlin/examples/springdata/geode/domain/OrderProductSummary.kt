@@ -26,6 +26,7 @@ import javax.persistence.Entity
  * OrderProductSummary is an object used in the examples to show a summary of all Orders on a per product basis, on a per
  * timeframe shard (every 10s, or every 1hr)
  * @author Udo Kohlmeyer
+ * @author Patrick Johnson
  */
 @Region("OrderProductSummary")
 @Entity

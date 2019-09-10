@@ -3,8 +3,8 @@ package examples.springdata.geode.server.wan.kt.server.siteA
 import com.github.javafaker.Faker
 import examples.springdata.geode.domain.Customer
 import examples.springdata.geode.domain.EmailAddress
-import examples.springdata.geode.server.wan.kt.server.repo.CustomerRepositoryKT
-import examples.springdata.geode.server.wan.kt.server.siteA.config.WanEnabledServerSiteAConfigKT
+import examples.springdata.geode.server.wan.kt.repo.CustomerRepositoryKT
+import examples.springdata.geode.server.wan.kt.server.siteA.config.SiteAWanEnabledServerConfigKT
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -12,7 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.Bean
 import java.util.*
 
-@SpringBootApplication(scanBasePackageClasses = [WanEnabledServerSiteAConfigKT::class])
+@SpringBootApplication(scanBasePackageClasses = [SiteAWanEnabledServerConfigKT::class])
 class WanEnabledServerSiteAKT {
     @Bean
     fun siteARunner(customerRepository: CustomerRepositoryKT, faker: Faker) = ApplicationRunner {
