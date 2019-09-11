@@ -20,7 +20,7 @@ import javax.annotation.Resource
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [SecurityEnabledClientConfigurationKT::class])
-@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class SecurityEnabledClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
     lateinit var customerRepo: CustomerRepositoryKT

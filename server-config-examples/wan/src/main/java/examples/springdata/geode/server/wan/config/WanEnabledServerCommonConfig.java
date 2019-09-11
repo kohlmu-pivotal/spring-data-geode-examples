@@ -52,7 +52,7 @@ public class WanEnabledServerCommonConfig {
         return partitionAttributesFactoryBean;
     }
 
-    @Bean
+    @Bean("Customers")
     PartitionedRegionFactoryBean createCustomerRegion(GemFireCache gemFireCache, RegionAttributes regionAttributes, GatewaySender gatewaySender) {
         final PartitionedRegionFactoryBean<Long, Customer> partitionedRegionFactoryBean = new PartitionedRegionFactoryBean<>();
         partitionedRegionFactoryBean.setCache(gemFireCache);

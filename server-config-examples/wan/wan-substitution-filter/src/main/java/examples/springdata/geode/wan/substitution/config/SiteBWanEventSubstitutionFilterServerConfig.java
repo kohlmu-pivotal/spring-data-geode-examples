@@ -29,7 +29,7 @@ import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 import org.springframework.data.gemfire.wan.GatewayReceiverFactoryBean;
 import org.springframework.data.gemfire.wan.GatewaySenderFactoryBean;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @Profile("SiteB")
 @EnableLocator(port = 20334)
 @EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[10334]")

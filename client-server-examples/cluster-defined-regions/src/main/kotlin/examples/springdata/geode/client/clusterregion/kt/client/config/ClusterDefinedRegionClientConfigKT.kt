@@ -10,7 +10,7 @@ import org.springframework.data.gemfire.config.annotation.EnableClusterDefinedRe
 import org.springframework.data.gemfire.config.annotation.EnableIndexing
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories
 
-@ClientCacheApplication
+@ClientCacheApplication(logLevel = "error")
 @EnableClusterDefinedRegions(clientRegionShortcut = ClientRegionShortcut.PROXY)
 @EnableGemfireRepositories(basePackageClasses = [CustomerRepositoryKT::class])
 @ComponentScan(basePackageClasses = [CustomerServiceKT::class])

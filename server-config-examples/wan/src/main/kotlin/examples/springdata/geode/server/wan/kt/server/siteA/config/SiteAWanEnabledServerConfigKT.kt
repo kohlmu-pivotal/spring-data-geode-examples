@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.config.annotation.EnableLocator
 import org.springframework.data.gemfire.wan.GatewayReceiverFactoryBean
 import org.springframework.data.gemfire.wan.GatewaySenderFactoryBean
 
-@CacheServerApplication(port = 0, locators = "localhost[10334]",name = "SiteA_Server",enableAutoReconnect = false)
+@CacheServerApplication(port = 0, locators = "localhost[10334]",name = "SiteA_Server",enableAutoReconnect = false, logLevel = "error")
 @Profile("default", "SiteA")
 @EnableLocator(port = 10334)
 @EnableGemFireProperties(distributedSystemId = 1, remoteLocators = "localhost[20334]",enableNetworkPartitionDetection = false)

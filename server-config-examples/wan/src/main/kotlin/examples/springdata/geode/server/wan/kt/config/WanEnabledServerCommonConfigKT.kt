@@ -46,7 +46,7 @@ class WanEnabledServerCommonConfigKT {
                 setRedundantCopies(0)
             }
 
-    @Bean
+    @Bean("Customers")
     fun createCustomerRegion(gemFireCache: GemFireCache, regionAttributes: RegionAttributes<Long, Customer>,
                              gatewaySender: GatewaySender) =
             PartitionedRegionFactoryBean<Long, Customer>().apply {

@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.config.annotation.EnableOffHeap;
 import org.springframework.data.gemfire.config.annotation.PeerCacheApplication;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @EnableLocator
 @EnableGemfireRepositories(basePackageClasses = CustomerRepository.class)
 @EnableOffHeap(memorySize = "8192m", regionNames = {"Customers"})

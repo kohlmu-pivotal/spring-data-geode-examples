@@ -24,10 +24,10 @@ import javax.annotation.Resource
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class SecurityEnabledClientShiroTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
-    private val customerRepo: CustomerRepositoryKT? = null
+    lateinit var customerRepo: CustomerRepositoryKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     companion object {
         @BeforeClass
@@ -42,7 +42,7 @@ class SecurityEnabledClientShiroTestKT : ForkingClientServerIntegrationTestsSupp
     fun customersRegionWasConfiguredCorrectly() {
 
         Assertions.assertThat(this.customers).isNotNull
-        Assertions.assertThat(this.customers!!.name).isEqualTo("Customers")
+        Assertions.assertThat(this.customers.name).isEqualTo("Customers")
         Assertions.assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         Assertions.assertThat(this.customers).isEmpty()
     }
@@ -59,10 +59,10 @@ class SecurityEnabledClientShiroTestKT : ForkingClientServerIntegrationTestsSupp
         val john = Customer(1L, EmailAddress("2@2.com"), "John", "Smith")
         val frank = Customer(2L, EmailAddress("3@3.com"), "Frank", "Lamport")
         val jude = Customer(3L, EmailAddress("5@5.com"), "Jude", "Simmons")
-        customerRepo!!.save(john)
+        customerRepo.save(john)
         customerRepo.save(frank)
         customerRepo.save(jude)
-        Assertions.assertThat(customers!!.keySetOnServer().size).isEqualTo(3)
+        Assertions.assertThat(customers.keySetOnServer().size).isEqualTo(3)
         println("Customers saved on server:")
         val customerList = customerRepo.findAll()
         Assertions.assertThat(customerList.count()).isEqualTo(3)

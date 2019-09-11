@@ -33,13 +33,13 @@ class CQTestKT : ForkingClientServerIntegrationTestsSupport() {
     private var counter = 0
 
     @Autowired
-    internal var container: ContinuousQueryListenerContainer? = null
+    lateinit var container: ContinuousQueryListenerContainer
 
     @Autowired
-    private val customerService: CustomerServiceKT? = null
+    lateinit var customerService: CustomerServiceKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     companion object {
         @BeforeClass
@@ -58,7 +58,7 @@ class CQTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Test
     fun customersRegionWasConfiguredCorrectly() {
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
     }
 
@@ -66,10 +66,10 @@ class CQTestKT : ForkingClientServerIntegrationTestsSupport() {
     fun continuousQueryWorkingCorrectly() {
         assertThat(this.customers).isEmpty()
         println("Inserting 3 entries for keys: 1, 2, 3")
-        customerService!!.save(Customer(1L, EmailAddress("2@2.com"), "John", "Smith"))
+        customerService.save(Customer(1L, EmailAddress("2@2.com"), "John", "Smith"))
         customerService.save(Customer(2L, EmailAddress("3@3.com"), "Frank", "Lamport"))
         customerService.save(Customer(3L, EmailAddress("5@5.com"), "Jude", "Simmons"))
-        assertThat(customers!!.keySetOnServer().size).isEqualTo(3)
+        assertThat(customers.keySetOnServer().size).isEqualTo(3)
 
         Awaitility.await().atMost(30, TimeUnit.SECONDS).until { this.counter == 3 }
     }
@@ -82,6 +82,6 @@ class CQTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @After
     fun tearDown() {
-        container!!.queryService.closeCqs()
+        container.queryService.closeCqs()
     }
 }

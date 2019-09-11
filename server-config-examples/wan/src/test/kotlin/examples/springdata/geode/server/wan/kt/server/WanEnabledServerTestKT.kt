@@ -21,14 +21,14 @@ import javax.annotation.Resource
 @ActiveProfiles("wan-integration-test", "test", "default")
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [WanClientConfigKT::class])
-@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class WanEnabledServerTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Resource(name = "Customers")
     lateinit var customers: Region<Long, Customer>
 
     @Test
-    fun testMethod() {
+    fun wanReplicationOccurs() {
         Awaitility.await().atMost(10, TimeUnit.SECONDS).until { customers.keySetOnServer().size == 301 }
         Assertions.assertThat(customers.keySetOnServer().size).isEqualTo(301)
         println(customers.keySetOnServer().size.toString() + " entries replicated to siteB")

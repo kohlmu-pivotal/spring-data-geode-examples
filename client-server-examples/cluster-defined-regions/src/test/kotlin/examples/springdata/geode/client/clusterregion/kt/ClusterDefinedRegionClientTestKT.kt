@@ -25,10 +25,10 @@ import javax.annotation.Resource
 class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupport() {
 
     @Autowired
-    private val customerService: CustomerServiceKT? = null
+    lateinit var customerService: CustomerServiceKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     companion object {
 
@@ -50,7 +50,7 @@ class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupp
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat<Long, Customer>(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat<Long, Customer>(this.customers).isEmpty()
     }
@@ -61,7 +61,7 @@ class ClusterDefinedRegionClientTestKT : ForkingClientServerIntegrationTestsSupp
         val john = Customer(1L, EmailAddress("2@2.com"), "John", "Smith")
         val frank = Customer(2L, EmailAddress("3@3.com"), "Frank", "Lamport")
         val jude = Customer(3L, EmailAddress("5@5.com"), "Jude", "Simmons")
-        customerService!!.save(john)
+        customerService.save(john)
         customerService.save(frank)
         customerService.save(jude)
 
