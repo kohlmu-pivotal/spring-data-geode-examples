@@ -1,7 +1,7 @@
 package examples.springdata.geode.server.compression;
 
 import examples.springdata.geode.server.compression.config.CompressionEnabledServerConfig;
-import examples.springdata.geode.server.compression.repo.CustomerRepo;
+import examples.springdata.geode.server.compression.repo.CustomerRepository;
 import examples.springdata.geode.util.DataCreatorsKt;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.WebApplicationType;
@@ -16,7 +16,8 @@ public class CompressionEnabledServer {
     }
 
     @Bean
-    ApplicationRunner runner(CustomerRepo customerRepo) {
+    ApplicationRunner runner(CustomerRepository customerRepo) {
+        System.out.println("Inserting 4000 Customers into compressed region");
         return args -> DataCreatorsKt.createCustomers(4000, customerRepo);
     }
 }

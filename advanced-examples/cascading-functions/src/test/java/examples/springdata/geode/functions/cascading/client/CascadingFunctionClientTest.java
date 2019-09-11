@@ -54,21 +54,6 @@ public class CascadingFunctionClientTest extends ForkingClientServerIntegrationT
     }
 
     @Test
-    public void customerServiceWasConfiguredCorrectly() {
-        assertThat(this.customerService).isNotNull();
-    }
-
-    @Test
-    public void orderServiceWasConfiguredCorrectly() {
-        assertThat(this.orderService).isNotNull();
-    }
-
-    @Test
-    public void productServiceWasConfiguredCorrectly() {
-        assertThat(this.productService).isNotNull();
-    }
-
-    @Test
     public void customersRegionWasConfiguredCorrectly() {
         assertThat(this.customers).isNotNull();
         assertThat(this.customers.getName()).isEqualTo("Customers");
@@ -91,7 +76,7 @@ public class CascadingFunctionClientTest extends ForkingClientServerIntegrationT
     }
 
     @Test
-    public void testMethod() {
+    public void functionsExecuteCorrectly() {
         IntStream.rangeClosed(1, 10000).parallel().forEach(customerId ->
                 customerService.save(new Customer(Integer.toUnsignedLong(customerId), new EmailAddress("2@2.com"), "John"+customerId, "Smith" + customerId)));
 

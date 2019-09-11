@@ -60,11 +60,13 @@ public class WanTransportEncryptionListener implements GatewayTransportFilter {
 
     private final Adler32 CHECKER = new Adler32();
 
+    @Override
     public InputStream getInputStream(InputStream stream) {
         System.out.println("CheckedTransportFilter: Getting input stream");
         return new CheckedInputStream(stream, CHECKER);
     }
 
+    @Override
     public OutputStream getOutputStream(OutputStream stream) {
         System.out.println("CheckedTransportFilter: Getting output stream");
         return new CheckedOutputStream(stream, CHECKER);

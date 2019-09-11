@@ -71,7 +71,7 @@ class CascadingFunctionClientKTTest : ForkingClientServerIntegrationTestsSupport
     }
 
     @Test
-    fun testMethod() {
+    fun functionsExecuteCorrectly() {
         IntStream.rangeClosed(1, 10000).parallel().forEach { customerId -> customerService.save(Customer(Integer.toUnsignedLong(customerId), EmailAddress("2@2.com"), "John$customerId", "Smith$customerId")) }
 
         assertThat(customers.keySetOnServer().size).isEqualTo(10000)

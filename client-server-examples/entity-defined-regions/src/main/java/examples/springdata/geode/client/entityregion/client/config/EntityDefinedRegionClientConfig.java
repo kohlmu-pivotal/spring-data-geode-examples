@@ -11,7 +11,7 @@ import org.springframework.data.gemfire.config.annotation.EnableClusterConfigura
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
-@ClientCacheApplication
+@ClientCacheApplication(logLevel = "error")
 @EnableEntityDefinedRegions(basePackageClasses = Customer.class,
         clientRegionShortcut = ClientRegionShortcut.PROXY,
         serverRegionShortcut = RegionShortcut.PARTITION)

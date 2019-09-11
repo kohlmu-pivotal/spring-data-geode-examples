@@ -9,7 +9,7 @@ import java.util.*
 fun createProducts(numberOfProducts: Int, repository: CrudRepository<Product, Long>) {
     val faker = Faker()
     val fakerCommerce = faker.commerce()
-    (0..numberOfProducts).forEachIndexed { index, _ ->
+    (0 until numberOfProducts).forEachIndexed { index, _ ->
         repository.save(
                 Product(index.toLong(), fakerCommerce.productName(), BigDecimal(fakerCommerce.price(0.01, 100000.0))))
     }
@@ -19,7 +19,7 @@ fun createCustomers(numberOfCustomer: Int, repository: CrudRepository<Customer, 
     val faker = Faker()
     val fakerName = faker.name()
     val fakerInternet = faker.internet()
-    (0..numberOfCustomer).forEachIndexed { index, _ ->
+    (0 until numberOfCustomer).forEachIndexed { index, _ ->
         repository.save(Customer(index.toLong(),
                 EmailAddress(fakerInternet.emailAddress()), fakerName.firstName(), fakerName.lastName()))
     }

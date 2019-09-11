@@ -24,10 +24,10 @@ import javax.annotation.Resource
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class TransactionalClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Autowired
-    private val customerService: CustomerServiceKT? = null
+    lateinit var customerService: CustomerServiceKT
 
     @Resource(name = "Customers")
-    private val customers: Region<Long, Customer>? = null
+    lateinit var customers: Region<Long, Customer>
 
     companion object {
         @BeforeClass
@@ -48,7 +48,7 @@ class TransactionalClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     fun customersRegionWasConfiguredCorrectly() {
 
         assertThat(this.customers).isNotNull
-        assertThat(this.customers!!.name).isEqualTo("Customers")
+        assertThat(this.customers.name).isEqualTo("Customers")
         assertThat(this.customers.fullPath).isEqualTo(RegionUtils.toRegionPath("Customers"))
         assertThat(this.customers).isEmpty()
     }
@@ -56,7 +56,7 @@ class TransactionalClientTestKT : ForkingClientServerIntegrationTestsSupport() {
     @Test
     fun repositoryWasAutoConfiguredCorrectly() {
 
-        println("Number of Entries stored before = " + customerService!!.numberEntriesStoredOnServer())
+        println("Number of Entries stored before = " + customerService.numberEntriesStoredOnServer())
         customerService.createFiveCustomers()
         assertThat(customerService.numberEntriesStoredOnServer()).isEqualTo(5)
         println("Number of Entries stored after = " + customerService.numberEntriesStoredOnServer())

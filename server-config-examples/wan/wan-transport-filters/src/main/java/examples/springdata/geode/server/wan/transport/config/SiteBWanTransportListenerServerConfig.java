@@ -2,7 +2,6 @@ package examples.springdata.geode.server.wan.transport.config;
 
 import org.apache.geode.cache.Cache;
 import org.apache.geode.cache.GemFireCache;
-import org.apache.geode.cache.wan.GatewayEventFilter;
 import org.apache.geode.cache.wan.GatewayTransportFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
@@ -15,7 +14,7 @@ import org.springframework.data.gemfire.wan.GatewaySenderFactoryBean;
 
 import java.util.Collections;
 
-@PeerCacheApplication
+@PeerCacheApplication(logLevel = "error")
 @Profile("SiteB")
 @EnableLocator(port = 20334)
 @EnableGemFireProperties(distributedSystemId = 2, remoteLocators = "localhost[10334]")

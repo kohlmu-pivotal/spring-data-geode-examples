@@ -35,7 +35,6 @@ public class SecurityEnabledClientShiroTest extends ForkingClientServerIntegrati
 
     @BeforeClass
     public static void setup() throws IOException {
-//        startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=shiro-ini-configuration");
         startGemFireServer(SecurityEnabledServer.class, "-Dspring.profiles.active=shiro-ini-configuration");
     }
 
