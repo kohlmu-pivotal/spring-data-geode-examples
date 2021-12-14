@@ -38,7 +38,7 @@
 	</parent>
 
 	<properties>
-		<log4j.version>2.11.0</log4j.version>
+		<log4j.version>2.16.0</log4j.version>
 		<slf4j.log4j.version>1.7.26</slf4j.log4j.version>
 		<commons.cli.version>1.4</commons.cli.version>
 		<spring.boot.version>2.1.7.RELEASE</spring.boot.version>
